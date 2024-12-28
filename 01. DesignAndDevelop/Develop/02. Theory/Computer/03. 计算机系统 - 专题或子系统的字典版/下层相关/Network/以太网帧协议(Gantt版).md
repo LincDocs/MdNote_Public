@@ -5,7 +5,7 @@ Author: LincZero
 
 # 以太网帧协议(Gantt版)
 
-tags: 网络协议、前导码、链路层协议
+tags: 网络协议、前导码、链路层协议、Gantt版、甘特图版
 
 最近发现PlantUML的Gantt图可以较好地绘制网络协议格式，于是复习并绘制了一番
 
@@ -55,15 +55,15 @@ UDP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [标识] displays on same row as [标志]
 [标志] displays on same row as [片偏移]
 
-[生成时间] starts D+0 and ends D+7
+[生存时间] starts D+0 and ends D+7
 [协议] starts D+8 and ends D+15
 [首部校验和] starts D+16 and ends D+31
-[生成时间] displays on same row as [协议]
+[生存时间] displays on same row as [协议]
 [协议] displays on same row as [首部校验和]
 
 [源地址] starts D+0 and ends D+31 and is colored in Yellow
 [目的地址] starts D+0 and ends D+31 and is colored in Coral
-[可选字段(长度可变) 与 填充] starts D+0 and ends D+31 and is colored in Gray
+[可选字段(长度可变) 与 填充] starts D+0 and ends D+31 and is colored in White/Gray
 
 --udp(L4,8Byte)--
 
@@ -82,8 +82,10 @@ UDP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [数据3(Payload)(18~1472)] starts D+0 and requires 32 days
 [数据4(Payload)(18~1472)] starts D+0 and requires 32 days
 [数据5(Payload)(18~1472)] starts D+0 and requires 16 days
+[数据6(Payload)(可选)] starts D+16 and requires 16 days and is colored in White/Gray
+[数据5(Payload)(18~1472)] displays on same row as [数据6(Payload)(可选)]
 
---ethernet II(L1,4/18Byte)--
+--ethernet II(L2,4/18Byte)--
 [FCS(CRC)] starts D+0 and ends D+31
 @endgantt
 ```
@@ -121,16 +123,16 @@ UDP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [标识] displays on same row as [标志]
 [标志] displays on same row as [片偏移]
 
-[生成时间] starts D+0 and requires 8 days
+[生存时间] starts D+0 and requires 8 days
 [协议] starts D+8 and requires 8 days
 [首部校验和] starts D+16 and requires 16 days
 [源地址] starts D+32 and requires 32 days and is colored in Yellow
-[生成时间] displays on same row as [协议]
+[生存时间] displays on same row as [协议]
 [协议] displays on same row as [首部校验和]
 [首部校验和] displays on same row as [源地址]
 
 [目的地址] starts D+0 and requires 32 days and is colored in Coral
-[可选字段(长度可变) 与 填充] starts D+32 and requires 32 days and is colored in Gray
+[可选字段(长度可变) 与 填充] starts D+32 and requires 32 days and is colored in White/Gray
 [目的地址] displays on same row as [可选字段(长度可变) 与 填充]
 
 --udp(L4,8Byte)--
@@ -148,8 +150,10 @@ UDP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [数据1(Payload)(18~1472)] starts D+0 and requires 64 days
 [数据2(Payload)(18~1472)] starts D+0 and requires 64 days
 [数据3(Payload)(18~1472)] starts D+0 and requires 16 days
+[数据4(Payload)(可选)] starts D+16 and requires 48 days and is colored in White/Gray
+[数据3(Payload)(18~1472)] displays on same row as [数据4(Payload)(可选)]
 
---ethernet II(L1,4/18Byte)--
+--ethernet II(L2,4/18Byte)--
 [FCS(CRC)] starts D+0 and ends D+31
 @endgantt
 ```
@@ -190,15 +194,15 @@ TCP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [标识] displays on same row as [标志]
 [标志] displays on same row as [片偏移]
 
-[生成时间] starts D+0 and ends D+7
+[生存时间] starts D+0 and ends D+7
 [协议] starts D+8 and ends D+15
 [首部校验和] starts D+16 and ends D+31
-[生成时间] displays on same row as [协议]
+[生存时间] displays on same row as [协议]
 [协议] displays on same row as [首部校验和]
 
 [源地址] starts D+0 and ends D+31 and is colored in Yellow
 [目的地址] starts D+0 and ends D+31 and is colored in Coral
-[可选字段(长度可变) 与 填充] starts D+0 and ends D+31 and is colored in Gray
+[可选字段(长度可变) 与 填充] starts D+0 and ends D+31 and is colored in White/Gray
 
 --tcp(L4,20+Byte)--
 
@@ -231,14 +235,16 @@ TCP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [紧急指针] starts D+16 and ends D+31
 [校验和] displays on same row as [紧急指针]
 
-[选项(可选)] starts D+0 and ends D+31 and is colored in Gray
+[选项(可选)] starts D+0 and ends D+31 and is colored in White/Gray
 
 --data(L7,6+Byte)--
 
 [数据1(Payload)(6~1460)] starts D+0 and requires 32 days
 [数据2(Payload)(6~1460)] starts D+0 and requires 16 days
+[数据3(Payload)(可选)] starts D+16 and requires 16 days and is colored in White/Gray
+[数据2(Payload)(6~1460)] displays on same row as [数据3(Payload)(可选)]
 
---ethernet II(L1,4/18Byte)--
+--ethernet II(L2,4/18Byte)--
 [FCS(CRC)] starts D+0 and ends D+31
 @endgantt
 ```
@@ -276,16 +282,16 @@ TCP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [标识] displays on same row as [标志]
 [标志] displays on same row as [片偏移]
 
-[生成时间] starts D+0 and requires 8 days
+[生存时间] starts D+0 and requires 8 days
 [协议] starts D+8 and requires 8 days
 [首部校验和] starts D+16 and requires 16 days
 [源地址] starts D+32 and requires 32 days and is colored in Yellow
-[生成时间] displays on same row as [协议]
+[生存时间] displays on same row as [协议]
 [协议] displays on same row as [首部校验和]
 [首部校验和] displays on same row as [源地址]
 
 [目的地址] starts D+0 and requires 32 days and is colored in Coral
-[可选字段(长度可变) 与 填充] starts D+32 and requires 32 days and is colored in Gray
+[可选字段(长度可变) 与 填充] starts D+32 and requires 32 days and is colored in White/Gray
 [目的地址] displays on same row as [可选字段(长度可变) 与 填充]
 
 --tcp(L4,20+Byte)--
@@ -306,17 +312,19 @@ TCP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [保留] displays on same row as [ U| A| P| R| S| F]
 [ U| A| P| R| S| F] displays on same row as [窗口大小]
 
-[校验和] starts D+0 and ends D+15
-[紧急指针] starts D+16 and ends D+31
-[选项(可选)] starts D+0 and ends D+31 and is colored in Gray
+[校验和] starts D+0 and requires 16 days
+[紧急指针] starts D+16 and requires 16 days
+[选项(可选)] starts D+32 and requires 32 days and is colored in White/Gray
 [校验和] displays on same row as [紧急指针]
 [紧急指针] displays on same row as [选项(可选)]
 
 --data(L7,6+Byte)--
 
 [数据1(Payload)(6~1460)] starts D+0 and requires 48 days
+[数据2(Payload)(可选)] starts D+48 and requires 16 days and is colored in White/Gray
+[数据1(Payload)(6~1460)] displays on same row as [数据2(Payload)(可选)]
 
---ethernet II(L1,4/18Byte)--
+--ethernet II(L2,4/18Byte)--
 [FCS(CRC)] starts D+0 and ends D+31
 @endgantt
 ```
@@ -335,7 +343,7 @@ TCP完整以太网帧格式（含前导码最小为 $72Byte = L1(8) + L2(14+4) +
 [目的地址--2] displays on same row as [源地址--1]
 [长度(46-1500)] starts D+0 and ends D+15
 
---mac(L2,14Byte)--
+--mac(L2,14/18Byte)--
 [目标地址-1] starts D+0 and ends D+31 and is colored in Coral
 [目的地址-2] starts D+0 and ends D+15 and is colored in Coral
 [源地址-1] starts D+16 and ends D+31 and is colored in Yellow
