@@ -29,37 +29,37 @@ Here are some of the more common processors:
 
 
 
-![](docs/en/png/list2table.png)
+![](docs/en/assets/list2table.png)
 
-![](docs/en/png/list2tableT.png)
+![](docs/en/assets/list2tableT.png)
 
-![](docs/en/png/list2lt.png)
+![](docs/en/assets/list2lt.png)
 
-![](docs/en/png/list2tab.png)
+![](docs/en/assets/list2tab.png)
 
-![](docs/en/png/list2mermaid.png)
+![](docs/en/assets/list2mermaid.png)
 
-![](docs/en/png/list2mindmap.png)
+![](docs/en/assets/list2mindmap.png)
 
-![](docs/en/png/titleSelector.png)
+![](docs/en/assets/titleSelector.png)
 
-![](docs/en/png/addTitle.png)
+![](docs/en/assets/addTitle.png)
 
-![](docs/en/png/scroll.png)
+![](docs/en/assets/scroll.png)
 
-![](docs/en/png/overfold.png)
+![](docs/en/assets/overfold.png)
 
-![](docs/en/png/flod.png)
+![](docs/en/assets/flod.png)
 
-![](docs/en/png/heimu.gif)
+![](docs/en/assets/heimu.gif)
 
-![](docs/en/png/userProcessor.png)
+![](docs/en/assets/userProcessor.png)
 
 ## support
 
 开发不易，赞助入口（可备注：OB插件support）
 
-![](docs/en/png/support_zfb.png)![](docs/en/png/support_wechat.png)
+![](docs/en/assets/support_zfb.png)![](docs/en/assets/support_wechat.png)
 
 
 ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-any-block%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)

@@ -27,39 +27,39 @@ Look the setup panel or [中文教程和示例库](./docs/en/)
 - 列表转时间线
 - 标题转列表从而转其他（can use title2list processor）
 
-![](./png/list2table.png)
+![](assets/list2table.png)
 
-![](./png/list2mdtable.png)
+![](assets/list2mdtable.png)
 
-![](./png/list2tableT.png)
+![](assets/list2tableT.png)
 
-![](./png/list2lt.gif)
+![](assets/list2lt.gif)
 
-![](./png/list2tab.gif)
+![](assets/list2tab.gif)
 
-![](./png/list2mermaid.png)
+![](assets/list2mermaid.png)
 
-![](./png/list2mindmap.png)
+![](assets/list2mindmap.png)
 
-![](./png/titleSelector.png)
+![](assets/titleSelector.png)
 
-![](./png/addTitle.png)
+![](assets/addTitle.png)
 
-![](./png/scroll.gif)
+![](assets/scroll.gif)
 
-![](./png/overfold.png)
+![](assets/overfold.png)
 
-![](./png/flod.gif)
+![](assets/flod.gif)
 
-![](./png/heimu.gif)
+![](assets/heimu.gif)
 
-![](./png/userProcessor.png)
+![](assets/userProcessor.png)
 
 ## support
 
 开发不易，赞助入口（可备注：OB插件support）
 
-![](./png/support_zfb.png)![](./png/support_wechat.png)
+![](assets/support_zfb.png)![](assets/support_wechat.png)
 
 
 ![Obsidian Downloads](https://img.shields.io/badge/dynamic/json?logo=obsidian&color=%23483699&label=downloads&query=%24%5B%22obsidian-any-block%22%5D.downloads&url=https%3A%2F%2Fraw.githubusercontent.com%2Fobsidianmd%2Fobsidian-releases%2Fmaster%2Fcommunity-plugin-stats.json)
