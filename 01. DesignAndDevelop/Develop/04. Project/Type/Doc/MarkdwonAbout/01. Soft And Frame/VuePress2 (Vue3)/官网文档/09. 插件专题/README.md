@@ -21,7 +21,7 @@
 
 ## 使用
 
-除了VuePress插件，还可以开发和应用Markdown-it插件。关于Markdown-it的开发和使用不在此处，详见 [Markdwon-it](../../../02. Parse and Render/Markdwon-it)
+除了VuePress插件，还可以开发和应用Markdown-it插件。关于Markdown-it的开发和使用不在此处，详见 [Markdwon-it/](../../../02.%20Parse%20and%20Render/Markdwon-it/)
 
 参考：
 
@@ -29,7 +29,7 @@
 - 插件API：https://v2.vuepress.vuejs.org/zh/reference/plugin-api.html
   - 其中，插件API > 开发Hooks > extendsMarkdown 这里可以扩展 Markdown-it 插件
   - 其中， Alias 的介绍也在这里……毕竟Alias替换成自定义组件的行为也可以认为是一种插件
-- 另外，还有几篇我放错了，放在了 [[../../../../02. Parse and Render/Markdown-it/《博客搭建》冴羽]] 里了
+- 另外，还有几篇我放错了，放在了 [[../../../../02. Parse and Render/Markdown-it/《博客搭建》冴羽/]] 里了
 
 注意：
 

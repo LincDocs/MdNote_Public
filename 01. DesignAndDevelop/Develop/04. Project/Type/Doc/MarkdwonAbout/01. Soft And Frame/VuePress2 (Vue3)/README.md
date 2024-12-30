@@ -22,7 +22,7 @@
   - 博客搭建专题
     - vdoing群里冰糖雪梨写的教程：https://notes.youngkbt.cn/about/website/introduce
     - 冴羽写的教程：https://github.com/mqyqingfeng/Blog
-      (冴羽的教程有部分我存了写了笔记，见 [../../02.%20Parse%20and%20Render/Markdown-it/《博客搭建》冴羽](../../02.%20Parse%20and%20Render/Markdown-it/《博客搭建》冴羽]))
+      (冴羽的教程有部分我存了写了笔记，见 [../../02.%20Parse%20and%20Render/Markdown-it/《博客搭建》冴羽/](../../02.%20Parse%20and%20Render/Markdown-it/《博客搭建》冴羽]/))
     - vdoing群里PeterJXL写的博客教程：https://www.peterjxl.com/Blog/Introduce/
 
 ## 比较专题

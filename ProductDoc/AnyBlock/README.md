@@ -18,10 +18,10 @@ Related links：(**tutorial**、use skill、contribution、secondary development
 
 ## Navigation (导航)
 
-1. [Introduce (简单介绍)](./docs/en/01.%20Introduce)
-2. [Processor、Effect Display Online (处理器、在线效果展示)](./docs/en/02.%20Processor)
+1. [Introduce (简单介绍)](./docs/en/01.%20Introduce.md)
+2. [Processor、Effect Display Online (处理器、在线效果展示)](./docs/en/02.%20Processor.md)
 3. [Selector (选择器)](./docs/en/03.%20Selector.md)
-4. [Install and Use (各平台的安装和使用)](./docs/en/04.%20%InstallAndUse_Obsidian)
+4. [Install and Use (各平台的安装和使用)](./docs/en/04.%20InstallAndUse_Obsidian.md)
 
 
 

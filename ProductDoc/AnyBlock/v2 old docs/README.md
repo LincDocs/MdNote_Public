@@ -8,7 +8,7 @@ A Obsidian Plugin. You can flexibility to create a 'Block' by some means.
 
 Function：Block conversion、list to table or other tree graph，See the `demo` sample folder for details
 
-[Usage Tutorial & Sample Library](./docs/en)
+[Usage Tutorial & Sample Library](./docs/en/)
 
 ## If bug
 
@@ -16,7 +16,7 @@ Function：Block conversion、list to table or other tree graph，See the `demo`
 
 ## Suport command
 
-Look the setup panel or [Usage Tutorial & Sample Library](./docs/en)
+Look the setup panel or [Usage Tutorial & Sample Library](./docs/en/)
 
 Here are some of the more common processors:
 - list2table  (2datatable)
