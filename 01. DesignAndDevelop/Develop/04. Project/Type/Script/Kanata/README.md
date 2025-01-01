@@ -15,9 +15,11 @@ Author: LincZero
 
 ## 其他链接
 
-AHK文档是有中文的，Kanata没有，我翻译了一些，放在了同目录下的其他文件中 (并且转换成了md格式，原文档用adoc写的)
-
-翻译基于 v1.7.0 版本 04051832b49829dd311b72d5e9925142274b8ddf 的Github docs文档
+- 官方文档的翻译 [./](./)
+  AHK文档是有中文的，Kanata没有，我翻译了一些，放在了同目录下的其他文件中 (并且转换成了md格式，原文档用adoc写的)
+  翻译基于 v1.7.0 版本 04051832b49829dd311b72d5e9925142274b8ddf 的Github docs文档
+- 官方文档GitHub版 https://github.com/jtroo/kanata/blob/main/docs/config.adoc
+- 官方文档网页版 https://jtroo.github.io/config.html
 
 ## 安装使用
 
