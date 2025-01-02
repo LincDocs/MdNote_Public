@@ -2,8 +2,10 @@
 
 调研其他开源脚本。
 
-和 AHK 比起来，Kanata 能找到的开源脚本少得可怜，尽管已经有3.5k。
+和 AHK 比起来，Kanata 能找到的开源脚本很少，尽管已经有3.5k。推荐搜索策略：`kanata .kbd`
 
+- 首先是我自己的调研后写的 https://github.com/LincZero/LincZero-Help-Oneself/blob/main/Kanata/
+  也是Caps脚本
 - 1 https://github.com/ChuufMaster/kanata-kbd
   这个是Caps脚本。写法很怪，不会参考
 - 0 https://github.com/breizeway/kanata/blob/main/keymap.kbd
@@ -11,13 +13,17 @@
 - 7 https://github.com/TransientError/windows-config/blob/9ce9b76e6cf4ae758e51e5e35251ef37c000742d/kanata/thinkie-kanata.kbd#L4
   46行，定义了两层，而且看起来是个异型键盘
 
+## LincZero 的 Kanata 脚本
+
+详见 [仓库](https://github.com/LincZero/LincZero-Help-Oneself/blob/main/Kanata/) 与文档 [AutoHotKey and Kanata](../../../../../../../ProductDoc/App/LincZero_Help_Oneself/AutoHotKey%20and%20Kanata.md)
+
 ## TransientError 源码剖析
 
 怪怪的，好像是纯实验
 
 ```lisp
 (defsrc
-esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  home end  ins  del
+  esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  home end  ins  del
   grv  1    2    3    4    5    6    7    8    9    0    -     =    bspc
   tab  q    w    e    r    t    y    u    i    o    p    [     ]    \
   caps a    s    d    f    g    h    j    k    l    ;    '          ret
@@ -27,7 +33,7 @@ esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  home end  ins  
 )
 
 (deflayer base
-  @cw     f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12   home end ins del
+  @cw   f1    f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12   home end ins del
   grv   1     2    3    4    5    6    7    8    9    0    -    =     bspc
   tab   q     w    e    r    t    y    u    i    o    p    [    ]     \
 @escWin a  @salt @dctl @fsft g    h  @jsft @kctl @lal ;    '          @retWin
@@ -37,7 +43,7 @@ esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12  home end  ins  
 )
 
 (deflayer symbols
-_    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
+  _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _
   _    _    _    _    _    _    _    _    _    _    _    _    _     _
   _    S-1  S-2  S-[  S-]  S-\  _    7    8    9    S-8  _    _     _
   _    S-3  S-4  S-9  S-0  grv  _    4    5    6    +    _          _
@@ -63,3 +69,4 @@ _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    _    
   cw (caps-word 2000)
 )
 ```
+

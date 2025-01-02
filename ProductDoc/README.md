@@ -9,8 +9,36 @@
   - [Lc Document Web](./Web/LincZero_Document_Library/)
   - [Lc Nav](./Web/LcNavWeb/)
   - [BiliTool](./App/B站小工具/)
+  - [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
 - 非开源产品
   - 略，不予显示
+
+部分项目包含多个也是开源的子项目：（也许是monorepo，也许是multirepo）
+
+- [Lc Document Web](./Web/LincZero_Document_Library/)
+  - Theme extension
+    - VuePress-Theme-Hope
+  - MarkdownIt extension
+    - AnyBlock (自研, V3 2024)，用于部分md写法与渲染扩展
+    - markdown-it-obsidian-callout (贡献)，用于obsidian callout语法的渲染，用于代替gfm-alert
+    - @nolebase/markdown-it-bi-directional-links (贡献)，用于双链的wiki链接语法的支持
+  - VuePress extension
+    - newPageHook (自研)，对Markdown-it版本的AnyBlock的补充增强
+    - 仿文件侧边栏 (魔改)，组件替换 (后弃用，换用自研侧边栏)
+    - NodeFlow (自研, 2024)，用于节点工作流的显示与扩展
+    - onInitialized-json (自研)，格式扩展。对NodeFlow的增强，直接识别工作流json文件
+    - onInitialized-pdf (自研)，格式扩展。直接识别pdf库
+    - RootSidebar (自研)，侧边栏，带状态，可指定任意层作为树根部。完全舍弃掉theme中的sidebar配置
+    - relational_graph，双链图谱
+  - Workflows extension
+    - LincDocs/Workflows (自研)
+- [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
+  - Kanata - MyScript
+  - AutoHotKey - MyScript
+  - Typora - MyStyle
+  - Obsidian - MyStyle
+  - VIA - MyConfig
+  - RIME - MyConfig
 
 ## 一些声明
 
