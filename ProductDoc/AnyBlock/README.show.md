@@ -113,11 +113,14 @@ md-demo Describe common angiosperms and gymnosperms (描述一下常见被子植
   - Chrysanthemum<br> 菊花 | Chamomile<br> 甘菊
 ~~~
 
-::: 
+:::
 
-> #### Allow rotation table (允许旋转/转置表格）
+> #### Allow rotation table (允许旋转/转置表格，旧）
 
-(DEV TODO: 目前是纯css实现，间距不理想，且如果复杂的会有bug (如多叉时)，等待通过js手段真正意义上实现)
+==(**Old，Deprecated. Please use the new `transposition` or `transpose` processor**)==
+==(**旧，弃用。请用新版的 `transposition` 或 `transpose` 处理器**)==
+
+(该旧版本是纯css实现，间距不理想，且如果复杂的会有bug (如多叉时)，新版修复了这个问题)
 
 This is a comparison table between Chinese and English (这是一个中英对照表)
 
@@ -157,6 +160,93 @@ This is a comparison table between Chinese and English (这是一个中英对照
 - Lotus | 荷花
 - Chrysanthemum | 菊花
 ~~~
+:::
+
+> #### Allow Transposed table (允许转置表格，新版）
+
+It's the same case, but use `transposition` or `transpose` processor.
+
+:::tabs
+
+@tab Plugin effect (插件效果)
+
+[transposition]
+
+| Ginkgo        | 柏树  |
+| Angiosperms   | 银杏  |
+| Sunflower     | 向日葵 |
+| Lotus         | 荷花  |
+| Chrysanthemum | 菊花  |
+
+@tab No plugin effect (无插件效果)
+
+(noPlugin)[transposition]
+
+| Ginkgo        | 柏树  |
+| Angiosperms   | 银杏  |
+| Sunflower     | 向日葵 |
+| Lotus         | 荷花  |
+| Chrysanthemum | 菊花  |
+
+@tab md source code (md源码)
+
+~~~md
+[transposition]
+
+| Ginkgo        | 柏树  |
+| Angiosperms   | 银杏  |
+| Sunflower     | 向日葵 |
+| Lotus         | 荷花  |
+| Chrysanthemum | 菊花  |
+~~~
+
+:::
+
+It also support multi-cross tables.
+
+:::tabs
+
+@tab Plugin effect (插件效果)
+
+[table|trs]
+
+- 1
+  - 2 | _
+  - 3
+    - 3.1
+    - 3.2
+- 4
+  - 5
+  - 6
+
+@tab No plugin effect (无插件效果)
+
+(noPlugin)[table|trs]
+
+- 1
+  - 2 | _
+  - 3
+    - 3.1
+    - 3.2
+- 4
+  - 5
+  - 6
+
+@tab md source code (md源码)
+
+~~~md
+[table|trs]
+
+- 1
+  - 2 | _
+  - 3
+    - 3.1
+    - 3.2
+- 4
+  - 5
+  - 6
+~~~
+
 :::
 
 > #### Allows other blocks to be embedded、Allows tabel header (允许内嵌其他块、允许表头)
