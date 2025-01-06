@@ -356,6 +356,7 @@ Describe print statements for various common programming languages (描述一下
   - B2
 ~~~
 :::
+
 or
 
 ::: tabs
@@ -417,6 +418,7 @@ or
 ~~~
 
 :::
+
 ### list2listTable (列表转列表格)
 
 This table, I call a `ListTable`/`TreeTable`/`TreeGrid` (这种表格我命名为 `列表格`/`树形表格`)
@@ -443,9 +445,9 @@ You can click on the row with the arrow and fold it (你可以点击有箭头的
 - ==ABC head office==| | | 
   - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
     - Marketing section| **Shanghai branch** | LiSi| 
-    |self    |father  |mother  |
-    |--------|--------|--------|
-    |201xxxxx|202xxxxx|203xxxxx|
+      |self    |father  |mother  |
+      |--------|--------|--------|
+      |201xxxxx|202xxxxx|203xxxxx|
       - Marketing Division 1| | | 
       - Marketing Division 2| | | 
     - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
@@ -461,9 +463,9 @@ You can click on the row with the arrow and fold it (你可以点击有箭头的
 - ==ABC head office==| | | 
   - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
     - Marketing section| **Shanghai branch** | LiSi| 
-    |self    |father  |mother  |
-    |--------|--------|--------|
-    |201xxxxx|202xxxxx|203xxxxx|
+      |self    |father  |mother  |
+      |--------|--------|--------|
+      |201xxxxx|202xxxxx|203xxxxx|
       - Marketing Division 1| | | 
       - Marketing Division 2| | | 
     - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
@@ -480,9 +482,9 @@ You can click on the row with the arrow and fold it (你可以点击有箭头的
 - ==ABC head office==| | | 
   - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
     - Marketing section| **Shanghai branch** | LiSi| 
-    |self    |father  |mother  |
-    |--------|--------|--------|
-    |201xxxxx|202xxxxx|203xxxxx|
+      |self    |father  |mother  |
+      |--------|--------|--------|
+      |201xxxxx|202xxxxx|203xxxxx|
       - Marketing Division 1| | | 
       - Marketing Division 2| | | 
     - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
