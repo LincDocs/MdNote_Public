@@ -18,23 +18,23 @@ Author: LincZero
   - Language
   - Star
 - [xyflow](https://github.com/xyflow/xyflow)/[reactflow](https://reactflow.dev/)/[svelteflow](https://svelteflow.dev/)
-  - ![](assets/Pasted%20image%2020241016063840.png)
+  - ![](./assets/Pasted%20image%2020241016063840.png)
   - TypeScript、Svelte、CSS、JavaScript<br>这个不错，同时支持react和svelte!
   - 25.2k
 - [vueflow](https://github.com/bcakmakoglu/vue-flow)/[official website](https://vueflow.dev/)
-  - ![](assets/Pasted%20image%2020241016063612.png)
+  - ![](./assets/Pasted%20image%2020241016063612.png)
   - TypeScript、Vue、CSS、Other
   - 3.9k
 - [butterfly](https://github.com/alibaba/butterfly)
-  - ![](assets/68747470733a2f2f696d672e616c6963646e2e636f6d2.png)
+  - ![](./assets/68747470733a2f2f696d672e616c6963646e2e636f6d2.png)
   - JavaScript、CSS、Less、Vue、HTML<br>(国产，阿里出的，可以画类型更多的图)
   - 4.4k
 - [X6](https://github.com/antvis/X6)
-  - ![](assets/Pasted%20image%2020241016070504.png)
+  - ![](./assets/Pasted%20image%2020241016070504.png)
   - TypeScript、JavaScript、Other<br>(国产，蚂蚁出的，可以画更多类型的图。然后蚂蚁集团这个群组下还有很多其他的系列，例如[G2-数据展示图表](https://github.com/antvis/G2)/[G6-可视化引擎](https://github.com/antvis/g6)/[F2-移动端可视化](https://github.com/antvis/F2)/[X6-节点定制和交互](https://github.com/antvis/X6)/L7-地理空间/S2-多维表格等）
   - 5.7k
 - [vue-reactflow](https://github.com/akashgoswami/vue-reactflow)
-  - ![](assets/126913408-2e8d47a0-bb99-4d7f-8122-0bfc250e70b4.png)
+  - ![](./assets/126913408-2e8d47a0-bb99-4d7f-8122-0bfc250e70b4.png)
   - JavaScript、Vue、HTML、CSS
   - 19
 - [ComfyUI](https://github.com/Comfy-Org/ComfyUI_frontend)
@@ -42,78 +42,78 @@ Author: LincZero
   - TypeScript、Vue、CSS、Other
   - 511
 - [pipeline](https://github.com/poohlaha/pipeline)
-  - ![](assets/Pasted%20image%2020241012083230.png)
+  - ![](./assets/Pasted%20image%2020241012083230.png)
   - TypeScript、Less、JavaScript
   - 2
 - [logicflow-demo](https://github.com/hmilin/logicflow-demo)
-  - ![](assets/Pasted%20image%2020241012084423.png)
+  - ![](./assets/Pasted%20image%2020241012084423.png)
   - TypeScript、Vue、JavaScript、Less、HTML、CSS
   - 6
 - [topology](https://github.com/spicyboiledfish/topology?tab=readme-ov-file)
-  - ![](assets/例图.png)
+  - ![](./assets/例图.png)
   - TypeScript、HTML、CSS<br>基于antv/G6库
   - 18
 - [NodeEditor3-vue](https://github.com/cambridgejames/NodeEditor3-vue)
-  - ![](assets/ne-panel.png)
+  - ![](./assets/ne-panel.png)
   - TypeScript、Vue、SCSS、JavaScript、HTML
   - 26
 - [imgui-node-editor](https://github.com/thedmd/imgui-node-editor)
-  - ![](assets/60053458-2f2b9b00-96d8-11e9-92f9-08aff63b2023.png)
+  - ![](./assets/60053458-2f2b9b00-96d8-11e9-92f9-08aff63b2023.png)
   - C++、CMake
   - 3.7k
 - [Image-Processing-Node-Editor](https://github.com/Kazuhito00/Image-Processing-Node-Editor)
-  - ![](assets/172011014-23fb025e-68a5-4cb7-925f-c4417029966c-1.gif)
+  - ![](./assets/172011014-23fb025e-68a5-4cb7-925f-c4417029966c-1.gif)
   - Python、JupyterNotebook、Dockerfile
   - 483
 - [NodeEditorWinforms](https://github.com/komorra/NodeEditorWinforms)
-  - ![](assets/687474703a2f2f692e696d6775722e636f6d2f47444a473870662e706e67.png)
+  - ![](./assets/687474703a2f2f692e696d6775722e636f6d2f47444a473870662e706e67.png)
   - C#
   - 511
 - [xNode](https://github.com/Siccity/xNode)
-  - ![](assets/53689100-3821e680-3d4e-11e9-8440-e68bd802bfd9.png)
+  - ![](./assets/53689100-3821e680-3d4e-11e9-8440-e68bd802bfd9.png)
   - C#
   - 3.3k
 - [Node_Editor_Framework](https://github.com/Seneral/Node_Editor_Framework)
-  - ![](assets/687474703a2f2f692e696d6775722e636f6d2f486358686847662e706e67.png)
+  - ![](./assets/687474703a2f2f692e696d6775722e636f6d2f486358686847662e706e67.png)
   - C#
   - 2k
 - [NodeEditorJS](https://github.com/ZeppelinGames/NodeEditorJS)
-  - ![](assets/hotswaps.gif)
+  - ![](./assets/hotswaps.gif)
   - JavaScript、CSS、HTML
   - 3
 - [NodeEditor](https://github.com/wakewakame/NodeEditor)
-  - ![](assets/demo.gif)
+  - ![](./assets/demo.gif)
   - JavaScript、HTML
   - 3
 - [VisionFlowPro](https://github.com/susigo/VisionFlowPro)
-  - ![](assets/selectBallTest.png)
+  - ![](./assets/selectBallTest.png)
   - C++、Other，Qt
   - 73
 - [qtpynodeeditor](https://github.com/klauer/qtpynodeeditor)
-  - ![](assets/calculator.png)
+  - ![](./assets/calculator.png)
   - Python，PyQt
   - 189
 - [nodeeditor](https://github.com/paceholder/nodeeditor)
-  - ![](assets/Pasted%20image%2020241012102518.png)
+  - ![](./assets/Pasted%20image%2020241012102518.png)
   - C++、CMake，Qt，**这是一个可复用的框架！**
   - 3k
 - [NodeEditor](https://github.com/beyse/NodeEditor)
-  - ![](assets/screenshot-image-processing.png)
+  - ![](./assets/screenshot-image-processing.png)
   - Python、Inno Setup、Other
   - 42
 - [STNodeEditor](https://github.com/DebugST/STNodeEditor)
-  - ![](assets/Pasted%20image%2020241012120353.png)
+  - ![](./assets/Pasted%20image%2020241012120353.png)
   - C#
   - 610
 - [NodeEditor](https://github.com/microelly2/NodeEditor)
-  - ![](assets/60964703-fd265580-a2e1-11e9-906b-7dd91a754785.png)
+  - ![](./assets/60964703-fd265580-a2e1-11e9-906b-7dd91a754785.png)
   - Python，Base PyFlow
   - 77
 - [NodeEditor](https://github.com/wieslawsoltes/NodeEditor)
-  - ![](assets/201498448-cd76b29f-ea87-4f0b-9dd5-071c9e49b7c2.png)
+  - ![](./assets/201498448-cd76b29f-ea87-4f0b-9dd5-071c9e49b7c2.png)
   - C#、PowerShell、Shell、Batchfile
 - [nodezator](https://github.com/IndiePython/nodezator)
-  - ![](assets/68747470733a2f2f6e6f64657a61746f722e636f6d2f696d616765732f73637265656e73686f742e706e67.png)
+  - ![](./assets/68747470733a2f2f6e6f64657a61746f722e636f6d2f696d616765732f73637265656e73686f742e706e67.png)
   - Python
   - 644
 
@@ -180,9 +180,9 @@ GPT：
 
 Github Star History Comparison
 
-![](assets/Pasted%20image%2020241016071917.png)
+![](./assets/Pasted%20image%2020241016071917.png)
 
-![](assets/Pasted%20image%2020241016071941.png)
+![](./assets/Pasted%20image%2020241016071941.png)
 
 四选一：
 - 就效果来说，ReactFlow/SvelteFlow/VueFlow 深得我心，特别是交互式文档！太爽了！最近更新：几天前
