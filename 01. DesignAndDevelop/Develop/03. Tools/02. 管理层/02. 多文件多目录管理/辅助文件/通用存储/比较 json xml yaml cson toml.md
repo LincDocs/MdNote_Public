@@ -1,15 +1,9 @@
 # 比较 json xml yaml cson toml
 
-# 目录
-
-# 比较 json xml yaml cson toml
-
 参考：
 
 - 翻译 https://linux.cn/article-10664-1.html
   　　原文 https://www.zionandzion.com/json-vs-xml-vs-toml-vs-cson-vs-yaml/
-
-
 
 ## 数据序列化格式（Standard Generalized Markup Language，SGML）
 

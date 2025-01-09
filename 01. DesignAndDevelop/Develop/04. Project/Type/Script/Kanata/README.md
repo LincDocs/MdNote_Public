@@ -15,11 +15,57 @@ Author: LincZero
 
 ## 其他链接
 
-- 官方文档的翻译 [./](./)
+- [官方文档](https://github.com/jtroo/kanata/blob/main/docs/config.adoc) 的翻译 [./](./)
   AHK文档是有中文的，Kanata没有，我翻译了一些，放在了同目录下的其他文件中 (并且转换成了md格式，原文档用adoc写的)
   翻译基于 v1.7.0 版本 04051832b49829dd311b72d5e9925142274b8ddf 的Github docs文档
 - 官方文档GitHub版 https://github.com/jtroo/kanata/blob/main/docs/config.adoc
 - 官方文档网页版 https://jtroo.github.io/config.html
+
+官方项目与文档的结构：
+
+[dir|fold]
+
+- .devcontainer/
+- .github/
+- EnableUIAccess/
+- assets/
+- cfg_samples/ | 示例 (此处不展开，详见 [./MyScript/](./MyScript/))
+- docs/        | 文档
+  - simulated_output/
+  - simulated_passthru_ahk/
+  - win-tray/
+  - README.md
+  - config-stylesheet.css
+  - **config.adoc** | (核心) 配置说明文档
+  - design.md
+  - fancy_symbols.md
+  - interception.md
+  - kanata-basic-diagram.svg
+  - kmonad_comparison.md
+  - locales.adoc
+  - platfrom-known-issues.adoc
+  - release-template.md
+  - sequence-adding-chords-ideas.md
+  - setup-linux.md
+  - switch-design
+- example_tcp_client/
+- interception/
+- key-sort-add/
+- keyberon/
+- parser/
+- simulated_input/
+- simulated_passthru/
+- src/
+- tcp_protocol/
+- wasm/
+- windows_key_tester/
+- .gitignore
+- Cargo.lock
+- Cargo.toml
+- LICENSE
+- README.md
+- build.rs
+- justfile
 
 ## 安装使用
 
