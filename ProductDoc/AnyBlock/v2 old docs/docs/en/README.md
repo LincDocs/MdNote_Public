@@ -57,7 +57,7 @@ Here are some of the more common processors:
 
 ## support
 
-开发不易，赞助入口（可备注：OB插件support）
+开发不易，赞助入口（可备注：赞助项目名 + 你的github账号名）
 
 ![](assets/support_zfb.png)![](assets/support_wechat.png)
 

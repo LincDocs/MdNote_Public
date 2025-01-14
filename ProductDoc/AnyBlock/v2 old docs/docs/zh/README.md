@@ -57,7 +57,7 @@ Look the setup panel or [中文教程和示例库](./docs/en/)
 
 ## support
 
-开发不易，赞助入口（可备注：OB插件support）
+开发不易，赞助入口（可备注：赞助项目名 + 你的github账号名）
 
 ![](assets/support_zfb.png)![](assets/support_wechat.png)
 
