@@ -14,7 +14,7 @@ This is sponsored links (Alipay、Wechat、Paypl): https://github.com/LincZero#t
 
 ## 赞助名单 (Sponsor list)
 
-（此处不再维护，转由 https://github.com/LincZero/LincZero/blob/main/Sponsors.md 页面进去更新）
+（此处不再维护，转由 https://github.com/LincZero/LincZero/blob/main/Sponsors.md 页面进行更新）
 
 [table]
 

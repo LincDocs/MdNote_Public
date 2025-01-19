@@ -2,17 +2,17 @@
 
 ## General (通用)
 
-### Chinese problem (中文语言问题和网站访问问题)
-
-- 语言问题：文档是多语言的（zh/en），不用担心
-- 访问失败/被墙：本文的默认网站链接指向 github.io，如果国内有不能访问的朋友，将网站链接部分的 *linczero.github.io* 替换成 *linczero-github-io.pages.dev* 就可以了
-
 ### More Links (相关链接)
 
 Related links：(tutorial、use skill、contribution、secondary development)
 
 - [Online Wiki - github.io](https://linczero.github.io/MdNote_Public/%E4%BA%A7%E5%93%81%E6%96%87%E6%A1%A3/AnyBlock/)
 - [Online Wiki - cloudflare](https://linczero-github-io.pages.dev/MdNote_Public/%E4%BA%A7%E5%93%81%E6%96%87%E6%A1%A3/AnyBlock/)
+
+Chinese problem (文档的语言问题、网站访问问题)
+
+- 语言问题：文档是多语言的（zh/en），不用担心
+- 访问失败/被墙：本文的默认网站链接指向 github.io，如果国内有不能访问的朋友，将网站链接部分的 *linczero.github.io* 替换成 *linczero-github-io.pages.dev* 就可以了
 
 ## Effects warrior (效果展示)
 
@@ -22,19 +22,10 @@ Related links：(tutorial、use skill、contribution、secondary development)
 
 ::: tabs
 
-@tab en
+@tab 中文
 
-- Plugin effect
-  - Effect: It is the result of the actual rendering after using the plugin, not the screenshot
-  - It will show: Plugin real effect
-- No plugin effect
-  - Effect: Render the result after you close the plugin
-  - It will show: The plugin syntax is almost non-intrusive, and in a plugin-free environment, md documents remain elegantly readable rather than becoming code boxes
-- Md source code
-  - Effect: Open with Notepad/See the result in Ob's source mode
-  - It will show: Convenient for you to see how this effect is written, showing the elegant and efficient plugin syntax
-
-@tab zh
+与一般的插件仅展示 `源码` + `效果` 不同，这里还多了一个 `无插件效果`。
+旨在告诉你该插件不会过于影响你的写作习惯，并且哪怕你不再使用该插件，原来的内容依然不会变得“丑陋”，即 “低插件依赖”
 
 - 插件效果
   - 效果：是使用插件后真实渲染出来的结果而不是图片截图
@@ -45,6 +36,21 @@ Related links：(tutorial、use skill、contribution、secondary development)
 - md源码
   - 效果：用记事本打开/在Ob的源码模式中看到的结果
   - 展示了: 方便你看这种效果是怎么写出来的，表现了插件语法的优雅高效
+
+@tab English
+
+Unlike the general plug-in that only shows the `source code` + `effect`, there is also a `no plug-in effect`.
+The goal is to tell you that the plugin will not affect your writing habits too much, and that even if you no longer use the plugin, the original content will not become "ugly", that is, "low plugin dependency".
+
+- Plugin effect
+  - Effect: It is the result of the actual rendering after using the plugin, not the screenshot
+  - It will show: Plugin real effect
+- No plugin effect
+  - Effect: Render the result after you close the plugin
+  - It will show: The plugin syntax is almost non-intrusive, and in a plugin-free environment, md documents remain elegantly readable rather than becoming code boxes
+- Md source code
+  - Effect: Open with Notepad/See the result in Ob's source mode
+  - It will show: Convenient for you to see how this effect is written, showing the elegant and efficient plugin syntax
 
 :::
 
@@ -1373,6 +1379,8 @@ demo：描述一下树设计的脑图
 
 #### to nodes (转节点树图，AnyBlock版思维导图)
 
+在obsidian环境中，如果这部分显示不正确，可以鼠标悬浮在上面并点击右上角的刷新按钮
+
 ::: tabs
 
 @tab Plugin effect (插件效果)
@@ -1861,15 +1869,7 @@ min 样式，更紧凑、样式上也更像 markmap
 
 ::: tabs
 
-@tab en
-
-- There are dozens of different processors, not given here, that can be self-explored:
-- Older documentation for V2 contains more information about the processor: https://linczero.github.io/MdNote_Public/ProductDoc/AnyBlock/v2%20old%20docs/
-- You can install 'Any Block' in Ob and open the plug-in's Settings panel to see all supported processors
-	  (Except for the new processor and mdit instructions that are not added in the new version, the instructions in the old version are actually more complete)
-- After installation in Obsidian, you can also view all supported processors through the '[info]' processor
-
-@tab zh
+@tab 中文
 
 - 有几十个不同的处理器，这里没有给出，可以自探索：
 - V2的旧文档包含更多处理器的介绍： https://linczero.github.io/MdNote_Public/ProductDoc/AnyBlock/v2%20old%20docs/
@@ -1877,23 +1877,31 @@ min 样式，更紧凑、样式上也更像 markmap
 	  （除了没有新版本增加的新处理器和mdit说明外，旧版文档的说明其实会更全）
 - 在Obsidian中安装以后，也可以通过 `[info]` 处理器，以查看所有支持的处理器
 
+@tab English
+
+- There are dozens of different processors, not given here, that can be self-explored:
+- Older documentation for V2 contains more information about the processor: https://linczero.github.io/MdNote_Public/ProductDoc/AnyBlock/v2%20old%20docs/
+- You can install 'Any Block' in Ob and open the plug-in's Settings panel to see all supported processors
+	  (Except for the new processor and mdit instructions that are not added in the new version, the instructions in the old version are actually more complete)
+- After installation in Obsidian, you can also view all supported processors through the '[info]' processor
+
 :::
 
 ## Selector (选择器)
 
 ::: tabs
 
-@tab en
-
-**This part is very important! Recommended to finish!**
-
-url: [Selector](docs/en/03.%20Selector.md)
-
-@tab zh
+@tab 中文
 
 **这部分内容非常重要！推荐看完！**
 
 链接: [Selector](docs/zh/03.%20选择器.md)
+
+@tab English
+
+**This part is very important! Recommended to finish!**
+
+url: [Selector](docs/en/03.%20Selector.md)
 
 :::
 
