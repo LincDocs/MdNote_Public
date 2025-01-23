@@ -1,4 +1,4 @@
-# 学习随笔
+# VueFlow学习随笔
 
 ## VueFlow学习笔记 (开发者的学习杂记)
 
@@ -30,9 +30,10 @@
 - useEdgesData         | (核心) 
 - useGetPointerPosition
 - useHandle            | (核心) 
-- useHandleConnections | (核心) 与所选handle连接的线的原信息
+- ~~useHandleConnections~~ | (核心) (弃用，`useNodeConnections` 代替) 与所选handle连接的线的原信息
 - useKeyPress
 - useNode              | (核心)
+- useNodeConnections   | (核心) (1.42.0 最近新增的) 检索连接到一个节点的所有边。可以通过句柄类型和id进行过滤
 - useNodeId            | (核心) 
 - useNodesData         | (核心) 节点的原信息
 - useNodesInitialized
