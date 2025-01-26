@@ -5,7 +5,7 @@ Author: LincZero
 
 # .npmrc
 
-文件名就是 `.npmrc`，不是、也没有扩展名
+文件名就是 `.npmrc`，不是、也没有扩展名。rc表示 `running configuraiton`
 
 ## 用法-设置代理
 
