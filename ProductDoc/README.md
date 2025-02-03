@@ -30,6 +30,7 @@
     - onInitialized-pdf (自研)，格式扩展。直接识别pdf库
     - RootSidebar (自研)，多功能侧边栏。带状态，可指定任意层作为树根部。允许收藏/标签页。完全舍弃掉VuePress中的sidebar配置
     - BiGraph (贡献)，双链图谱
+    - ReadEnhance (自研)，阅读增强
   - Workflows extension
     - LincDocs/Workflows (自研)
 - [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
