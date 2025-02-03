@@ -1,3 +1,7 @@
+---
+create_time: 2024-03-23
+Author: LincZero
+---
 # Worm/LNK.Ippedo
 
 也叫：Worm:W32/Ippedo，Worm是蠕虫的意思。

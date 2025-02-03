@@ -115,6 +115,28 @@ quote		# 灰色引用号，cite
 
 ## 高级插件：Style Settings
 
+## 配置文件夹 .obsidian
+
+[dir]
+
+- .obsidian/
+  - plugins/               | 插件的安装位置
+  - snippets/              | css片段的存放位置
+  - themes/                | 主题的安装位置
+  - (插件类)/
+    - community-plugins.json | 设置 - 启用(未启用不算)的社区插件
+    - core-plugins.json      | 设置 - 启用(未启用不算)的核心插件
+    - daily-notes.json       | 日记模板的配置
+    - graph.json             | 图谱的配置
+  - app.json               | 设置 - 编辑器的配置
+  - appearance.json        | 设置 - 外观的配置
+  - bookmarks.json
+  - command-palette.json   | 设置 - 命令面板-置顶命令
+  - hotkeys.json           | 设置 - 快捷键中新建立的快捷键
+  - starred.json           | 星标的文件列表
+  - templates.json         | 模板插件配置的模板位置
+  - workspace              | 界面的布局、最近编辑文件列表10个，当前激活的窗口
+  - workspaces.json        | 存放的保存的工作区布局
 
 
 
