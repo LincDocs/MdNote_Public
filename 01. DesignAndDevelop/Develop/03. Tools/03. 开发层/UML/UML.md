@@ -6,7 +6,7 @@
 
 ## 画图软件
 
-略、Typora的mermaid有类图、gizon渲染umlpattern也行（忘单词了）
+略、Typora 的 mermaid 有类图、Graphviz 在线渲染 puml 也行
 
 ## 抽象类和接口类的区别
 

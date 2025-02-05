@@ -15,24 +15,23 @@
 
 部分项目包含多个也是开源的子项目：（也许是monorepo，也许是multirepo）
 
-- [Lc Document Web](./Web/LincZero_Document_Library/)
+- [LincZero.github.io](https://github.com/LincZero/LincZero.github.io) (integration)
   - Theme extension
-    - VuePress-Theme-Hope
+    - [VuePress-Theme-Hope](https://github.com/vuepress-theme-hope/vuepress-theme-hope)
   - MarkdownIt extension
-    - AnyBlock (自研, V3 2024)，用于部分md写法与渲染扩展
-    - markdown-it-obsidian-callout (贡献)，用于obsidian callout语法的渲染，用于代替gfm-alert
-    - @nolebase/markdown-it-bi-directional-links (贡献)，用于双链的wiki链接语法的支持
+    - [AnyBlock](https://github.com/any-block) (自研, V3 2024)，用于部分md写法与渲染扩展
+    - [markdown-it-obsidian-callout](https://github.com/ebullient/markdown-it-obsidian-callouts) (贡献)，用于obsidian callout语法的渲染，用于代替gfm-alert
+    - [@nolebase/markdown-it-bi-directional-links](https://github.com/nolebase/integrations/tree/main/packages/markdown-it-bi-directional-links) (贡献)，用于双链的wiki链接语法的支持
   - VuePress extension
-    - newPageHook (自研)，对Markdown-it版本的AnyBlock的补充；增强
-    - 仿文件侧边栏 (魔改)，组件替换 (后弃用，换用自研侧边栏)
-    - NodeFlow (自研, 2024)，用于节点工作流的显示与扩展
-    - onInitialized-json (自研)，格式扩展。对NodeFlow的增强，直接识别工作流json文件
-    - onInitialized-pdf (自研)，格式扩展。直接识别pdf库
-    - RootSidebar (自研)，多功能侧边栏。带状态，可指定任意层作为树根部。允许收藏/标签页。完全舍弃掉VuePress中的sidebar配置
-    - BiGraph (贡献)，双链图谱
-    - ReadEnhance (自研)，阅读增强
+    - newPageHook (自研)，对Markdown-it版本的AnyBlock的补充增强
+    - [~~仿文件侧边栏~~](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugin/RootSidebar) (魔改)，组件替换 (后弃用，换用自研侧边栏)
+    - [NodeFlow](https://github.com/LincZero/obsidian-node-flow) (自研, 2024)，用于节点工作流的显示与扩展
+    - [onInitialized-json](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugin/ExFormat) (自研)，格式扩展。对NodeFlow的增强，直接识别工作流json文件
+    - [onInitialized-pdf](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugin/ExFormat) (自研)，格式扩展。直接识别pdf库
+    - [RootSidebar](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugin/RootSidebar) (自研)，侧边栏，带状态，可指定任意层作为树根部
+    - [ReadEnhance](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugin/ReadEnhance) (自研)，阅读增强。除了文本类布局，更多的是为非 `.md` 提供更好的展示效果 (如节点流、pdf等)
   - Workflows extension
-    - LincDocs/Workflows (自研)
+    - [LincDocs/Workflows](https://github.com/LincDocs/Workflow) (自研)，特点：构建库与文档库分离、完全零配置 开箱即用、单文件构建 & 可选的单文件配置
 - [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
   - Kanata - MyScript
   - AutoHotKey - MyScript
