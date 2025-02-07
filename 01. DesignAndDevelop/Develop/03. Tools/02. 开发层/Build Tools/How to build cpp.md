@@ -4,25 +4,74 @@ Author: LincZero
 ---
 # How to build cpp
 
-## 环境准备
+## 环境准备大概流程
 
-如果你未曾在本地编写和编译过C++项目，这里也提供了环境准备的说明的文档
+首先要说明的是，各种IDE以及操作系统环境下，环境准备流程略有不同。
 
-而如果你本地已经有相关的环境，可以跳过这一步
+一个首先的建议是，去各种IDE官网上去寻找他们的配置教程页，如 CLion、VS、VSCode 等都有。
 
-1. 下载你需要使用的IDE软件 (如 `CLion`、`VS`、`VSCode`)
-2. 安装编译工具 (如 [`MinGW-W64`](https://jb.gg/clion-mingw)、[`VisualStudio`](https://visualstudio.microsoft.com/zh-hans/vs/)) 及配置环境变量
-   <br>现代会推荐使用 [msys2](https://www.msys2.org/) 来安装MinGW，以前会使用 Cygwin 或其他
-   <br>(对于CLion来说，你添加工具链时，旁边会有个“下载”按钮，也能告诉你要在什么地方下载)
-3. 检查环境
-   <br>`g++ --version` 或 `clang --version`
-   <br>如果没有插件到，可以看看是不是没有添加到环境变量
+针对于各种具体IDE的配置方式放在下一章节中，本章节仅大概讲述他们的共同特征，共同的大致流程，以让大家了解其依赖和配置的本质。
+（尤其是Linux的纯命令行方式、VSCode、Github/Gitlab Workflows的方式，都比较接近于底层。）
+
+### (1) IDE软件
+
+下载你需要使用的IDE软件 (如 `CLion`、`VS`、`VSCode` 等)
+
+### (2) 安装编译工具
+
+**安装技巧**
+
+- 有些IDE软件 (如VS等)，在下载的时候可以可选编译工具。如果有可以跳过这一步。
+- 有些IDE软件 (如CLion等)，你添加工具链时，旁边会有个“下载”按钮，也能告诉你要在什么地方下载。也能简化这一步的流程。
+- 有些IDE软件 (如VSCode)，软件本体不捆绑太多的东西，很多环境都需要手动安装。
+
+**安装编译工具**
+
+- 主要需要的工具有：
+  - `GUN/linux`、[`MinGW-W64`](https://jb.gg/clion-mingw)、[`VisualStudio`](https://visualstudio.microsoft.com/zh-hans/vs/) (通常是编译必须的一些环境，包括标准和扩展包等。windows用后两者)
+  - gcc/g++ (满足编译单c/c++文件或简单的多文件需求)
+  - gbd (推荐选, 如果你还需要调试、断点追踪等功能)
+  - cmake (推荐选, 如果你需要一些 `CMakeList.txt` 或 `Makefile` 等处理项目间依赖的东西时)
+  - vcpkg (推荐选, 包管理和依赖工具，也能配合cmake使用)
+- 安装助手、一些集成环境
+  - msys2和cygwin可以**帮忙安装的是构建工具**，也基本都能安装: cmake、ninja、gcc、g++、gdb。或msyc直接安装的 `MinGW工具链` 这种会同时包括 gcc/g++/gdb，也能提高工具准备的效率
+  - vcpkg可以**帮忙安装的是第三方库/包依赖**
+
+**安装方式**
+
+- Linux和Windows的有所不同。这里以 Winodws VScode 安装 MinGW 为例
+- Winodws现代会推荐使用 [`msys2`](https://www.msys2.org/) 来安装 `MinGW`，以前会使用 `Cygwin` 或其他 (虽然 cygwin 有个界面)
+  这两用起来逻辑大差不差
+  msys2 它提供了 GCC、MinGW-w64 以及其他有用的 C++ 工具和库的最新原生版本
+- 具体安装方法见Vscode官方说明：[使用 MinGW 的 GCC](https://vscode.js.cn/docs/cpp/config-mingw)
+
+### (3) 环境变量与检查环境
+
+用以下命令分别检查 gcc (或clang) 是否安装和配置到位：
+
+```bash
+gcc --version
+g++ --version
+gdb --version
+
+cmake --version
+ninja --version
+```
+
+如果没有插件到，可以看看是不是没有添加到环境变量
 
 ## 使用各种软件编译
 
 ### CLion in Windows
 
-如果你未曾使用CLion编译C++项目，那么你可能需要配置工具链:
+可参考CLion官方的说明：[教程：在Windows上配置CLION](https://www.jetbrains.com/help/clion/quick-tutorial-on-configuring-clion-on-windows.html)
+这里介绍了CLion分别使用 `Windows MinGW`、`cygwin`、`WSL`、`系统工具链`、`Windows上的Clang/GDB` 的情况
+
+如果你未曾使用CLion编译C++项目，那么你可能需要配置工具链。
+
+#### 自带
+
+一般安装CLion他会捆绑一个C++环境给你，而这个他自己的C++环境通常可以被CLion自己所检测到，不需要额外处理。
 
 参考：
 
@@ -33,37 +82,205 @@ Author: LincZero
 - C++编译器: g++.exe
 - 捆绑的GDB: v12.1
 
+#### 自带 - 手动配置
+
+需要注意一点是，当CLion使用软件自身捆绑的环境变量时，他不给出具体路径。这里我尝试分析其部分的真实路径：（版本号检测出来和默认不给出路径的一样，应该是对的。`win` 可能可以替代成 `cygwin`）
+
+- 工具集: `G:\<CLion安装路径>\bin\mingw\`
+- CMake: `G:\<CLion安装路径>\bin\cmake\win\x64\bin\cmake.exe`
+- 构建工具: `G:\<CLion安装路径>\bin\ninja\win\x64\ninja.exe`
+- C编译器: `G:\<CLion安装路径>\bin\mingw\bin\gcc.exe`
+- C++编译器: `G:\<CLion安装路径>\bin\mingw\bin\g++.exe`
+- 捆绑的GDB: `G:\<CLion安装路径>\bin\gdb\win\x64\bin\gdb.exe`
+
+这里之所以要讲这个，一是为了方便给其他IDE复用这一部分环境，二是为了方便得知如何使用其他IDE或使用其他环境进行配置。
+
+实际命令：
+
+```bash
+G:\<CLion安装路径>\bin\cmake\win\x64\bin\cmake.exe --build H:\<项目所在路径>\cmake-build-debug --target <项目名> -j 12
+```
+
+#### 其他
+
+其他大部分的环境类型，详见官网介绍，前面有链接
+
+如果要使用vcpkg，见：[CLion - Vcpkg integration](https://www.jetbrains.com/help/clion/package-management.html) (需要新版本CLion，23版本以上)
+
+#### Msys2
+
+不过官网并没有提到使用msys2的情况，这个也是可以的，这里进行补充：
+
+见：https://youtrack.jetbrains.com/issue/CPP-22392
+
+(注意这里我使用了 `ucrt64` 代替 `mingw64`，其与 Windows 10及以上的系统更兼容)
+
+- 工具集: `G:\<Msys2安装路径>\ucrt64`
+- CMake: Bundled
+- 构建工具: Bundled
+- C编译器: `G:\<s2M 安装路径>\ucrt64\bin\gcc.exe`
+- C++编译器: `G:\<s2M 安装路径>\ucrt64\bin\g++.exe`
+- 捆绑的GDB: `G:\<s2M 安装路径>\ucrt64\bin\gdb.exe`
+
 ### CLion in Linux
+
+可参考CLion官方的说明：[教程：在Windows上配置CLION](https://www.jetbrains.com/help/clion/quick-tutorial-on-configuring-clion-on-windows.html)
 
 或使用 WSL 也行
 
 ### VSCode in Windows
 
-可参考官方说明：
+可参考vscode官方说明：
 
-- https://vscode.js.cn/docs/languages/cpp
-- https://code.visualstudio.com/docs/languages/cpp
+- [Visual Studio Code 的 C/C++](https://vscode.js.cn/docs/languages/cpp)、[C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp)
+  (两个链接一样的，分别是中文和英文域名)
+  - [使用 MinGW 的 GCC](https://vscode.js.cn/docs/cpp/config-mingw#_prerequisites)
+  - [教程：在 Visual Studio Code 中通过 CMake 安装和使用包](https://learn.microsoft.com/zh-cn/vcpkg/get_started/get-started-vscode?pivots=shell-powershell)
 
-安装插件，`C/C++` 以及 `C/C++ Extension Pack`。用于着色、补全、悬停、错误检查等
+#### 只需gcc和gdb环境
 
-菜单运行 > 启动调试(F5) > ……
+(1) 安装VSCode。VSCode安装插件，`C/C++` 以及 `C/C++ Extension Pack`。用于着色、补全、悬停、错误检查等
 
-`.vscode/extensions.json`
+(2) 安装Msys2，然后在其终端运行以下命令安装 `MinGW-w64工具链`
+
+(注意 `mingw-w64-ucrt-x86_64-toolchain` 默认包含了 `GCC/G++/GDB` 等，具体的包含项你在下载过程中是可选的)
+
+```bash
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+# Enter
+# Y
+# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\ucrt64\bin`。
+
+pacman -S cmake # 可选
+# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\mingw64\。。。`。
+
+pacman -S mingw-w64-x86_64-ninja # 可选
+# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\mingw64\bin`。
+```
+
+(3) 检查环境。在**新**的命令提示符中输入：
+
+```bash
+gcc --version
+g++ --version
+gdb --version
+
+cmake --version
+ninja --version
+```
+
+(4) demo程序
+
+```bash
+mkdir projects
+cd projects
+mkdir helloworld
+cd helloworld
+code .
+```
+
+输入
+
+```cpp
+#include <iostream>
+
+int main()
+{
+    std::cout << "Hello World" << std::endl;
+}
+```
+
+(5) 运行
+
+在VSCode cpp文件标签页标签的右侧应该安看到一个运行按钮
+
+- 点下拉框：`Run C/C++ File` / `Debug C/C++ File`，选 `Run`
+- 然后选择工具链：`clang-cl.exe` / `clang-cpp.exe` / `g++.exe` / `cpp.exe` 等，选 `g++.exe`
+- 然后应该就能看到结果了
+
+实际命令还挺长的
+
+```bash
+> & 'c:\Users\<用户名>\.vscode\extensions\ms-vscode.cpptools-1.23.5-win32-x64\debugAdapters\bin\WindowsDebugLauncher.exe' '--stdin=Microsoft-MIEngine-In-ihe2ijxi.o3h' '--stdout=Microsoft-MIEngine-Out-j434iwvu.muh' '--stderr=Microsoft-MIEngine-Error-gipmpsae.uad' '--pid=Microsoft-MIEngine-Pid-qckf0tkf.2g1' '--dbgExe=G:\<Msys2安装路径>\ucrt64\bin\gdb.exe' '--interpreter=mi' 
+
+# 即: vscode的cpp扩展.exe 一些配置 gdb.exe
+```
+
+(6.1) (可选) dot VSCode 文件
+
+当在VSCode中选择了工具链后，会自动生成一个 `.vscode/tasks.json`
+
+```json
+{
+    "tasks": [
+        {
+            "type": "cppbuild",
+            "label": "C/C++: g++.exe 生成活动文件",
+            "command": "G:\\<Msys2的安装路径>\\ucrt64\\bin\\g++.exe",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                "${file}",
+                "-o",
+                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+            ],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "调试器生成的任务。"
+        }
+    ],
+    "version": "2.0.0"
+}
+```
+
+将两C++依赖添加到工具区建议：`.vscode/extensions.json`
 
 ```json
 {
     "recommendations": [
         "ms-vscode.cpptools",
-        "ms-vscode.cpptools-extension-pack"
+        "ms-vscode.cpptools-extension-pack",
+        "ms-vscode.cmake-tools"
     ]
 }
 ```
 
+#### CMake环境
+
+之前我们安装环境时没装CMake，`cmake --version` 就没有的。还确实对复杂C/C++项目的编译能力
+
+安装VSCode扩展 `CMake Tools`
+
+
+
 ### VSCode in Linux
+
+可参考vscode官方说明：
+
+- [Visual Studio Code 的 C/C++](https://vscode.js.cn/docs/languages/cpp)、[C/C++ for Visual Studio Code](https://code.visualstudio.com/docs/languages/cpp)
+  (两个链接一样的，分别是中文和英文域名)
+  - [在 VS Code 中使用 Linux 上的 C++](https://vscode.js.cn/docs/cpp/config-linux)
+  - [教程：在 Visual Studio Code 中通过 CMake 安装和使用包](https://learn.microsoft.com/zh-cn/vcpkg/get_started/get-started-vscode?pivots=shell-powershell)
 
 VSCode 使用 ssh 插件连接 Linux 或 wsl虚拟机
 
-### Github Workflows
+### VSCode in Github CodeSpace
+
+略
+
+### VS
+
+略，推荐去VS官网去搜
+
+### Github workflows
 
 仅供参考：
 
@@ -256,7 +473,7 @@ jobs:
           path: build/recorder
 ```
 
-### GitLab
+### GitLab workflows
 
 仅供参考：
 
@@ -423,3 +640,87 @@ name: "recorder_win_mingw"
 #       - build/recorder
 #     name: "recorder_android_${arch}"
 ```
+
+### Pure terminal in Windows
+
+```shell
+cd build
+cmake .. && cmake --build .
+```
+
+### Pure terminal in Linux
+
+其实这个和上面的工作流大差不差，主要都是先一遍cmake，再一遍make
+
+```shell
+cd build
+cmake .. && cmake --build .
+
+# 旧 (用cmake将cmakelist生成makefile，再用make生成最终产物。但实际上cmake本身就能跨平台，根本用不着make。@mq白cpp 就吐槽过: BV1wHSoYfE1H)
+# cd build
+# cmake ..
+# make -j
+```
+
+## 多IDE共享环境
+
+有时候，我们可以让多个IDE共享一些环境。
+
+(1) 先检查环境变量是否存在该环境，如 `gdb --version`
+
+(2) 如果cmd检测到环境变量存在，但IDE无法自动检测到
+
+- 关闭IDE新开，或用管理员权限新开试试（如果刚添加的环境变量，需要新开软件才能检测到）
+- 不然就手动在配置中写路径（一般不会）。linux/cmd可以用 `where gdb`、Windows PowerShell可以用 `Get-Command gdb` 检测路径
+
+(3) 如果环境变量中没有该环境，但你使用的某个IDE可以检测到。
+
+（有的IDE装的环境只有自己能检测得到（没有添加到环境变量中，而是直接指定固定路径）
+可以去该IDE的设置中查看一下有没有相关的路径
+
+有的软件 (VS、CLion) 安装时有捆绑的环境，但配置中又不给你说明环境在哪。这时可以去上网查一下。
+如CLion通常的存储位置：
+
+- 工具集: `G:\<CLion安装路径>\bin\mingw\`
+- CMake: `G:\<CLion安装路径>\bin\cmake\win\x64\bin\cmake.exe`
+- 构建工具: `G:\<CLion安装路径>\bin\ninja\win\x64\ninja.exe`
+- C编译器: `G:\<CLion安装路径>\bin\mingw\bin\gcc.exe`
+- C++编译器: `G:\<CLion安装路径>\bin\mingw\bin\g++.exe`
+- 捆绑的GDB: `G:\<CLion安装路径>\bin\gdb\win\x64\bin\gdb.exe`
+
+## 比较编写cpp时的各种IDE
+
+暂略
+
+## cmake编译核心
+
+### 两个核心步骤
+
+对底层构建工具缺乏认知的VS小白有个说法叫 "VS巨婴" (不是我说的)，意思就是离开了VS，或者没有那个运行按钮就不知道干啥了 (我以前也是哈)
+
+- 通用：两个步骤：
+  - 配置阶段
+  - 构建阶段
+  - 运行阶段
+- 命令行：对应的就是以下两条主命令：(只是一般还会附上许多命令选项)
+  - `cmake ..`
+  - `cmake --build .`
+- CLion：
+  - 你点击CMake的重新加载按钮就是配置阶段 (运行前也会自动运行这一部分)
+  - 点击运行按钮就是构建阶段
+- VSCode：也同理。你安装好插件后：
+  - 在 `CMakeLists.txt` 文件上Ctrl+S保存也会自动触发CMake部分 (运行前也会自动运行这一部分) 
+  - 点击运行按钮就是构建阶段
+
+可以看到，不同的软件本质上都是相同的。使用cmake时，运行都是执行这两条命令 (不算运行编译结果那条)
+
+### 智能选项
+
+不同的是，IDE可以帮你自动附加许多命令选项，比较方便。实例见 [[Cpp包管理工具Vcpkg.md#CppCMakeVcpkgTemplate]]。而这些配置哪来的呢？
+
+- CMakeLists.txt，并不存储这些信息
+- 各种软件自身的解决方案，可以存储这些。如CLion的 `.idea`、VS的 `.vs` 或 `.sln`、VSCode 的 `.vscode/task.json`
+  - 例如 CLion `设置 > 构建、执行、部署 > CMake > CMake options` 处理配置阶段的选项
+  - 例如 CLion `右上角运行按钮下拉框 > 编辑配置 > Target、程序实参等` 处理编译阶段、运行阶段的选项
+- `CMakePreset.json`。这是一种比较新和通用的解决方案。主要作用于构建阶段的配置
+  - VSCode的CMake插件使用、CLion也能识别
