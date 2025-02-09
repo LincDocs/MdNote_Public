@@ -158,7 +158,6 @@ vcpkg install cpp-httplib
 
 在manifest模式下，`vcpkg` 使用 `vcpkg.json`文件来管理项目的依赖项。`vcpkg.json`文件定义了项目所需的所有包。当你运行`vcpkg install`时，它会读取`vcpkg.json`文件并安装其中列出的所有依赖项。
 
-
 ### 更多命令
 
 有一些其他命令：
@@ -194,6 +193,14 @@ vcpkg 包管理器在 GitHub 上定期更新。 若要将 vcpkg 的克隆更新�
 
 整体用下来和 python pip 的 `requirement.txt` 和 js npm 的 `package.json` 是差不多的。网站也与npm的官网很像
 
+### 搜包原理
+
+```bash
+find_package(spdlog CONFIG REQUIRED) # 使用 vcpkg 的清单模式时，`find_package(spdlog CONFIG REQUIRED)` 能够找到 `spdlog` 的原因在于: vcpkg 的工具链文件机制 (通过 -D-DCMAKE_TOOLCHAIN_FILE=../../vcpkg/scripts/buildsystems/vcpkg.cmake 找到，这个工具链文件会自动将vcpkg_installed目录添加到CMake的搜索路径中) 以及 CMake 的配置
+```
+
+更多原理见 [Cpp包管理工具find_package](Cpp包管理工具find_package.md)
+
 ## demo、实战、调试技巧
 
 ### CppCMakeVcpkgTemplate
@@ -203,11 +210,15 @@ vcpkg 包管理器在 GitHub 上定期更新。 若要将 vcpkg 的克隆更新�
 或者想要熟悉该包管理工具的，也可以尝试自己编译一遍这个库，应该就能感受到其便利，以及学习到使用流程了
 
 ```shell
+# (方式一) clone两次
 # 准备项目
 > git clone https://github.com/lukka/CppCMakeVcpkgTemplate.git; git cd CppCMakeVcpkgTemplate
-
 # 也许是为了避免大家安装的位置不同，该模板块选择把vcpkg的位置放在了项目中...也不是不行
 > git clone https://github.com/microsoft/vcpkg.git; .\vcpkg\bootstrap-vcpkg.bat;
+
+
+# (方式二) 递归clone
+> git clone --recursive https://github.com/lukka/CppCMakeVcpkgTemplate.git; git cd CppCMakeVcpkgTemplate
 
 
 # (方式一) VSCode. 点击运行按钮，选择main (他这个项目add_executable了两个目标)。成功打印！

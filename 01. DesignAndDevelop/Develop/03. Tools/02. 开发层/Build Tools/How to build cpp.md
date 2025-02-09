@@ -145,17 +145,26 @@ G:\<CLion安装路径>\bin\cmake\win\x64\bin\cmake.exe --build H:\<项目所在�
 
 (注意 `mingw-w64-ucrt-x86_64-toolchain` 默认包含了 `GCC/G++/GDB` 等，具体的包含项你在下载过程中是可选的)
 
-```bash
-pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
-# Enter
-# Y
-# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\ucrt64\bin`。
+不确定包名可以去官网查： https://packages.msys2.org/
 
-pacman -S cmake # 可选
+```bash
+# 这里下载都是基于同一来源，这样稳定些 (你也可以都使用CLion捆绑的，或cygwin下载的)
+
+pacman -S --needed base-devel mingw-w64-ucrt-x86_64-toolchain
+# Enter, Y
+# (path `C:\msys64\ucrt64\bin`)
+
+
+pacman -S mingw-w64-ucrt-x86_64-cmake # 可选
+# pacman -S cmake
 # 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\mingw64\。。。`。
 
-pacman -S mingw-w64-x86_64-ninja # 可选
-# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\mingw64\bin`。
+pacman -S mingw-w64-ucrt-x86_64-ninja
+# (path `C:\msys64\ucrt64\bin`)
+# pacman -S mingw-w64-x86_64-ninja
+# (path `C:\msys64\mingw64\bin`)
+
+# 添加环境变量。如果您选择了默认安装步骤，则路径为：`C:\msys64\ucrt64\bin`
 ```
 
 (3) 检查环境。在**新**的命令提示符中输入：
@@ -716,11 +725,157 @@ cmake .. && cmake --build .
 
 ### 智能选项
 
-不同的是，IDE可以帮你自动附加许多命令选项，比较方便。实例见 [[Cpp包管理工具Vcpkg.md#CppCMakeVcpkgTemplate]]。而这些配置哪来的呢？
+不同的是，IDE可以帮你自动附加许多命令选项，比较方便。实例见 [[../../03. 管理层/03. 多项目管理/03. 库或包管理/BackEnd/Cpp包管理工具Vcpkg#CppCMakeVcpkgTemplate]]。而这些配置哪来的呢？
 
 - CMakeLists.txt，并不存储这些信息
 - 各种软件自身的解决方案，可以存储这些。如CLion的 `.idea`、VS的 `.vs` 或 `.sln`、VSCode 的 `.vscode/task.json`
   - 例如 CLion `设置 > 构建、执行、部署 > CMake > CMake options` 处理配置阶段的选项
   - 例如 CLion `右上角运行按钮下拉框 > 编辑配置 > Target、程序实参等` 处理编译阶段、运行阶段的选项
 - `CMakePreset.json`。这是一种比较新和通用的解决方案。主要作用于构建阶段的配置
-  - VSCode的CMake插件使用、CLion也能识别
+  - VSCode的CMake插件使用、CLion也能识别 (但好像识别不全? 识别不全的话要自己配一下)
+  - 主要的C ++ IDE应该已经支持CMakePresets.json，并且不需要特定的配置
+
+## demo、实战、调试技巧
+
+从零创建项目到多IDE编译
+
+### CppCMakeVcpkgTemplate
+
+见 [[../../03. 管理层/03. 多项目管理/03. 库或包管理/BackEnd/Cpp包管理工具Vcpkg#CppCMakeVcpkgTemplate]]
+
+```bash
+# (方式一) clone两次
+# 准备项目
+> git clone https://github.com/lukka/CppCMakeVcpkgTemplate.git; git cd CppCMakeVcpkgTemplate
+# 也许是为了避免大家安装的位置不同，该模板块选择把vcpkg的位置放在了项目中...也不是不行
+> git clone https://github.com/microsoft/vcpkg.git; .\vcpkg\bootstrap-vcpkg.bat;
+
+
+# (方式二) 递归clone
+> git clone --recursive https://github.com/lukka/CppCMakeVcpkgTemplate.git; git cd CppCMakeVcpkgTemplate
+
+
+# (方式一) VSCode. 点击运行按钮，选择main (他这个项目add_executable了两个目标)。成功打印！
+# 
+# 相当于以下的命令组:
+> G:\Soft\Dev\All\Tool_CMake\bin\cmake.EXE -DCMAKE_TOOLCHAIN_FILE=H:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/vcpkg/scripts/buildsystems/vcpkg.cmake -SH:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate -BH:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/builds/ninja-multi-vcpkg -G "Ninja Multi-Config"
+> G:\Soft\Dev\All\Tool_CMake\bin\cmake.EXE --build H:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/builds/ninja-multi-vcpkg --config Debug --target main --
+> ."H:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/builds/ninja-multi-vcpkg/Debug/main.exe"
+# 
+# 简化 (假设都配置了环境变量，不过有时不能相对路径)
+> mkdir ./builds/ninja-multi-vcpkg && cd ./builds/ninja-multi-vcpkg
+> cmake -S ../../ -B . -G "Ninja Multi-Config" -DCMAKE_TOOLCHAIN_FILE=../../vcpkg/scripts/buildsystems/vcpkg.cmake
+> cmake --build . --config Debug --target main --
+
+
+# (方式二) CLion. 按cmake再安运行就行了 (cmake阶段失败的话 设置>构建执行部署>CMake，选项里加上 `-DCMAKE_TOOLCHAIN_FILE=H:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/vcpkg/scripts/buildsystems/vcpkg.cmake` 就行了)
+#
+# 相当于以下命令组：
+> G:\Soft\Dev\All\IDE_JetBrains_CLion\2024\bin\cmake\win\x64\bin\cmake.exe -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=G:/Soft/Dev/All/IDE_JetBrains_CLion/2024/bin/ninja/win/x64/ninja.exe -G Ninja -S H:\Git\Private\Group_LincZero\CppCMakeVcpkgTemplate -B H:\Git\Private\Group_LincZero\CppCMakeVcpkgTemplate\cmake-build-debug -DCMAKE_TOOLCHAIN_FILE=H:/Git/Private/Group_LincZero/CppCMakeVcpkgTemplate/vcpkg/scripts/buildsystems/vcpkg.cmake # 注意最后一个参数如果没有，见上，CLion设置里给CMake加上选项
+> G:\Soft\Dev\All\Tool_CMake\bin\cmake.exe --build H:\Git\Private\Group_LincZero\CppCMakeVcpkgTemplate\cmake-build-debug --target main -j 14
+# 
+# 简化 (假设都配置了环境变量)
+> mkdir ./cmake-build-debug && cd ./cmake-build-debug
+> cmake -S .. -B . -G Ninja -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=ninja -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake
+> cmake --build . --target main -j 14
+
+
+# (方式三) Terminal. 纯终端
+# 基本同上
+```
+
+### 从零搭建
+
+模拟于 CMakeVcpkgTemplate，详见 [LincDemo/CMakeVcpkgTemplate]
+
+# CMakeVcpkgTemplate
+
+该模板的特点：
+
+- 描述了从零搭建的所有操作，让你知其所以然
+- 最简化的版本中，项目创建仅需 `2个文件+5条命令`，项目克隆准备 `3条命令`，运行 `3条命令`
+- 同时提供了大量适用于其他IDE或环境的可选文件/操作
+
+## 从零搭建
+
+以下命令组，如果你是windows，将 `&&` 更换成 `;`
+
+Create Project
+
+```bash
+> cmake --version
+> ninja --version
+> gcc --version
+> g++ --version
+> gdb --version
+
+> mkdir CMakeVcpkgTemplate && cd CMakeVcpkgTemplate
+
+# add files
+> git init
+> git submodule add https://github.com/microsoft/vcpkg.git vcpkg
+> ./vcpkg/bootstrap-vcpkg.bat # or .sh
+> ./vcpkg/vcpkg new --application
+> ./vcpkg/vcpkg add port fmt
+> (add CMakeLists.txt)
+> (add main.cpp)
+
+# (optional, choosable)
+> (add .gitignore、README.md、LICENSE)
+
+# Use
+# git clone 
+```
+
+Push、Template Project
+
+```bash
+> git add -A
+> git commit -m "init"
+# Then push according to github prompt
+# 然后根据github提示push
+
+# The project can be converted to a template repository in the github setting
+# 上github setting中可以将该项目转换为模板存储库
+```
+
+Use Project
+
+```bash
+> git clone --recursive ... && cd CMakeVcpkgTemplate
+> ./vcpkg/bootstrap-vcpkg.bat
+> ./vcpkg/vcpkg install
+
+> mkdir build && cd build
+> cmake .. -DCMAKE_TOOLCHAIN_FILE=../vcpkg/scripts/buildsystems/vcpkg.cmake
+> cmake --build .
+```
+
+## 可选
+
+### CMakePresets.json 文件
+
+详见 [[CMakePresets.json]]
+
+不用这个文件也行：
+
+像CLion、VS都可以在设置中进行配置（但不跨IDE，不通用），在CMake配置中加上选项：
+
+`-DCMAKE_TOOLCHAIN_FILE=./vcpkg/scripts/buildsystems/vcpkg.cmake`
+
+使用这个文件：
+
+这个文件一是VSCode的 CMake/CMake Tool 插件在使用，二是现在许多新版本的IDE都能支持这个文件，更方便你去跨平台使用
+
+### github工作流
+
+略
+
+
+
+
+
+
+
+
+

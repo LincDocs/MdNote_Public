@@ -1,3 +1,7 @@
+---
+create_time: 2024-03-20
+Author: LincZero
+---
 # CMakePresets.json
 
 参考：[Cmake封神之作：cmake-presets](https://blog.csdn.net/hashkitty/article/details/124747421)
@@ -65,11 +69,42 @@ CMakePresets.json并且CMakeUserPresets.json可以在文件版本及更高版本
 
 ## 自动生成
 
+我们通常可以图形化地来创建和修改 CMakePresets.json，手动修改其实是有点困难的
+
 ### CLion
+
+`CMakePresets.json` 对应于CLion的页面是 `设置 > 构建、执行、部署 > CMake`
+
+为了简化流程，我们通常需要以下两个操作
+
+- 将该页面内容保存为 `CMakePresets.json`
+- 该页面加载 `CMakePresets.json`
+
+具体操作见CLion官网文档: https://www.jetbrains.com/help/clion/cmake-presets.html
+
 
 ### VS
 
+## 为什么需要
 
+不用这个文件的话，命令行得打一大堆选项，如：
+
+```bash
+cmake -Bbuild_arm64_iphones -GXcode -DCMAKE_BUILD_TYPE=Release \
+	-DCONAN_PROFILE_BUILD=default \
+  	-DCONAN_PROFILE_HOST=$(pwd)/.profiles/ios-arm64-iphoneos \
+	-DCMAKE_SYSTEM_NAME=iOS \
+  	-DCMAKE_OSX_DEPLOYMENT_TARGET=9.0 \
+  	-DCMAKE_OSX_ARCHITECTURES=arm64 \
+	-DCMAKE_CXX_STANDARD=14 \
+  	-DBUILD_LANGUAGE_BRIDGE=OFF \
+  	-DCMAKE_C_FLAGS=-fembed-bitcode \
+  	-DCMAKE_CXX_FLAGS=-fembed-bitcode
+```
+
+## 默认值
+
+`cmake --help` 可以查看，windows用户特别注意一下generators是vs还是ninja
 
 
 
