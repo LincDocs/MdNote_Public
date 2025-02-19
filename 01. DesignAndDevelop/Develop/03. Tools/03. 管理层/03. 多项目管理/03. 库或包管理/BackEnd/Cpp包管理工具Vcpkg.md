@@ -195,7 +195,7 @@ vcpkg 包管理器在 GitHub 上定期更新。 若要将 vcpkg 的克隆更新�
 
 ### 搜包原理
 
-```bash
+```cmake
 find_package(spdlog CONFIG REQUIRED) # 使用 vcpkg 的清单模式时，`find_package(spdlog CONFIG REQUIRED)` 能够找到 `spdlog` 的原因在于: vcpkg 的工具链文件机制 (通过 -D-DCMAKE_TOOLCHAIN_FILE=../../vcpkg/scripts/buildsystems/vcpkg.cmake 找到，这个工具链文件会自动将vcpkg_installed目录添加到CMake的搜索路径中) 以及 CMake 的配置
 ```
 
