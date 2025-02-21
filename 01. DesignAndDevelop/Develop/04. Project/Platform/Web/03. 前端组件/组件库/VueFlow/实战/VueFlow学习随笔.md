@@ -180,3 +180,55 @@ useVueFlow
  */
 useZoomPanHelper
 ```
+
+## 组合式函数部分 - useVueFlow
+
+useVueFlow 是 VueFlow 提供的最重要且最特殊的组合式函数之一，这里重点提下
+
+- use组合函数里如果用了inject等，必须要在setup作用域下工作，所以我们要缓存一次变量
+- 而 useVueFlow() 通常导出store里的普通函数/数据。通常能在非setup作用域下工作。如findNode等
+- 不过只是说 useVueFlow 里的函数可以在非setup作用域下工作，useVueFlow 本身还是要在 setup 时运行的。例如 `流程控制` 和 `自动布局` 两个实现中，都是在setup中 useVueFlow 并闭包 (缓存在setup时期的useVueFlow结果)
+
+useVueFlow 能导出的东西：
+
+```ts
+// 这里不直接给结果，而是顺着调用链往下
+
+// 1 https://vueflow.dev/typedocs/functions/useVueFlow.html
+export declare function useVueFlow(id?: string): VueFlowStore
+export declare function useVueFlow(options?: FlowOptions): VueFlowStore
+
+// 2 https://vueflow.dev/typedocs/type-aliases/VueFlowStore.html
+export type VueFlowStore =
+  {
+    readonly id: string
+    readonly emits: FlowHooksEmit
+    readonly nodeLookup: ComputedRef<NodeLookup>
+    readonly edgeLookup: ComputedRef<EdgeLookup>
+    /** current vue flow version you're using */
+    readonly vueFlowVersion: string
+  } & FlowHooksOn &
+  ToRefs<State> &
+  Readonly<ComputedGetters> &
+  Readonly<Actions>
+
+// 3 常用的有：
+// (见下)
+```
+
+[lt]
+
+- [Actions](https://vueflow.dev/typedocs/type-aliases/ComputedGetters.html)/
+  - setNodes, setEdges
+  - addNodes, addEdges
+  - findNode, findEdge
+  - updateNode, updateEdge
+  - updateNodeData, updateEdgeData
+  - applyNodeChanges, applyEdgeChanges
+  - setMinZoom, setMaxZoom
+  - getConnectedEdges
+- [ComputedGetters](https://vueflow.dev/typedocs/type-aliases/ComputedGetters.html)/
+- [State](https://vueflow.dev/typedocs/interfaces/State.html)/
+  - nodes
+  - edges
+
