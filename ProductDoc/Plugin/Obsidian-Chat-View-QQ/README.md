@@ -4,13 +4,18 @@ English | [中文](./README_zh.md)
 
 This is the open source project https://github.com/LincZero/obsidian-chat-view-qq online documentation
 
-**由于新版 NT QQ 导致消息难以直接复制黏贴，作者本人也不用了，所以放弃维护……**
-
-**以前是比较方便的，直接拖拽选择一堆对话，然后复制黏贴到ob里就完事了……**
-
 **（English version is machine translated）**
 
-这是 https://github.com/LincZero/obsidian-chat-view-qq 开源项目的在线文档
+## More Link (更多链接)
+
+- en
+  - [repo - github](https://github.com/LincZero/obsidian-chat-view-qq) , Welcome to star
+  - [online docs - github.io](https://linczero.github.io/MdNote_Public/ProductDoc/Plugin/Obsidian-Chat-View-QQ/)
+  - [online interaction - github.io](https://linczero.github.io/obsidian-chat-view-qq/)
+- zh
+  - [代码仓库 - github](https://github.com/LincZero/obsidian-chat-view-qq) , 欢迎给Star
+  - [在线文档 - github.io](https://linczero.github.io/MdNote_Public/ProductDoc/Plugin/Obsidian-Chat-View-QQ/)
+  - [在线交互 - github.io](https://linczero.github.io/obsidian-chat-view-qq/)
 
 ## Descriptions
 
