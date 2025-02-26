@@ -254,28 +254,29 @@ LincZero 0:00:00
 ### 多种格式图片的使用
 
 ```chat-qq
-[LincZero=762699299, 卢曼=demo/卢曼.png, 百度=https://www.baidu.com/img/flexible/logo/pc/result.png]
+[LincZero=762699299, 百度=https://www.baidu.com/img/flexible/logo/pc/result.png]
 
 
 LincZero 0:00:00
 我要使用QQ头像
 我希望使用本地图片或QQ复制过来的图片
 （由于你QQ文件夹没有这张图片，该图片是不显示的）
-![](file:///D:\……\Image\…….png)
+`![](file:///D:\……\Image\…….png)`
 
 
 卢曼 0:00:00
 我希望使用相对路径下的图片
-![](demo/卢曼.png)
+![](./assets/卢曼.png)
 
 
 百度 0:00:00
 我希望使用网络上的图片
 （但链接中不能有等号，可能以后会修复）
-![](https://www.baidu.com/img/flexible/logo/pc/result.png)
+![](https://www.baidu.com/img/flexible/logo/pc/result.png)'
 
 
-
+https://www.baidu.com/img/flexible/logo/pc/result.png  0:00:00
+或者直接用图片网址作为发言人名字
 ```
 
 ### 导出为图片
@@ -298,16 +299,18 @@ LincZero 0:00:00
 
 这里演示一下第三点
 
+(头像不再支持相对路径)
+
 ```chat-qq
 {self=我}
-[亚里士多德=demo/亚里士多德.png ,伽利略=demo/伽利略.png, 鲁迅=demo/鲁迅.png,]
+[亚里士多德=./assets/亚里士多德.png ,伽利略=./assets/伽利略.png, 鲁迅=./assets/鲁迅.png,]
 
 亚里士多德 0:00:00
 重的物体比轻的物体下落得快
 
 伽利略 0:00:00
 错误的，两个铁球同时落地
-![](demo/比萨斜塔实验.png)
+![](./assets/比萨斜塔实验.png)
 
 我 0:00:00
 错误的，该课本内容纯属虚构
