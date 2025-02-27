@@ -8,6 +8,10 @@
 
 但后来在其他的的提议下，又适配了其他不同的格式
 
+### 智能格式
+
+1.3.0 版本推荐使用该格式，使用 `chat` 代码块类型，会自动判断你所使用的聊天记录类型，而无需你手动指定
+
 ### QQ 格式
 
 ```chat-qq
@@ -24,6 +28,18 @@
 
 新人乙加入本群。
 
+```
+
+### TIM 格式
+
+和QQ格式差不多，区别在于：对于非好友 (陌生人)，聊天记录复制出来后，对方的名字末尾附带一个QQ号：
+
+```chat
+马化腾(10001) 1:19:33  
+换号码吗
+
+李宗桦(10101) 1:19:33  
+不换
 ```
 
 ### 微信 格式
@@ -77,6 +93,30 @@ mac版复制格式
 > 作者 LincZero:
 只要将聊天记录直接复制到chat-wechat代码框即可，无需任何额外操作与配置，简单易用
 ```
+
+### discord 格式 (未支持)
+
+主要是碰到一个奇怪的东西，例如：
+
+```md
+### gh0st1084
+
+### _—_ 2025/2/24 11:19
+
+复各位佬：我眼瞎，没搜hyphen，无视我即可
+
+### Neko _—_ 昨天14:01
+
+github.com/nekomeowww/hyphen
+
+### Linc _—_ 今天14:25
+
+balabala
+```
+
+其他行就对的，但前三行有问题。第一个发言者的名字后面有的标识，鼠标悬浮过去会显示 `初来乍到，打个招呼吧！`
+
+![](assets/Pasted%20image%2020250227144117.png)
 
 ### 原插件 格式
 
@@ -272,7 +312,7 @@ LincZero 0:00:00
 百度 0:00:00
 我希望使用网络上的图片
 （但链接中不能有等号，可能以后会修复）
-![](https://www.baidu.com/img/flexible/logo/pc/result.png)'
+![](https://www.baidu.com/img/flexible/logo/pc/result.png)
 
 
 https://www.baidu.com/img/flexible/logo/pc/result.png  0:00:00
@@ -299,7 +339,7 @@ https://www.baidu.com/img/flexible/logo/pc/result.png  0:00:00
 
 这里演示一下第三点
 
-(头像不再支持相对路径)
+(ob头像不支持相对路径，待修复)
 
 ```chat-qq
 {self=我}
