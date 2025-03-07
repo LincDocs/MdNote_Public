@@ -34,8 +34,9 @@ Author: LincZero
   - cmake (推荐选, 如果你需要一些 `CMakeList.txt` 或 `Makefile` 等处理项目间依赖的东西时)
   - vcpkg (推荐选, 包管理和依赖工具，也能配合cmake使用)
 - 安装助手、一些集成环境
-  - msys2和cygwin可以**帮忙安装的是构建工具**，也基本都能安装: cmake、ninja、gcc、g++、gdb。或msyc直接安装的 `MinGW工具链` 这种会同时包括 gcc/g++/gdb，也能提高工具准备的效率
-  - vcpkg可以**帮忙安装的是第三方库/包依赖**
+  - **msys2和cygwin**： 可以**帮忙安装的是构建工具**，也基本都能安装: xmake/cmake、ninja、gcc、g++、gdb。或msyc直接安装的 `MinGW工具链` 这种会同时包括 gcc/g++/gdb，也能提高工具准备的效率
+  - **vcpkg**： 可以**帮忙安装的是第三方库/包依赖**
+  - (当然，无论是构建工具还是第三方库，你都可以可以不使用安装助手，自行安装。例如可以去cmake官网手动下载cmake。然后有一些IDE也会帮你捆绑安装对应的内容)
 
 **安装方式**
 

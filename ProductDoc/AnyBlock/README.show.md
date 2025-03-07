@@ -1,5 +1,10 @@
 # README
 
+> [!warning]
+> 
+> - (zh) 文档迁移至 https://lincdocs.github.io/AnyBlock/README.show.html
+> - (en) Migrate the document to https://lincdocs.github.io/AnyBlock/README.show.html
+
 ## General (通用)
 
 ### More Links (相关链接)

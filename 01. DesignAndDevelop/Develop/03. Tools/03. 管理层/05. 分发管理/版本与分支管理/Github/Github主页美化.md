@@ -14,6 +14,10 @@
 
 例如：点击网址 https://github.com/academicpages/academicpages.github.io  这个就是我们即将使用的模板
 
+## Github首页-组织版
+
+详见 [Github主页美化-组织版](./Github主页美化-组织版.md) , 组织版本的主页设置有所不同的
+
 ## Github首页模板
 
 ### 方法
