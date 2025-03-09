@@ -23,7 +23,7 @@ DRIVER=~fastapi
 
 ```bash
 # 原来
-LOG_LEVEL=DEBUG
+# LOG_LEVEL=DEBUG
 
 HOST=127.0.0.1
 PORT=8080
