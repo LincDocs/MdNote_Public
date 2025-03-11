@@ -2,7 +2,13 @@
 create_time: 2025-03-08
 Author: LincZero
 ---
-# NoneBot2
+# README
+
+> [!tip]
+> 
+> 建议使用官网文档，那个挺详细的，也美观
+> 
+> 这里仅再补充官网没有的东西
 
 ## 资料
 
@@ -10,7 +16,20 @@ Author: LincZero
 - 官网、文档、开发API： https://nonebot.dev/
     - API: https://nonebot.dev/docs/api/
     - 社区(QQ、QQ频道、Discord): https://nonebot.dev/docs/community/contact
+- 我的代理文档: https://lincdocs.github.io/nonebot2/
+- 此处文档: 官网文档的基础上增加一些个人学习注释，重新分了类与排序 (官方为了url一致性，重新分类不会动文件夹结构)，也方便离线。
+  但不一定是最新的，也可能缺页，并且没有做多版本文档 (versioned_docs)，**一般建议使用官方文档**
 - 兼容： **支持多个聊天软件平台，可自定义通信协议！**
+
+## 注意
+
+nonebot 只提供了一个统一的通用的平台，如果你想应用于例如QQ上，还需要一个协议端的东西。
+
+如：官方机器人、lagrange、go-cqhttp、mirai 等
+
+具体的配合可见 [../实战/](../实战/)
+
+## 兼容
 
 |协议名称|状态|注释|
 |:-:|:-:|:-:|
@@ -38,10 +57,3 @@ Author: LincZero
 |Mail（[仓库](https://github.com/mobyw/nonebot-adapter-mail)）|↗️|邮件收发协议，由社区贡献|
 |黑盒语音（[仓库](https://github.com/lclbm/adapter-heybox)，[协议](https://github.com/QingFengOpen/HeychatDoc)）|↗️|黑盒语音机器人协议，由社区贡献|
 |微信公众平台（[仓库](https://github.com/YangRucheng/nonebot-adapter-wxmp)，[协议](https://developers.weixin.qq.com/doc/)）|↗️|微信公众平台协议，由社区贡献|
-
-## 注意
-
-nonebot 只提供了一个统一的通用的平台，如果你想应用于例如QQ上，还需要一个协议端的东西。
-
-如：官方机器人、go-cqhttp、mirai 等
-
