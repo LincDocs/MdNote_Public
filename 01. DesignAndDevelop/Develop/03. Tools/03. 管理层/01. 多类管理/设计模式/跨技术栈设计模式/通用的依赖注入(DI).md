@@ -146,7 +146,10 @@ public class MyService {
 
 ### 其他具体场景
 
-**FastAPI**：
+take from deepseek_R1
+
+FastAPI
+
 ```python
 from fastapi import Depends
 async def get_db_session(db: Session = Depends(get_db)):
@@ -159,6 +162,8 @@ async def get_db_session(db: Session = Depends(get_db)):
 ## 依赖注入 - Vue
 
 ### 对比 Python 和 Vue 的依赖注入
+
+take from deepseek_R1
 
 比较 Python Nonebot2 和 Vue 的依赖注入：
 
@@ -174,6 +179,8 @@ async def get_db_session(db: Session = Depends(get_db)):
 - **不同点**：Vue 的依赖注入是前端组件通信机制，而 NoneBot2 的依赖注入是后端服务参数解析机制。
 
 ## 依赖注入 - C# ASP.NET Core
+
+take from deepseek_R1
 
 ASP.NET Core
 
@@ -191,6 +198,8 @@ public class MyController : ControllerBase {
 
 ## 依赖注入 - Angular
 
+take from deepseek_R1
+
 ```typescript
 @Injectable()
 export class MyService {
@@ -199,6 +208,215 @@ export class MyService {
 ```
 
 通过装饰器 `@Injectable` 和构造函数参数声明依赖。
+
+## 依赖注入 - C++
+
+take from deepseek_R1
+
+在 **C++** 中，依赖注入（Dependency Injection, DI）的实现方式与其他语言（如 Java、Python）不同，主要因为 C++ 没有语言层面的原生反射（Reflection）机制，且模板元编程（Template Metaprogramming）的复杂性较高。不过，开发者依然可以通过以下方式实现类似的功能：
+
+### 1. 手动依赖注入
+
+直接通过构造函数、Setter 方法或接口传递依赖对象，不依赖框架。这是最基础的 DI 实现方式。
+
+```cpp
+class Database {
+public:
+    virtual void query() = 0;
+};
+
+class MySQLDatabase : public Database {
+public:
+    void query() override { /* MySQL 实现 */ }
+};
+
+class UserService {
+private:
+    Database& db;  // 依赖抽象接口
+public:
+    UserService(Database& db) : db(db) {}  // 构造函数注入
+    void doSomething() { db.query(); }
+};
+
+int main() {
+    MySQLDatabase mysqlDb;
+    UserService service(mysqlDb);  // 手动注入依赖
+    service.doSomething();
+    return 0;
+}
+```
+
+- 优点：无需额外库，代码简单明确。
+- 缺点：依赖管理需手动维护，大型项目中可能繁琐。
+
+### 2. 模板和接口结合
+
+通过模板和抽象接口，实现编译时依赖注入。
+
+```cpp
+template <typename Database>
+class UserService {
+private:
+    Database db;  // 依赖通过模板参数注入
+public:
+    void doSomething() { db.query(); }
+};
+
+class MySQLDatabase {
+public:
+    void query() { /* MySQL 实现 */ }
+};
+
+int main() {
+    UserService<MySQLDatabase> service;  // 注入 MySQL 实现
+    service.doSomething();
+    return 0;
+}
+```
+
+- 优点：类型安全，编译期解决依赖。
+- 缺点：模板可能增加编译时间，灵活性较低。
+
+### 3. 第三方依赖注入库
+
+虽然 C++ 没有官方 DI 框架，但有第三方库支持依赖注入：
+
+#### Boost.DI
+
+一个基于 C++11 的轻量级依赖注入库，利用模板和宏实现自动注入：
+
+```cpp
+#include <boost/di.hpp>
+namespace di = boost::di;
+
+class Database {
+public:
+    virtual void query() = 0;
+};
+
+class MySQLDatabase : public Database {
+public:
+    void query() override { /* MySQL 实现 */ }
+};
+
+class UserService {
+public:
+    UserService(std::shared_ptr<Database> db) : db(db) {}
+    void doSomething() { db->query(); }
+private:
+    std::shared_ptr<Database> db;
+};
+
+int main() {
+    auto injector = di::make_injector(
+        di::bind<Database>().to<MySQLDatabase>()
+    );
+    auto service = injector.create<UserService>();
+    service.doSomething();
+    return 0;
+}
+```
+
+- 优点：接近其他语言的 DI 框架体验，自动管理依赖。
+- 缺点：需要引入第三方库，对编译环境有一定要求。
+
+#### Facebook Fruit
+
+一个轻量级的 C++ DI 框架，支持接口绑定和依赖解析：
+
+```cpp
+#include <fruit/fruit.h>
+using fruit::Component;
+using fruit::Injector;
+
+class Database {
+public:
+    virtual void query() = 0;
+};
+
+class MySQLDatabase : public Database {
+public:
+    INJECT(MySQLDatabase()) = default;  // 默认构造函数
+    void query() override { /* MySQL 实现 */ }
+};
+
+Component<Database> getDatabaseComponent() {
+    return fruit::createComponent()
+        .bind<Database, MySQLDatabase>();
+}
+
+class UserService {
+public:
+    INJECT(UserService(Database* db)) : db(db) {}  // 构造函数注入
+    void doSomething() { db->query(); }
+private:
+    Database* db;
+};
+
+int main() {
+    Injector<Database> injector(getDatabaseComponent());
+    Database* db = injector.get<Database*>();
+    UserService service(db);  // 手动注入（或通过框架自动创建）
+    service.doSomething();
+    return 0;
+}
+```
+
+- 优点：支持复杂依赖关系，生命周期管理。
+- 缺点：语法较复杂，学习成本较高。
+
+### 4. 基于宏的代码生成
+
+通过宏或代码生成工具（如 **Google Mock**）模拟依赖注入：
+
+```cpp
+// 使用 Google Mock 模拟接口
+class Database {
+public:
+    MOCK_METHOD0(query, void());
+};
+
+TEST(UserServiceTest, DoSomethingTest) {
+    MockDatabase mockDb;
+    EXPECT_CALL(mockDb, query()).Times(1);  // 预期调用
+    UserService service(mockDb);  // 注入模拟依赖
+    service.doSomething();
+}
+```
+
+- 用途：主要用于单元测试中解耦依赖。
+
+### 5. 现代 C++ 的改进
+
+C++17/20 引入的新特性（如 **Concept**、**Modules**）可以简化依赖管理：
+
+```cpp
+// 使用 Concepts 约束依赖类型
+template <typename T>
+concept DatabaseType = requires(T t) {
+    { t.query() } -> std::same_as<void>;
+};
+
+template <DatabaseType Database>
+class UserService {
+public:
+    UserService(Database db) : db(db) {}
+    void doSomething() { db.query(); }
+private:
+    Database db;
+};
+```
+
+### 总结
+
+| 方法               | 适用场景        | 优点             | 缺点      |
+| ---------------- | ----------- | -------------- | ------- |
+| 手动依赖注入           | 小型项目、简单依赖关系 | 无依赖，代码透明       | 手动维护复杂  |
+| 模板 + 接口          | 编译期确定依赖     | 类型安全，高性能       | 灵活性低    |
+| Boost.DI / Fruit | 中大型项目，复杂依赖  | 接近其他语言 DI 框架体验 | 需引入第三方库 |
+| 基于宏的代码生成         | 单元测试        | 快速模拟依赖         | 仅限于测试场景 |
+
+C++ 的依赖注入更依赖开发者手动设计或借助第三方库，但核心思想（解耦、依赖外部管理）与其他语言一致。
 
 ## 总结
 
