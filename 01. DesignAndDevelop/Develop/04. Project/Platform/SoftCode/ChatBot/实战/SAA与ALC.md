@@ -1,5 +1,7 @@
 # SAA与ALC
 
+## 介绍
+
 问的 deepseek
 
 在 NoneBot 的插件生态中，**ALC** 和 **SAA** 是两种与消息适配和跨平台兼容性相关的工具或插件，其核心目标是解决不同聊天平台（如 QQ、微信、Telegram 等）对特殊消息格式（如 XML、小程序卡片等）的支持问题。以下是两者的具体解析：
@@ -35,6 +37,31 @@
 - 复杂需求：ALC 更推荐，尤其是需要处理特殊格式（如合并消息、解析富文本）的场景。
 
 总结来说，ALC 和 SAA 均为解决跨平台消息兼容性而设计，但 ALC 在功能扩展性和维护状态上更具优势。开发者可根据项目需求选择合适的工具，并通过插件注册表或文档确认具体兼容性。
+
+## ALC (alconna) 学习
+
+资料
+
+- repo
+	- [nonebot/plugin-alconna](https://github.com/nonebot/plugin-alconna)
+	- ~~[(废弃) nonebot_plugin_alconna](https://github.com/ArcletProject/nonebot-plugin-alconna)~~
+- 文档
+	- https://nonebot.dev/docs/next/best-practice/alconna (会发现在官网文档里，这个基本变成官方插件了)
+	- https://arclet.top/docs/tutorial/alconna/
+
+介绍
+
+- 强大的 Nonebot2 命令匹配拓展，支持富文本/多媒体解析，跨平台消息收发
+
+重定向
+
+- 此处不再赘述，详见官网文档的 Alconna 部分
+- 可参考：别名插件、deepseek插件。都用的alc
+
+
+
+
+
 
 
 

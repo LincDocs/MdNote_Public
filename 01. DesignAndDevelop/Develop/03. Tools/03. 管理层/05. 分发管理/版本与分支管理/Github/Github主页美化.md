@@ -120,6 +120,23 @@ Github Star统计
 ![Hrishikesh's github stats](https://github-readme-stats.vercel.app/api/?username=hrishikesh-coder&show_icons=true&title_color=fff&icon_color=79ff97&text_color=9f9f9f&bg_color=151515)
 ```
 
+Github Star统计2
+
+特点：包括行数。但感觉不是很准
+
+```html
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)"
+      srcset="https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=25877214&image_size=auto&color_scheme=dark"
+      width="771" height="auto">
+    <img alt="Dashboard stats"
+      src="https://next.ossinsight.io/widgets/official/compose-user-dashboard-stats/thumbnail.png?user_id=25877214&image_size=auto&color_scheme=light"
+      width="771" height="auto">
+  </picture>
+</p>
+```
+
 语言统计（这些的显示效果有些区别，不是官方的，是第三方爬虫）
 
 ```html

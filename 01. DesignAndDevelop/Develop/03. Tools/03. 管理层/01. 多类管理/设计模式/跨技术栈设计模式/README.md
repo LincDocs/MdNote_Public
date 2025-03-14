@@ -40,11 +40,11 @@ Design Patterns Across Stacks（跨技术栈设计模式实现手册）
 
 [card]
 
-- ![](assets/7236e385c5ea4c43d124e91f996bf9ff.jpg)
-- ![](assets/273e61ec30d8b11d6c703e13fe94a7d3.jpg)
-- ![](assets/08a8365b9aeef3e4d935162e3def693a.jpg)
-- ![](assets/dc17aec88508c8db99a378522869c6c2.jpg)
-- ![](assets/8a305282577ae71231f1e956f7ac0415.jpg)
-- ![](assets/8582bc37a3df1f5f89f9a143e61bba2f.jpg)
+- ![](./assets/7236e385c5ea4c43d124e91f996bf9ff.jpg)
+- ![](./assets/273e61ec30d8b11d6c703e13fe94a7d3.jpg)
+- ![](./assets/08a8365b9aeef3e4d935162e3def693a.jpg)
+- ![](./assets/dc17aec88508c8db99a378522869c6c2.jpg)
+- ![](./assets/8a305282577ae71231f1e956f7ac0415.jpg)
+- ![](./assets/8582bc37a3df1f5f89f9a143e61bba2f.jpg)
 
 
