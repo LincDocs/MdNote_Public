@@ -286,18 +286,3 @@ pip install requests httpx aiohttp
 
 
 
-
-
-[card|addClass(ab-col2 ab-lay-grid)]
-
-- 1
-- 2
-- 3
-- 4
-- 5
-- 6
-- 8
-- 9
-- 0
-
-
