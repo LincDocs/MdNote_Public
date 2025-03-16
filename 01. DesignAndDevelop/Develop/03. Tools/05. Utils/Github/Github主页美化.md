@@ -1,5 +1,9 @@
 # Github主页美化
 
+一个简单的github api: https://api.github.com/users/username
+
+可以获取用户id (有的服务需要用到)
+
 ## github.io网站模板
 
 参考：https://blog.csdn.net/qd1813100174/article/details/128604858
@@ -16,7 +20,7 @@
 
 ## Github首页-组织版
 
-详见 [Github主页美化-组织版](./Github主页美化-组织版.md) , 组织版本的主页设置有所不同的
+详见 [Github主页美化-组织版](Github主页美化-组织版.md) , 组织版本的主页设置有所不同的
 
 ## Github首页模板
 
