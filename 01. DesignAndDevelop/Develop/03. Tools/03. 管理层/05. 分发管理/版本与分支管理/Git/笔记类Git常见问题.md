@@ -18,6 +18,8 @@
 
 https://blog.csdn.net/weixin_44814196/article/details/135834224 这里有几种解决方法
 
+### ~~配置方法~~
+
 这里我仅举例配置的方式：
 
 关闭git 忽略大小写配置 （可以当前项目设置，也可以全局设置 --global）
@@ -27,3 +29,16 @@ git config core.ignorecase       # 查看当前配置，不出意外，返回tru
 git config core.ignorecase false # 修改配置，关闭 git 忽略大小写配置
 ```
 
+### git命令重命名
+
+后来发现上面的配置方式会有一个问题：只有被重命名的文件夹及里面的文件是增加的，而非被移动的
+
+我们可以用git命令来重命名
+
+```bash
+git mv Folder folder.tmp
+git mv folder.tmp folder
+
+# 或强制重命名
+git mv -f OldFile.txt newfile.txt
+```
