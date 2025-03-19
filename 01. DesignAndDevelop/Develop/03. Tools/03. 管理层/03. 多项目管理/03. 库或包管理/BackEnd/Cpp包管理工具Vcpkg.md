@@ -252,4 +252,4 @@ find_package(spdlog CONFIG REQUIRED) # 使用 vcpkg 的清单模式时，`find_p
 
 ### 不同IDE的按钮与命令行的对应关系
 
-详见 [[../../../../02. 开发层/How to build/cpp/README]]
+详见 [[../../../../02. 开发层/How to build/Cpp/README]]
