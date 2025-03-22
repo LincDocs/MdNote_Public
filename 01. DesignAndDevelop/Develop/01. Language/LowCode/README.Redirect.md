@@ -1,4 +1,4 @@
-# LowCode 重定向
+# LowCode 重定向、调研
 
 - 三维软件中的 LowCode
   - [3D/Soft/](../../../3D/Soft/)
@@ -9,6 +9,11 @@
   - 见我个人产品里的 `pyqt-node-editor`，及github上的类似产品
 - 应用
   - [./Oomol](./Oomol.md)
+  - [./Dify](./Dify.md)
+  - [./Coze](./Coze.md)
   - [VueFlow](../../04.%20Project/Platform/Web/03.%20前端组件/组件库/VueFlow/README.md)
+
+
+
 
 
