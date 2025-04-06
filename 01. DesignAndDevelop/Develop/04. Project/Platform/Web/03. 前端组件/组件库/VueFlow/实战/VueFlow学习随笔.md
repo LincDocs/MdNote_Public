@@ -232,3 +232,22 @@ export type VueFlowStore =
   - nodes
   - edges
 
+## 注入相关
+
+https://github.com/search?q=repo%3Abcakmakoglu%2Fvue-flow+provide%28&type=code
+
+能发现几个主要的注入数据：
+
+```ts
+provide(NodeId, props.id)
+provide(NodeRef, nodeElement)
+
+provide(EdgeId, props.id)
+provide(EdgeRef, edgeEl)
+
+provide(VueFlow, vueFlow)
+provide(BlobityInjection, blobity as Ref<Blobity>)
+provide(Slots, slots)
+```
+
+
