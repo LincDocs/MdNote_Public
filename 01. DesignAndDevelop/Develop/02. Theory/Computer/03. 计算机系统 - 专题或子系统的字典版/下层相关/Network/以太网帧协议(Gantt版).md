@@ -367,4 +367,35 @@ IEEE 802.3 (MAC802)
 - 常见应用：较少单独使用，更多的是在特定的网络管理和控制系统中。
 - 特点：IEEE 802.3帧格式包括一个长度字段，用于指示数据字段的长度，而不是EtherType。
 
+## mermaid新版的 Packet图表示 (需要新版)
+
+> [!note]
+> 
+> 主要是旧版本中，mermaid 还没有 Packet 功能，当时我是用 plantuml 的 gantt 图实现的 (不是mermaid的gantt图)。
+> 现在mermaid支持了 Packet，语法更简单简洁，用这个会更好。
+
+```mermaid
+---
+title: "TCP Packet"
+---
+packet-beta
+0-15: "Source Port"
+16-31: "Destination Port"
+32-63: "Sequence Number"
+64-95: "Acknowledgment Number"
+96-99: "Data Offset"
+100-105: "Reserved"
+106: "URG"
+107: "ACK"
+108: "PSH"
+109: "RST"
+110: "SYN"
+111: "FIN"
+112-127: "Window"
+128-143: "Checksum"
+144-159: "Urgent Pointer"
+160-191: "(Options and Padding)"
+192-255: "Data (variable length)"
+```
+
 

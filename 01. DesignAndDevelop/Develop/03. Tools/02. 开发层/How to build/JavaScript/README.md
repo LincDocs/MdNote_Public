@@ -119,11 +119,16 @@ Pkg可将 [Node.js](https://zhida.zhihu.com/search?content_id=102886924&content_
     - 这里我调研了一下，有个 [Vercel/pkg-fetch](https://github.com/vercel/pkg-fetch)
 2. **升级到 Node.js 21**：Node.js 21 支持单一可执行文件应用程序，你可以考虑升级到 Node.js 21 并使用内置的功能来替代 pkg。
 
-#### ESA (Node21新特性)
+#### SEA (Node21新特性)
 
-从21版本开始支持，但这里复习下：Node的版本和Linux一样，都遵循双数LTS，单数beta的原则。所以我这里用Node22
+参考：
+
+- [Node.js官网对于 SEA 的说明及文档](https://nodejs.org/api/single-executable-applications.html)
+- [Bun 官方文档](https://bun.sh/docs)。
 
 > 笔者写到这里的时候，2025-03-18，官方上显示的最新版本为：Node.js v22.14.0 LTS，beta v23.10.0
+> 
+> SEA 从21版本开始支持，但这里复习下：Node的版本和Linux一样，都遵循双数LTS，单数beta的原则。所以我这里用Node22
 
 核心：**原生单可执行文件（SEA）功能**
 
@@ -163,8 +168,6 @@ npx postject hello NODE_SEA_BLOB sea-prep.blob \
   --sentinel-fuse NODE_SEA_FUSE_fce680ab2cc467b6
 ```
 
-更多技术细节可参考：[Node.js SEA 文档](https://nodejs.org/api/single-executable-applications.html)、[Bun 官方文档](https://bun.sh/docs)。
-
 ### 可执行文件 - 比较
 
 会发现 Pkg 和 ESA 不同
@@ -181,7 +184,7 @@ npx postject hello NODE_SEA_BLOB sea-prep.blob \
 - 通过“虚拟文件系统”在运行时动态加载代码（无需手动注入 `blob`）。
 - 直接生成 `.exe`/二进制文件，用户无需额外操作。
 
-```
+```bash
 # 安装 pkg
 npm install -g pkg
 
