@@ -1,20 +1,36 @@
 # README
 
-## 导航
+## Open source project
 
-- 开源产品
-  - [AnyBlock](./AnyBlock/)
-  - [NodeFlow](./Plugin/NodeFLow/)
-  - [Obsidian-Chat-View-QQ](./Plugin/Obsidian-Chat-View-QQ/)
-  - [Lc Document Web](./Web/LincZero_Document_Library/)
-  - [Lc Nav](./Web/LcNavWeb/)
-  - [BiliTool](./App/B站小工具/)
-  - [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
-- 非开源产品
-  - 略，不予显示
+开源部分
+
+主创开源项目（注意，其中很多项目被我迁移到了organization中。如果你想了解更多，不妨到这些组织仓库里看看）<br>
+（Note that many of these projects were migrated to my organization. If you want to learn more, check out these organizational warehouses）
+
+### Common
+
+- [AnyBlock](./AnyBlock/)
+- [NodeFlow](./Plugin/NodeFLow/)
+- [Obsidian-Chat-View-QQ](./Plugin/Obsidian-Chat-View-QQ/)
+- [Lc Document Web](./Web/LincZero_Document_Library/)
+- [Lc Nav](./Web/LcNavWeb/)
+- [BiliTool](./App/B站小工具/)
+- [LincZero-Help-Oneself](../App/LincZero_Help_Oneself/)
+
+### LincZero
 
 部分项目包含多个也是开源的子项目：（也许是monorepo，也许是multirepo）
 
+- FontEnd
+  - [LincZero.github.io](https://github.com/LincZero/LincZero.github.io)
+  - [NodeFlow](https://github.com/LincZero/obsidian-node-flow)
+  - [AnyBlock](https://github.com/any-block/obsidian-any-block)
+  - [LcNavSite](https://github.com/LincZero/LcNavSite)
+  - [ChatViewQQ](https://github.com/LincZero/obsidian-chat-view-qq)
+- Application
+  - [pyqt-node-editor-master](https://github.com/LincZero/pyqt-node-editor-master)
+  - [SuperManager](https://github.com/LincZero/SuperManager)
+  - [BiliTools](https://github.com/LincZero/BiliTools)
 - [LincZero.github.io](https://github.com/LincZero/LincZero.github.io) (integration)
   - Theme extension
     - [VuePress-Theme-Hope](https://github.com/vuepress-theme-hope/vuepress-theme-hope)
@@ -41,11 +57,34 @@
   - VIA - MyConfig
   - RIME - MyConfig
 
-## 一些声明
+### AnyBlock (My org)
+
+- [AnyBlock](https://github.com/any-block) (organization)
+  - [any-block-obsidian](https://github.com/any-block/obsidian-any-block)
+  - any-block-obsidian-min
+  - markdwon-it-any-block
+  - VuepressDemo (about how to use markdwon-it-any-block in vuepress)
+  - VitepressDemo (about how to use markdwon-it-any-block in vitepress)
+
+### LincDocs (My org)
+
+- [LincDocs](https://github.com/LincDocs) (organization)
+  - [Workflows](https://github.com/LincDocs/Workflow)
+  - many... (include my main documentation project `MdNote_Public`)
+
+### More
+
+还有部分没整理的，自己到对应的组织首页或仓库看
+
+## Non-open source project
+
+非开源部分
+
+见个人简历页那里 (此处不公布页面url和访问密码，如有需要需联系我)
 
 ### 非商业声明
 
-该类产品文档主要展示开源项目，而且一般是纯自主设计、开发的项目
+该文件夹下的产品文档，主要展示**开源项目**，而且一般是纯自主设计、开发的项目
 
 公司项目/商业项目不会放在这 (也许会放在个人作品或简历页(加密)那里)
 
@@ -58,13 +97,15 @@
 
 有一些非成品、待实现的，或仅设计的，我也会放在这，并用 `(idea)` 前缀声明
 
-#### 设计是否允许实现
-
-除了该文件夹外，还有一些相同内容的在 Private 权限的同名文件夹下。
-
-我不希望设计后被抢先实现的，会放在 Private 那边。这边的是允许被实现的。
-
-并且这边的是我乐于看到被实现的（因为这边的主要是我自己想去使用，但自己没有充足的时间精力去做）。但是要做的话最好和我提前说，避免重复开发/开发冲突了
+> [!note]
+> 
+> 设计是否允许实现
+> 
+> 除了该文件夹外，还有一些相同内容的在 Private 权限的同名文件夹下。
+> 
+> 我不希望设计后被抢先实现的，会放在 Private 那边。这边的是允许被实现的。
+> 
+> 并且这边的是我乐于看到被实现的（因为这边的主要是我自己想去使用，但自己没有充足的时间精力去做）。但是要做的话最好和我提前说，避免重复开发/开发冲突了
 
 
 

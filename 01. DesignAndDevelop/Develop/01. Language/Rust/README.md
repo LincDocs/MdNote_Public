@@ -56,8 +56,6 @@
 - 应用
     - 也可以写前端，用WebAssembly写
 
-
-
 如何影响JavaScript？
 
 - 任何能用js写的最终都会使用js写
@@ -66,9 +64,9 @@
     - 现在都是用GO、Rust弄。例如esbuild、deno、next.js、vite
 - 重运行时
 
-
-
 与GO对比
+
+- 略
 
 ## 简单调研
 
