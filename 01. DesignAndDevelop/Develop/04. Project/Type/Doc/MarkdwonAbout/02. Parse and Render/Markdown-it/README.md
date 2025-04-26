@@ -6,6 +6,9 @@
 
 - 通用资料
   - [Github开源地址](https://github.com/markdown-it/markdown-it)
+    - [parser_block.mjs rules](https://github.com/markdown-it/markdown-it/blob/master/lib/parser_block.mjs#L22-L36)
+    - [parser_core.mjs rules](https://github.com/markdown-it/markdown-it/blob/master/lib/parser_core.mjs#L19-L29)
+    - [parser_inline.mjs rules](https://github.com/markdown-it/markdown-it/blob/master/lib/parser_inline.mjs#L28-L41)
   - [Github文档](https://github.com/markdown-it/markdown-it/tree/master/docs)
   - [【Github.io】Markdown-it API 文档](https://markdown-it.github.io/markdown-it/)
   - 中文文档
