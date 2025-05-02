@@ -23,16 +23,17 @@
 - 其他
   - [《Rust语言圣经(Rust Course)》](https://course.rs/about-book.html) [repo](https://github.com/sunface/rust-course) 27k
   - [Rusty Book(锈书)](https://rusty.course.rs/) [repo](https://github.com/sunface/new-rusty-book) 166
+  - [菜鸟Runoob - Rust教程](https://www.runoob.com/rust/rust-tutorial.html)
 
-先重新整理一下电子书资料:
+先重新整理一下电子书资料 (四本) (==**强烈推荐**用这个学rust==):
 
-- [《The Rust Programming Language》](https://doc.rust-lang.org/book/) [repo](https://github.com/rust-lang/book) 15.9k
+- [《Rust语言圣经(Rust Course)》](https://course.rs/about-book.html) [repo](https://github.com/sunface/rust-course) 27k
+- [《The Rust Programming Language》](https://doc.rust-lang.org/book/) [repo](https://github.com/rust-lang/book) 15.9k (官网上推荐)
   [《Rust 程序设计语言》](https://kaisery.github.io/trpl-zh-cn/) [repo](https://github.com/rust-lang-cn/rust-by-example-cn) 1.9k (中文 非官方翻译)
   介绍: 官网圣经，也叫Rust圣经
-- [《Rust By Example》](https://doc.rust-lang.org/rust-by-example/) [repo](https://github.com/rust-lang/rust-by-example) 7.3k
+- [《Rust By Example》](https://doc.rust-lang.org/rust-by-example/) [repo](https://github.com/rust-lang/rust-by-example) 7.3k (官网上推荐)
   [《通过例子学 Rust》](https://rustwiki.org/zh-CN/rust-by-example/) [repo](https://github.com/KaiserY/trpl-zh-cn/tree/main) 4.8k (中文 非官方翻译)
   介绍: 如果您不喜欢阅读大量的文档来学习语言，那么《通过例子学 Rust》就能涵盖您要学的知识
-- [《Rust语言圣经(Rust Course)》](https://course.rs/about-book.html) [repo](https://github.com/sunface/rust-course) 27k
 - [Rusty Book(锈书)](https://rusty.course.rs/) [repo](https://github.com/sunface/new-rusty-book) 166
 
 > [!note]
@@ -77,10 +78,5 @@
 - 缺点
   - https://www.bilibili.com/video/BV1b5411f7qy
   - https://www.bilibili.com/video/BV1Gv4y1y7im
-
-
-
-
-
 
 

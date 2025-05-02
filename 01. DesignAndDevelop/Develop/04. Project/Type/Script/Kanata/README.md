@@ -23,7 +23,7 @@ Author: LincZero
 
 官方项目与文档的结构：
 
-[dir|fold]
+[dir]
 
 - .devcontainer/
 - .github/

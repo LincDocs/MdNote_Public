@@ -46,6 +46,7 @@
     - [onInitialized-json](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugins/ExFormat) (开发)，格式扩展。对NodeFlow的增强，直接识别工作流json文件
     - [onInitialized-pdf](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugins/ExFormat) (开发)，格式扩展。直接识别pdf库
     - [RootSidebar](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugins/RootSidebar) (自研)，侧边栏，带状态，可指定任意层作为树根部
+      - MdBookTool, 支持将MdBook的SUMMARY.md作为数据源生成侧边栏
     - [ReadEnhance](https://github.com/LincZero/LincZero.github.io/tree/main/src/.vuepress/plugins/ReadEnhance) (开发)，阅读增强。除了文本类布局，更多的是为非 `.md` 提供更好的展示效果 (如节点流、pdf等)
   - Workflows extension
     - [LincDocs/Workflows](https://github.com/LincDocs/Workflow) (自研)，特点：构建库与文档库分离、完全零配置 开箱即用、单文件构建 & 可选的单文件配置
@@ -57,7 +58,7 @@
   - VIA - MyConfig
   - RIME - MyConfig
 
-### AnyBlock (My org)
+### AnyBlock (My Org)
 
 - [AnyBlock](https://github.com/any-block) (organization)
   - [any-block-obsidian](https://github.com/any-block/obsidian-any-block)
@@ -66,7 +67,7 @@
   - VuepressDemo (about how to use markdwon-it-any-block in vuepress)
   - VitepressDemo (about how to use markdwon-it-any-block in vitepress)
 
-### LincDocs (My org)
+### LincDocs (My Org)
 
 (It might not be updated in time, see: https://lincdocs.github.io/)
 
@@ -176,7 +177,9 @@ Include many of your own or third party documents, make it easy to manage them, 
 > 
 > 并且这边的是我乐于看到被实现的（因为这边的主要是我自己想去使用，但自己没有充足的时间精力去做）。但是要做的话最好和我提前说，避免重复开发/开发冲突了
 
+## Non-me
 
+(待补充，这里应该会有一些优秀的网络博客)
 
 
 
