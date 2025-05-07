@@ -69,9 +69,7 @@ It is characterized by `multi-tree` structure, The table allows cross rows. (特
 
 md-demo Describe common angiosperms and gymnosperms (描述一下常见被子植物与裸子植物)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2table]
 
@@ -88,43 +86,7 @@ md-demo Describe common angiosperms and gymnosperms (描述一下常见被子植
   - Lotus<br> 荷花
   - Chrysanthemum<br> 菊花 | Chamomile<br> 甘菊
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2table]
-
-- Gymnosperm<br> 裸子植物
-  - Cypress<br> 松树
-    - Chinese pine<br> 油松
-    - Buddhist pine<br> 罗汉松
-    - masson pine<br> 马尾松
-    - Pinus koraiensis<br> 红松
-  - Ginkgo<br> 柏树| (**This** is ~~just~~ a `style` *test*)<br> (**这** ~~仅仅~~ 是一个 `样式` *测试*)
-  - Angiosperms<br> 银杏
-- Angiosperm<br> 被子植物
-  - Sunflower<br> 向日葵
-  - Lotus<br> 荷花
-  - Chrysanthemum<br> 菊花 | Chamomile<br> 甘菊
-
-@tab md source code (md源码)
-
-~~~md
-[list2table]
-
-- Gymnosperm<br> 裸子植物
-  - Cypress<br> 松树
-    - Chinese pine<br> 油松
-    - Buddhist pine<br> 罗汉松
-    - masson pine<br> 马尾松
-    - Pinus koraiensis<br> 红松
-  - Ginkgo<br> 柏树| (**This** is ~~just~~ a `style` *test*)<br> (**这** ~~仅仅~~ 是一个 `样式` *测试*)
-  - Angiosperms<br> 银杏
-- Angiosperm<br> 被子植物
-  - Sunflower<br> 向日葵
-  - Lotus<br> 荷花
-  - Chrysanthemum<br> 菊花 | Chamomile<br> 甘菊
-~~~
-
-:::
+::::
 
 > #### Allow rotation table (允许旋转/转置表格，旧）
 
@@ -136,9 +98,7 @@ md-demo Describe common angiosperms and gymnosperms (描述一下常见被子植
 
 This is a comparison table between Chinese and English (这是一个中英对照表)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2tableT]
 
@@ -149,38 +109,13 @@ This is a comparison table between Chinese and English (这是一个中英对照
 - Lotus | 荷花
 - Chrysanthemum | 菊花
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2tableT]
-
-- Cypress | 松树
-- Ginkgo  | 柏树
-- Angiosperms | 银杏
-- Sunflower | 向日葵
-- Lotus | 荷花
-- Chrysanthemum | 菊花
-
-@tab md source code (md源码)
-
-~~~md
-[list2tableT]
-
-- Cypress | 松树
-- Ginkgo  | 柏树
-- Angiosperms | 银杏
-- Sunflower | 向日葵
-- Lotus | 荷花
-- Chrysanthemum | 菊花
-~~~
-:::
+::::
 
 > #### Allow Transposed table (允许转置表格，新版）
 
 It's the same case, but use `transposition` or `transpose` processor.
 
-:::tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [table|transposition]
 
@@ -190,35 +125,11 @@ It's the same case, but use `transposition` or `transpose` processor.
 - Lotus         | 荷花
 - Chrysanthemum | 菊花
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[table|transposition]
-
-- Ginkgo        | 柏树
-- Angiosperms   | 银杏
-- Sunflower     | 向日葵
-- Lotus         | 荷花
-- Chrysanthemum | 菊花
-
-@tab md source code (md源码)
-
-~~~md
-[table|transposition]
-
-- Ginkgo        | 柏树
-- Angiosperms   | 银杏
-- Sunflower     | 向日葵
-- Lotus         | 荷花
-- Chrysanthemum | 菊花
-~~~
-
-:::
+::::
 
 It also support multi-cross tables.
 
-:::tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [table|trs]
 
@@ -230,44 +141,15 @@ It also support multi-cross tables.
 - 4
   - 5
   - 6
-
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[table|trs]
-
-- 1
-  - 2 | _
-  - 3
-    - 3.1
-    - 3.2
-- 4
-  - 5
-  - 6
-
-@tab md source code (md源码)
-
-~~~md
-[table|trs]
-
-- 1
-  - 2 | _
-  - 3
-    - 3.1
-    - 3.2
-- 4
-  - 5
-  - 6
-~~~
-
-:::
+  
+::::
 
 > #### Allows other blocks to be embedded、Allows tabel header (允许内嵌其他块、允许表头)
 
 Describe print statements for various common programming languages (描述一下各种常见编程语言的打印语句)
 
-::: tabs
 
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2mdtable]
 
@@ -313,103 +195,11 @@ Describe print statements for various common programming languages (描述一下
     ```
       - Console printing<br>控制台打印
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2mdtable]
-
-- < Language<br>语言
-  - Print statement<br>打印语句
-	  - characteristic<br>特点
-- Java
-  - 
-    ```java
-    System.out.
-        println("Hello World");
-    ```
-    - This sentence is a little long<br>这语句有点长
-- C
-  - 
-    ```c
-    printf("Hello World");
-    ```
-    - The raw C output<br>原始的C输出
-- C++
-  - 
-    ```cpp
-    std::cout<<"Hello Wrold";
-    // <<std::end;
-    ```
-    - Stream output, but this thing has a high performance overhead<br>
-      流输出，但是这东西开销大
-      > - newline：`<<std::end;`
-      > - 换行: `<<std::end;`
-- Python
-  - 
-    ```python
-    print("Hello World")
-    ```
-      - Note that Python2 and Python3 have different print statements<br>
-        需要注意一下Python2和Python3的打印语句不同
-        |python2|python3|
-        |---|---|
-        |`print ""`|`print("")`|
-- JavaScript
-  - 
-    ```js
-    console.log("Hello World");
-    ```
-      - Console printing<br>控制台打印
-
-@tab md source code (md源码)
-
-~~~md
-[list2mdtable]
-
-- < Language<br>语言
-  - Print statement<br>打印语句
-    - characteristic<br>特点
-- Java
-  - ```java
-    System.out.
-        println("Hello World");
-    ```
-    - This sentence is a little long<br>这语句有点长
-- C
-  - ```c
-    printf("Hello World");
-    ```
-    - The raw C output<br>原始的C输出
-- C++
-  - ```cpp
-    std::cout<<"Hello Wrold";
-    // <<std::end;
-    ```
-    - Stream output, but this thing has a high performance overhead<br>
-      流输出，但是这东西开销大
-      > - newline：`<<std::end;`
-      > - 换行: `<<std::end;`
-- Python
-  - ```python
-    print("Hello World")
-    ```
-      - Note that Python2 and Python3 have different print statements<br>需要注意一下Python2和Python3的打印语句不同
-        |python2|python3|
-        |---|---|
-        |`print ""`|`print("")`|
-- JavaScript
-  - ```js
-    console.log("Hello World");
-    ```
-      - Console printing<br>控制台打印
-~~~
-
-:::
+::::
 
 > #### It makes it look like a list instead of a table (可以让他看起来像列表而不是表格)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2table|addClass(ab-table-fc)|addClass(ab-table-likelist)]
 
@@ -426,54 +216,15 @@ Describe print statements for various common programming languages (描述一下
 - A3
   - B1
   - B2
-
-@tab No plugin effect (无插件效果)
 
 *注意：这里的头部可以用 `%%` 注释不显示，也可以用别名机制使其简短，这里只是为了展示可以串联多个ab转换器进行修改。
 正常来说没有这么长的*
 
-(noPlugin)[list2table|addClass(ab-table-fc)|addClass(ab-table-likelist)]
-
-- A1
-  - B1
-  - B2
-- A2
-  - B1 
-  - B2
-    - C1
-    - C2
-      - D1
-  - B3
-- A3
-  - B1
-  - B2
-
-@tab md source code (md源码)
-
-~~~md
-[list2table|addClass(ab-table-fc)|addClass(ab-table-likelist)]
-
-- A1
-  - B1
-  - B2
-- A2
-  - B1 
-  - B2
-    - C1
-    - C2
-      - D1
-  - B3
-- A3
-  - B1
-  - B2
-~~~
-:::
+::::
 
 or
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2c2t|addClass(ab-table-fc)|addClass(ab-table-likelist)]
 
@@ -491,45 +242,7 @@ or
   - B1
   - B2
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2c2t|addClass(ab-table-fc)|addClass(ab-table-likelist)]
-
-- A1
-  - B1
-  - B2
-- A2
-  - B1 
-  - B2
-    - C1
-    - C2
-      - D1
-  - B3
-- A3
-  - B1
-  - B2
-
-@tab md source code (md源码)
-
-~~~md
-[list2c2t|addClass(ab-table-fc)|addClass(ab-table-likelist)]
-
-- A1
-  - B1
-  - B2
-- A2
-  - B1 
-  - B2
-    - C1
-    - C2
-      - D1
-  - B3
-- A3
-  - B1
-  - B2
-~~~
-
-:::
+::::
 
 ### list2listTable (列表转列表格)
 
@@ -547,65 +260,25 @@ You can click on the row with the arrow and fold it (你可以点击有箭头的
 
 （DEV TODO：fix bug：多行时，折叠功能似乎存在问题）
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2lt]
 
 - < Company name<br>公司名| Superior section<br>上级部门| Principal<br>负责人| Phone<br>电话
 - ==ABC head office==| | | 
   - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
-    - Marketing section| **Shanghai branch** | LiSi| 
-      |self    |father  |mother  |
-      |--------|--------|--------|
-      |201xxxxx|202xxxxx|203xxxxx|
+    - Marketing section| **Shanghai branch** | LiSi| _
       - Marketing Division 1| | | 
       - Marketing Division 2| | | 
     - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
   - *Beijing branch*| ==ABC head office==  | ChenLiu| 16&xxxxxxxx
     - Technical division| *Beijing branch* | OuYang| 17&xxxxxxxx
-    - Finance| *Beijing branch* | HuangPu| 18&xxxxxxxx
-
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2lt]
-
-- < Company name<br>公司名| Superior section<br>上级部门| Principal<br>负责人| Phone<br>电话
-- ==ABC head office==| | | 
-  - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
-    - Marketing section| **Shanghai branch** | LiSi| 
+    - Finance| *Beijing branch* | HuangPu| 
       |self    |father  |mother  |
       |--------|--------|--------|
       |201xxxxx|202xxxxx|203xxxxx|
-      - Marketing Division 1| | | 
-      - Marketing Division 2| | | 
-    - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
-  - *Beijing branch*| ==ABC head office==  | ChenLiu| 16&xxxxxxxx
-    - Technical division| *Beijing branch* | OuYang| 17&xxxxxxxx
-    - Finance| *Beijing branch* | HuangPu| 18&xxxxxxxx
 
-@tab md source code (md源码)
-
-~~~md
-[list2lt]
-
-- < Company name<br>公司名| Superior section<br>上级部门| Principal<br>负责人| Phone<br>电话
-- ==ABC head office==| | | 
-  - **Shanghai branch**| ==ABC head office==  | ZhangSan| 13&xxxxxxxx
-    - Marketing section| **Shanghai branch** | LiSi| 
-      |self    |father  |mother  |
-      |--------|--------|--------|
-      |201xxxxx|202xxxxx|203xxxxx|
-      - Marketing Division 1| | | 
-      - Marketing Division 2| | | 
-    - Sales section| **Shanghai branch** | WangWu| 15&xxxxxxxx
-  - *Beijing branch*| ==ABC head office==  | ChenLiu| 16&xxxxxxxx
-    - Technical division| *Beijing branch* | OuYang| 17&xxxxxxxx
-    - Finance| *Beijing branch* | HuangPu| 18&xxxxxxxx
-~~~
-
-:::
+::::
 
 > #### It makes it look like a list instead of a table (可以让他看起来像列表而不是表格)
 
@@ -613,9 +286,7 @@ This is also called "optimizing list" (这也叫优化列表)
 
 The essence is "listtable" based on the addition of a mock list style (本质是 "列表格" 的基础上增加仿列表样式)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list]
 
@@ -637,61 +308,14 @@ The essence is "listtable" based on the addition of a mock list style (本质是
   - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
   - ...
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list]
-
-- vue-demo/
-  - build/， 项目构建(webpack)相关代码
-  - config/， 配置目录，包括端口号等。我们初学可以使用默认的
-  - node_modules/， npm 加载的项目依赖模块
-  - src/， 这里是我们要开发的目录
-    - assets/， 放置一些图片，如logo等
-    - components， 目录里面放了一个组件文件，可以不用
-    - App.vue， 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录
-    - main.js， 项目的核心文件。
-  - static/， 静态资源目录，如图片、字体等
-  - test/， 初始测试目录，可删除
-  - .eslintignore
-  - .gitignore， git配置
-  - .index.html， 首页入口文件，你可以添加一些 meta 信息或统计代码啥的
-  - package.json， 项目配置文件
-  - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
-  - ...
-
-@tab md source code (md源码)
-
-~~~md
-[list]
-
-- vue-demo/
-  - build/， 项目构建(webpack)相关代码
-  - config/， 配置目录，包括端口号等。我们初学可以使用默认的
-  - node_modules/， npm 加载的项目依赖模块
-  - src/， 这里是我们要开发的目录
-    - assets/， 放置一些图片，如logo等
-    - components， 目录里面放了一个组件文件，可以不用
-    - App.vue， 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录
-    - main.js， 项目的核心文件。
-  - static/， 静态资源目录，如图片、字体等
-  - test/， 初始测试目录，可删除
-  - .eslintignore
-  - .gitignore， git配置
-  - .index.html， 首页入口文件，你可以添加一些 meta 信息或统计代码啥的
-  - package.json， 项目配置文件
-  - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
-  - ...
-~~~
-:::
+::::
 
 
 > #### Allow presentation a file directory (允许表示为文件目录)
 
 The essence is "listtable" based on the addition of imitation directory style (本质是"列表格"的基础上增加仿目录样式)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2dt]
 
@@ -713,58 +337,11 @@ The essence is "listtable" based on the addition of imitation directory style (�
   - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
   - ...
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2dt]
-
-- vue-demo/
-  - build/， 项目构建(webpack)相关代码
-  - config/， 配置目录，包括端口号等。我们初学可以使用默认的
-  - node_modules/， npm 加载的项目依赖模块
-  - src/， 这里是我们要开发的目录
-    - assets/， 放置一些图片，如logo等
-    - components， 目录里面放了一个组件文件，可以不用
-    - App.vue， 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录
-    - main.js， 项目的核心文件。
-  - static/， 静态资源目录，如图片、字体等
-  - test/， 初始测试目录，可删除
-  - .eslintignore
-  - .gitignore， git配置
-  - .index.html， 首页入口文件，你可以添加一些 meta 信息或统计代码啥的
-  - package.json， 项目配置文件
-  - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
-  - ...
-
-@tab md source code (md源码)
-
-~~~md
-[list2dt]
-
-- vue-demo/
-  - build/， 项目构建(webpack)相关代码
-  - config/， 配置目录，包括端口号等。我们初学可以使用默认的
-  - node_modules/， npm 加载的项目依赖模块
-  - src/， 这里是我们要开发的目录
-    - assets/， 放置一些图片，如logo等
-    - components， 目录里面放了一个组件文件，可以不用
-    - App.vue， 项目入口文件，我们也可以直接将组件写这里，而不使用 components 目录
-    - main.js， 项目的核心文件。
-  - static/， 静态资源目录，如图片、字体等
-  - test/， 初始测试目录，可删除
-  - .eslintignore
-  - .gitignore， git配置
-  - .index.html， 首页入口文件，你可以添加一些 meta 信息或统计代码啥的
-  - package.json， 项目配置文件
-  - READED.md， 项目的说明文档，markdown 格式<br>手动换行测试<br>自动换行测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试测试k
-  - ...
-~~~
-:::
+::::
 
 Ascii Tree
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2astreeH|code()]
 
@@ -780,46 +357,11 @@ Ascii Tree
 	- .editorconfig
 	- ...
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2astreeH|code()]
-
-- vue-demo/
-	- build/
-	- config/
-	- src/
-		- assets/
-			- a/
-				- b
-		- components
-	- .babelrc
-	- .editorconfig
-	- ...
-
-@tab md source code (md源码)
-
-~~~md
-[list2astreeH|code()]
-
-- vue-demo/
-	- build/
-	- config/
-	- src/
-		- assets/
-			- a/
-				- b
-		- components
-	- .babelrc
-	- .editorconfig
-	- ...
-~~~
-:::
+::::
 
 WBS (Work Breakdown Structure, 工作分解结构)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2pumlWBS]
 
@@ -840,50 +382,7 @@ WBS (Work Breakdown Structure, 工作分解结构)
 	- static/
 	- test/
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2pumlWBS]
-
-- vue-demo/
-  - build/
-  - config/
-  - node_modules/
-  - src/
-    - < assets/
-      - < a
-        - b
-        - < c
-      - d
-      - e
-    - components
-    - App.vue
-    - main.js
-  - static/
-  - test/
-
-@tab md source code (md源码)
-
-~~~md
-[list2pumlWBS]
-
-- vue-demo/
-  - build/
-  - config/
-  - node_modules/
-  - src/
-    - < assets/
-      - < a
-        - b
-        - < c
-      - d
-      - e
-    - components
-    - App.vue
-    - main.js
-  - static/
-  - test/
-~~~
-:::
+::::
 
 ### list2ut (列表转数据表格)
 
@@ -895,9 +394,7 @@ The feature is that cells are not allowed to cross rows or columns (特点是单
 
 描述一下你对下面各种水果的看法
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2ut]
 
@@ -914,43 +411,7 @@ The feature is that cells are not allowed to cross rows or columns (特点是单
   - 橙色
   - orange
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2ut]
-
-- < 水果
-  - 颜色
-  - 英文
-- 苹果
-  - 红色
-  - apple
-- 香蕉
-  - 黄色
-  - banana
-- 橘子
-  - 橙色
-  - orange
-
-@tab md source code (md源码)
-
-~~~md
-[list2ut]
-
-- < 水果
-  - 颜色
-  - 英文
-- 苹果
-  - 红色
-  - apple
-- 香蕉
-  - 黄色
-  - banana
-- 橘子
-  - 橙色
-  - orange
-~~~
-
-:::
+::::
 
 > #### Another way to write it (另一种写法)
 
@@ -958,9 +419,7 @@ The feature is that cells are not allowed to cross rows or columns (特点是单
 
 demo 另一种写法
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2ut]
 
@@ -974,37 +433,7 @@ demo 另一种写法
   - 颜色: 橙色
   - 英文: orange
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2ut]
-
-- 苹果
-  - 颜色: 红色
-  - 英文: apple
-- 香蕉
-  - 颜色: 黄色
-  - 英文: banana
-- 橘子
-  - 颜色: 橙色
-  - 英文: orange
-
-@tab md source code (md源码)
-
-~~~md
-[list2ut]
-
-- 苹果
-  - 颜色: 红色
-  - 英文: apple
-- 香蕉
-  - 颜色: 黄色
-  - 英文: banana
-- 橘子
-  - 颜色: 橙色
-  - 英文: orange
-~~~
-
-:::
+::::
 
 > #### Lists above level 2 are considered part of the content (二级以上的列表视为内容的一部分)
 
@@ -1034,9 +463,7 @@ Can be used as a timeline, but developing (可以当时间线使用, 但开发�
 
 @attension 这里在渲染模式可能与table-extended插件冲突
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2timeline]
 
@@ -1068,73 +495,7 @@ Can be used as a timeline, but developing (可以当时间线使用, 但开发�
   
   洪秀全金田村发动起义，建号太平天国。1853年3月，占领南京,定为首都,改名天京，正式宜告太平天国农民政权的建立。颁布《天朝天亩制度》、天平军北伐
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2timeline]
-
-- 1840-06:  英军发动鸦片战争
-
-- 1842-08
-  
-  清政府与英国签订《南京条约》:
-  1. 中国割让香港岛给英国;
-  2. 赔款洋银2100万元;
-  3. 开放广州、厦门、福州、宁波、上海五处为通商口岸;
-
-  > [!note]
-  > 《南京条约》影响
-  >
-  > 1. 中国近代史上第一个不平等条约，给中国人民带来深重的灾难，开创了列强以条约形式侵略和奴役中国的恶例;
-  > 2. 中国的国家主权和领土完整遭到破坏，逐步沦为半殖民地半封建社会;
-  > 3. 中国社会的主要矛盾由地主阶级与农民阶级的矛盾，演变为帝国主义和中华民族的矛盾（主要矛盾)、封建主义和人民大众的矛盾;
-  > 4. 反侵略反封建成为中国人民肩负的两大历史任务;
-  > 5. 中国逐渐开始了反帝反封建的资产阶级民主革命。
-
-- 1841-05
-  
-  三元里人民的抗英斗争，是中国近代史上中国人民第一次大规模的反侵略武装斗争。
-  
-  > ![ ](https://tse1-mm.cn.bing.net/th/id/R-C.4bbce1406f4442c1360edde26baa894d?rik=iHeUeby0jS5lnw&riu=http%3a%2f%2fp8.qhmsg.com%2fdr%2f270_500_%2ft01dbb76ff833d0a159.jpg&ehk=yggnC0t62%2b6DEVjvBgs%2fXJuuexBucd66FTc5gL0Gw%2fA%3d&risl=&pid=ImgRaw&r=0)
-  
-- 1851-01
-  
-  洪秀全金田村发动起义，建号太平天国。1853年3月，占领南京,定为首都,改名天京，正式宜告太平天国农民政权的建立。颁布《天朝天亩制度》、天平军北伐
-
-@tab md source code (md源码)
-
-~~~md
-[list2timeline]
-
-- 1840-06:  英军发动鸦片战争
-
-- 1842-08
-  
-  清政府与英国签订《南京条约》:
-  1. 中国割让香港岛给英国;
-  2. 赔款洋银2100万元;
-  3. 开放广州、厦门、福州、宁波、上海五处为通商口岸;
-
-  > [!note]
-  > 《南京条约》影响
-  >
-  > 1. 中国近代史上第一个不平等条约，给中国人民带来深重的灾难，开创了列强以条约形式侵略和奴役中国的恶例;
-  > 2. 中国的国家主权和领土完整遭到破坏，逐步沦为半殖民地半封建社会;
-  > 3. 中国社会的主要矛盾由地主阶级与农民阶级的矛盾，演变为帝国主义和中华民族的矛盾（主要矛盾)、封建主义和人民大众的矛盾;
-  > 4. 反侵略反封建成为中国人民肩负的两大历史任务;
-  > 5. 中国逐渐开始了反帝反封建的资产阶级民主革命。
-
-- 1841-05
-  
-  三元里人民的抗英斗争，是中国近代史上中国人民第一次大规模的反侵略武装斗争。
-  
-  > ![ ](https://tse1-mm.cn.bing.net/th/id/R-C.4bbce1406f4442c1360edde26baa894d?rik=iHeUeby0jS5lnw&riu=http%3a%2f%2fp8.qhmsg.com%2fdr%2f270_500_%2ft01dbb76ff833d0a159.jpg&ehk=yggnC0t62%2b6DEVjvBgs%2fXJuuexBucd66FTc5gL0Gw%2fA%3d&risl=&pid=ImgRaw&r=0)
-  
-- 1851-01
-  
-  洪秀全金田村发动起义，建号太平天国。1853年3月，占领南京,定为首都,改名天京，正式宜告太平天国农民政权的建立。颁布《天朝天亩制度》、天平军北伐
-~~~
-
-:::
+::::
 
 #### Tabs (标签页)
 
@@ -1144,9 +505,7 @@ Can be used as a TAB page, but developing
 
 How to install python on each platform (python在各平台上的安装方法)：
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2tab]
 
@@ -1164,51 +523,11 @@ How to install python on each platform (python在各平台上的安装方法)：
   - 下载适用于您平台的二进制文件。执行二进制。
   - 在 Mac 上，这将默认在 dmg 安装程序中完成。
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2tab]
-
-- linux
-  - 可以通过执行以下命令在终端中使用 apt 包安装程序：
-    ```shell
-    apt-get install python3.6
-    ```
-- windows
-  - 转到官方 Python 站点，并导航到最新版本。在撰写本文时，即 `3.10.6`。
-  - 下载适用于您平台的二进制文件。执行二进制。
-  - 除了将 Python 添加到 `PATH` 之外，您不需要选择任何选项，因为默认安装程序具有您需要的一切。只需单击“安装”即可。
-- macOS
-  - 转到官方 Python 站点，并导航到最新版本。在撰写本文时，即 `3.10.6`。
-  - 下载适用于您平台的二进制文件。执行二进制。
-  - 在 Mac 上，这将默认在 dmg 安装程序中完成。
-
-@tab md source code (md源码)
-
-~~~md
-\[list2tab]
-
-- linux
-  - 可以通过执行以下命令在终端中使用 apt 包安装程序：
-    ```shell
-    apt-get install python3.6
-    ```
-- windows
-  - 转到官方 Python 站点，并导航到最新版本。在撰写本文时，即 `3.10.6`。
-  - 下载适用于您平台的二进制文件。执行二进制。
-  - 除了将 Python 添加到 `PATH` 之外，您不需要选择任何选项，因为默认安装程序具有您需要的一切。只需单击“安装”即可。
-- macOS
-  - 转到官方 Python 站点，并导航到最新版本。在撰写本文时，即 `3.10.6`。
-  - 下载适用于您平台的二进制文件。执行二进制。
-  - 在 Mac 上，这将默认在 dmg 安装程序中完成。
-~~~
-
-:::
+::::
 
 #### Card (卡片)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2card|addClass(ab-col3)]
 
@@ -1226,45 +545,7 @@ How to install python on each platform (python在各平台上的安装方法)：
   - list2
   - list3
 
-@tab No plugin effect (无插件效果)
-
-(noplugin)[list2card|addClass(ab-col3)]
-
-- card1
-  card1_item<br>$1+1=2$
-- card2
-  card2_item
-  ```js
-  var a = 1
-  ```
-- card3
-  card3_item
-  **Bold** *italics* ==highlight== ~~delete~~
-  - list1
-  - list2
-  - list3
-
-@tab md source code (md源码)
-
-````
-\[list2card|addClass(ab-col3)]
-
-- card1
-  card1_item<br>$1+1=2$
-- card2
-  card2_item
-  ```js
-  var a = 1
-  ```
-- card3
-  card3_item
-  **Bold** *italics* ==highlight== ~~delete~~
-  - list1
-  - list2
-  - list3
-````
-
-:::
+::::
 
 ### list2pic 转图像
 
@@ -1275,9 +556,7 @@ How to install python on each platform (python在各平台上的安装方法)：
 
 demo：描述一下树设计的脑图
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2mermaid]
 
@@ -1293,49 +572,13 @@ demo：描述一下树设计的脑图
     - 分支1
     - 分支2
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2mermaid]
-
-- 树结构
-  - 基本术语
-    - A
-    - B(BB)
-    - C(CC)
-      - A
-  - 性质
-  - 基本运算
-  - 二叉树
-    - 分支1
-    - 分支2
-
-@tab md source code (md源码)
-
-~~~md
-[list2mermaid]
-
-- 树结构
-  - 基本术语
-    - A
-    - B(BB)
-    - C(CC)
-      - A
-  - 性质
-  - 基本运算
-  - 二叉树
-    - 分支1
-    - 分支2
-~~~
-
-:::
+::::
 
 #### to pumlMindmap (转plantuml思维导图)
 
 推荐轻量级使用 (不内嵌md)
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2pumlMindmap]
 
@@ -1353,52 +596,13 @@ demo：描述一下树设计的脑图
 	- static/
 	- test/
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2pumlMindmap]
-
-- vue-demo/
-	- build/
-	- config/
-	- node_modules/
-	- src/
-		- assets/
-			- a/
-				- b
-		- components
-		- App.vue
-		- main.js
-	- static/
-	- test/
-
-@tab md source code (md源码)
-
-~~~md
-[list2pumlMindmap]
-
-- vue-demo/
-	- build/
-	- config/
-	- node_modules/
-	- src/
-		- assets/
-			- a/
-				- b
-		- components
-		- App.vue
-		- main.js
-	- static/
-	- test/
-~~~
-:::
+::::
 
 #### to nodes (转节点树图，AnyBlock版思维导图)
 
 在obsidian环境中，如果这部分显示不正确，可以鼠标悬浮在上面并点击右上角的刷新按钮
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2node]
 
@@ -1435,82 +639,7 @@ demo：描述一下树设计的脑图
     |Banana|2|
   - ![](https://markmap.js.org/favicon.png)
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2node]
-
-- Links
-  - [Website](https://markmap.js.org/)
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - test 1-1-3
-    test inline wrap
-    - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-    - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-    - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - **strong** ~~del~~ *italic* ==highlight==
-    - `inline code`
-    - [x] checkbox
-    - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
-    - Katex_mutilLine:
-      $$
-       x = {-b \pm \sqrt{b^2-4ac} \over 2a}
-       $$
-    - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - > [!note]
-      > Now we can wrap very very very very long text based on `maxWidth` option
-  - Blocks
-  - 
-    ```javascript
-    console.log("hello, JavaScript")
-    ```
-  - |Products|Price|
-    |-|-|
-    |Apple|4|
-    |Banana|2|
-  - ![](https://markmap.js.org/favicon.png)
-
-@tab md source code (md源码)
-
-````md
-\\[list2node]
-
-- Links
-  - [Website](https://markmap.js.org/)
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - test 1-1-3
-    test inline wrap
-    - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-    - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-    - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - **strong** ~~del~~ *italic* ==highlight==
-    - `inline code`
-    - [x] checkbox
-    - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$
-    - Katex_mutilLine:
-      $$
-      x = {-b \pm \sqrt{b^2-4ac} \over 2a}
-      $$
-    - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - > [!note]
-      > Now we can wrap very very very very long text based on `maxWidth` option
-  - 
-    ```javascript
-    console.log("hello, JavaScript")
-    ```
-  - |Products|Price|
-    |-|-|
-    |Apple|4|
-    |Banana|2|
-  - ![](https://markmap.js.org/favicon.png)
-````
-
-:::
+::::
 
 min 样式，更紧凑、样式上也更像 markmap
 
@@ -1519,9 +648,7 @@ min 样式，更紧凑、样式上也更像 markmap
 - 差异修复：关于小数的问题：之前试过手动指定取整范围，但也无法保证。可能可以用“小圆点”来使视觉差异减少。另一个方法是用高度差计算，而不应该用 height/2或calc(50%) 这一类来计算，后期有空再改
 - 差异适配：当前主要面对obsidian和vuepress-theme-hope做适配，对ob的适配也是最好的
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2node|addClass(min)]
 
@@ -1559,94 +686,13 @@ min 样式，更紧凑、样式上也更像 markmap
       |Banana|2|
     - ![](https://markmap.js.org/favicon.png)
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2node|addClass(min)]
-
-- Links
-  - [Website](https://markmap.js.org/)
-    - Test
-      - Test2
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - test 1-1-3
-    test inline wrap
-    - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-    - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-    - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - Inline
-      - **strong** ~~del~~ *italic* ==highlight==
-      - `inline code`
-      - [x] checkbox
-    - katex
-      - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ 
-      - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - loogTest
-      - loogTest
-        - Now we can wrap very very very very long text based on `maxWidth` option
-  - Blocks
-    - 
-      ```javascript
-      console.log("hello, JavaScript")
-      ```
-    - |Products|Price|
-      |-|-|
-      |Apple|4|
-      |Banana|2|
-    - ![](https://markmap.js.org/favicon.png)
-
-@tab md source code (md源码)
-
-```md
-\\[list2node|addClass(min)]
-
-
-- Links
-  - [Website](https://markmap.js.org/)
-    - Test
-      - Test2
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - test 1-1-3
-    test inline wrap
-    - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-    - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-    - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - Inline
-      - **strong** ~~del~~ *italic* ==highlight==
-      - `inline code`
-      - [x] checkbox
-    - katex
-      - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ 
-      - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - loogTest
-      - loogTest
-        - Now we can wrap very very very very long text based on `maxWidth` option
-  - Blocks
-    - 
-      ```javascript
-      console.log("hello, JavaScript")
-      ```
-    - |Products|Price|
-      |-|-|
-      |Apple|4|
-      |Banana|2|
-    - ![](https://markmap.js.org/favicon.png)
-```
-
-:::
+::::
 
 #### to markmap (转markmap思维导图)
 
 推荐需要内嵌md时，或需要拖拽折叠等操作时使用
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [list2markmap]
 
@@ -1676,69 +722,7 @@ min 样式，更紧凑、样式上也更像 markmap
     |Banana|2|
   - ![](https://markmap.js.org/favicon.png)
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[list2markmap]
-
-- Links
-  - [Website](https://markmap.js.org/)
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-  - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-  - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - **strong** ~~del~~ *italic* ==highlight==
-    - `inline code`
-    - [x] checkbox
-    - Katex: \$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <\!-- markmap: fold -->
-    - \[More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - Now we can wrap very very very very long text based on `maxWidth` option
-  - Blocks
-  - 
-    ```javascript
-    console.log("hello, JavaScript")
-    ```
-  - | Products | Price |
-    |-|-|
-    | Apple | 4 |
-    | Banana | 2 |
-  - ![](https://markmap.js.org/favicon.png)
-
-@tab md source code (md源码)
-
-~~~md
-[list2markmap]
-
-- Links
-  - [Website](https://markmap.js.org/)
-  - [GitHub](https://github.com/gera2ld/markmap)
-- Related Projects
-  - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
-  - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
-  - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
-- Features
-  - Lists
-    - **strong** ~~del~~ *italic* ==highlight==
-    - `inline code`
-    - [x] checkbox
-    - Katex: \$x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <\!-- markmap: fold -->
-    - \[More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
-    - Now we can wrap very very very very long text based on `maxWidth` option
-  - Blocks
-  - 
-    ```javascript
-    console.log("hello, JavaScript")
-    ```
-  - | Products | Price |
-    |-|-|
-    | Apple | 4 |
-    | Banana | 2 |
-  - ![](https://markmap.js.org/favicon.png)
-~~~
-
-:::
+::::
 
 #### to mermaid mindmap (转mermaid思维导图)
 
@@ -1749,9 +733,7 @@ min 样式，更紧凑、样式上也更像 markmap
 
 这里我就直接使用mermaid官方给的例子了:
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [listroot(root((mindmap)))|list2mindmap]
 
@@ -1771,49 +753,7 @@ min 样式，更紧凑、样式上也更像 markmap
   - Pen and paper
   - Mermaid
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[listroot(root((mindmap)))|list2mindmap]
-
-- Origins
-  - Long history
-  - ::icon(fa fa-book)
-  - Popularisation
-    - British popular psychology author Tony Buzan
-- Research
-  - On effectiveness<br/>and features
-  - On Automatic creation
-    - Uses
-      - Creative techniques
-      - Strategic planning
-      - Argument mapping
-- Tools
-  - Pen and paper
-  - Mermaid
-
-@tab md source code (md源码)
-
-~~~md
-[listroot(root((mindmap)))|list2mindmap]
-
-- Origins
-  - Long history
-  - ::icon(fa fa-book)
-  - Popularisation
-    - British popular psychology author Tony Buzan
-- Research
-  - On effectiveness<br/>and features
-  - On Automatic creation
-    - Uses
-      - Creative techniques
-      - Strategic planning
-      - Argument mapping
-- Tools
-  - Pen and paper
-  - Mermaid
-~~~
-
-:::
+::::
 
 ### Other (其他)
 
@@ -1824,9 +764,7 @@ min 样式，更紧凑、样式上也更像 markmap
 
 例如：
 
-::: tabs
-
-@tab Plugin effect (插件效果)
+::::mditABDemo
 
 [listroot(树结构)]
 
@@ -1838,33 +776,7 @@ min 样式，更紧凑、样式上也更像 markmap
 - 基本运算
 - 二叉树
 
-@tab No plugin effect (无插件效果)
-
-(noPlugin)[listroot(树结构)]
-
-- 基本术语
-  - A
-  - B
-  - C
-- 性质
-- 基本运算
-- 二叉树
-
-@tab md source code (md源码)
-
-```md
-\[listroot(树结构)]
-
-- 基本术语
-  - A
-  - B
-  - C
-- 性质
-- 基本运算
-- 二叉树
-```
-
-:::
+::::
 
 > #### json
 
