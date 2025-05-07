@@ -77,7 +77,7 @@ https://blog.meathill.com/tech/some-basic-experience-about-monorepo.html
 - /supabase/
 - /...
 
-### 创建 pnpm-workspace.yaml
+### 创建 pnpm-workspace.yaml (核心)
 
 ```yml
 packages:
@@ -85,6 +85,11 @@ packages:
   - 'api'
   - 'supabase'
 ```
+
+创建该文件后的影响：
+
+- `pnpm install` 会遍历这些package，并在他们的目录下都执行依赖安装工作
+- 只会在根目录生成 lock 文件，而不是在这些目录下都生成 lock 文件。哪怕你cd到模块再 install
 
 ### 互相引用
 
