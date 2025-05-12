@@ -82,6 +82,64 @@ $ npm publish  # 上传 (注意不要重名、npm账号可能需要邮箱验证)
 
 当上传成功后，可以在npm中搜索到
 
+## 本质
+
+Author: LincZero
+
+之前看教程都没人讲这部分，只告诉了你怎么做，而不告诉你原理。这非常糟糕！
+
+### publish的本质
+
+`npm publish` 这命令本质上就是把执行该命令所在的文件夹，内部除了 `.npmignore` 外的文件上传到npm。
+
+而一般我们比较少直接上传纯ts包，而是先编译成js，再上传。一是这样比较通用，js项目也可以用得上。二是不需要用户二次再编译你库里的东西（不然你俩编译环境不一样，也容易出问题）。
+
+所以一般是先 build 再 publish，但是我们一般可以指定 `onlyPublish` 来自动在在 publish 前自动执行 build或其他命令，以简化操作
+
+### npm install的本质
+
+下载时相当于把之前的上传内容整个下载到 `node_module` 里对应的包文件夹里。
+
+并且npm会建立快速引用内部的别名，让你 `import . from "package_name"` 时引用对应的文件夹里的入口文件 (入口文件是在 `package.json::main` 里指定的)
+
+### npm install from github
+
+既然 publish 和 install 本质上不过是上传/下载文件夹的操作，那么我们也可以用其他方式来管理包。如自己搭建存储包的npm私库、如从本地文件夹/压缩包/github等其他来源进行下载。
+
+比较常见的是github方式。如果该仓库内容同上传npm的内容，及编译好、指定好入口文件，那么就能用。
+
+命令：
+
+```bash
+# 命令原型
+npm install github的clone链接(带.git后缀的那个)
+
+# 例如
+npm i -D https://github.com/pipe01/esbuild-plugin-vue3
+```
+
+并且此时，package.json 里对应的依赖项会显示成：
+
+```bash
+# 从npm安装
+"@the_tree/esbuild-plugin-vue3": "^0.3.1",
+
+# 从github安装
+"esbuild-plugin-vue3": "github:pipe01/esbuild-plugin-vue3",
+```
+
+### github 的 packages
+
+你经常会在项目仓库右侧看到: About、Releases、**Packages**、Contributors、Deployments、Languages 等项 (可以在设置中关闭他们，如果被关闭了，你就看不到他们)
+
+这里我们重点关注一下 Packages 项
+
+对于 npm install from github 来说，设置 github 中的 Packages 项**不是必须的**。你不设置也可以使用: `npm install github的clone连接`
+
+估计是相较于无 packages 的版本，可以设置限定文件夹位置，走工作流后打包编译产物等 (而不是把编译产物一起放在原仓库中)
+
+没用过，不清楚
+
 ## TypeScript 发布
 
 参考：[手把手教你发布兼容TS的JS库到npmjs上](https://cloud.tencent.com/developer/article/2192280)
@@ -103,7 +161,7 @@ $ npm publish  # 上传 (注意不要重名、npm账号可能需要邮箱验证)
                    // 然后验证：tsc --version
                    // 有的资源让写 "tsc -p ."，就是让把生成结果放在本地路径的意思
                    // 执行该命令后，所有ts文件都会被编译成三个文件：.d.ts、.js、.js.map
-    "prepublishOnly": "npm run build" // 这个可以在运行publish之前自动执行，不用每次自己build那么麻烦
+    "prepublishOnly": "npm run build" // 这个可以在运行publish之前自动执行，不用每次自己build完再publish那么麻烦
   }
 }
 ```
@@ -194,6 +252,12 @@ https://www.npmjs.com/package/@ruan-cat/utils
 原理应该都差不多，略
 
 ## (仅个人吐槽)
+
+> 2025-05-10
+> 
+> 过去的自己将成为敌人：
+> 
+> 后来我发现，不是npm publish难，而是当时我那个项目有很多坑。普通简单的项目上传npm是很简单的
 
 > 吐槽：
 > 
