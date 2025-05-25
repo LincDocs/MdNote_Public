@@ -142,6 +142,17 @@ Include many of your own or third party documents, make it easy to manage them, 
 
 ### More
 
+PR
+
+- https://github.com/vuepress
+  - https://github.com/vuepress/core
+  - https://github.com/vuepress/ecosystem
+  - https://github.com/mdit-plugins/mdit-plugins
+- https://github.com/mProjectsCode/obsidian-shiki-plugin
+  - https://github.com/LincZero/obsidian-shiki-plugin
+- [nolebase/markdown-it-bi-directional-links](https://github.com/nolebase/integrations/tree/main/packages/markdown-it-bi-directional-links)
+- ...(挺多的，仅列举最近/主要的)
+
 还有部分没整理的，自己到对应的组织首页或仓库看
 
 ## Non-open source project
