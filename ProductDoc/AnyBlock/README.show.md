@@ -556,7 +556,11 @@ How to install python on each platform (python在各平台上的安装方法)：
 
 demo：描述一下树设计的脑图
 
-::::mditABDemo
+<!--vuepress中，这里不能用ABDemo，很奇怪，不知道为什么-->
+
+:::: tabs
+
+@tab show
 
 [list2mermaid]
 
@@ -571,6 +575,40 @@ demo：描述一下树设计的脑图
   - 二叉树
     - 分支1
     - 分支2
+
+@tab withoutPlugin
+
+(noPlugin)[list2mermaid]
+
+- 树结构
+  - 基本术语
+    - A
+    - B(BB)
+    - C(CC)
+      - A
+  - 性质
+  - 基本运算
+  - 二叉树
+    - 分支1
+    - 分支2
+
+@tab mdSource
+
+~~~~~md
+[list2mermaid]
+
+- 树结构
+  - 基本术语
+    - A
+    - B(BB)
+    - C(CC)
+      - A
+  - 性质
+  - 基本运算
+  - 二叉树
+    - 分支1
+    - 分支2
+~~~~~
 
 ::::
 
@@ -692,7 +730,11 @@ min 样式，更紧凑、样式上也更像 markmap
 
 推荐需要内嵌md时，或需要拖拽折叠等操作时使用
 
-::::mditABDemo
+<!--vuepress中，这里不能用ABDemo，很奇怪，不知道为什么-->
+
+:::: tabs
+
+@tab show
 
 [list2markmap]
 
@@ -722,6 +764,68 @@ min 样式，更紧凑、样式上也更像 markmap
     |Banana|2|
   - ![](https://markmap.js.org/favicon.png)
 
+@tab withoutPlugin
+
+(noPlugin)[list2markmap]
+
+- Links
+  - [Website](https://markmap.js.org/)
+  - [GitHub](https://github.com/gera2ld/markmap)
+- Related Projects
+  - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
+  - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
+  - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
+- Features
+  - Lists
+    - **strong** ~~del~~ *italic* ==highlight==
+    - `inline code`
+    - [x] checkbox
+    - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <\!-- markmap: fold -->
+    - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
+    - Now we can wrap very very very very long text based on `maxWidth` option
+  - Blocks
+  - 
+    ```javascript
+    console.log("hello, JavaScript")
+    ```
+  - |Products|Price|
+    |-|-|
+    |Apple|4|
+    |Banana|2|
+  - ![](https://markmap.js.org/favicon.png)
+
+@tab mdSource
+
+~~~~~md
+[list2markmap]
+
+- Links
+  - [Website](https://markmap.js.org/)
+  - [GitHub](https://github.com/gera2ld/markmap)
+- Related Projects
+  - [coc-markmap](https://github.com/gera2ld/coc-markmap) for Neovim
+  - [markmap-vscode](https://marketplace.visualstudio.com/items?itemName=gera2ld.markmap-vscode) for VSCode
+  - [eaf-markmap](https://github.com/emacs-eaf/eaf-markmap) for Emacs
+- Features
+  - Lists
+    - **strong** ~~del~~ *italic* ==highlight==
+    - `inline code`
+    - [x] checkbox
+    - Katex: $x = {-b \pm \sqrt{b^2-4ac} \over 2a}$ <\!-- markmap: fold -->
+    - [More Katex Examples](#?d=gist:af76a4c245b302206b16aec503dbe07b:katex.md)
+    - Now we can wrap very very very very long text based on `maxWidth` option
+  - Blocks
+  - 
+    ```javascript
+    console.log("hello, JavaScript")
+    ```
+  - |Products|Price|
+    |-|-|
+    |Apple|4|
+    |Banana|2|
+  - ![](https://markmap.js.org/favicon.png)
+~~~~~
+
 ::::
 
 #### to mermaid mindmap (转mermaid思维导图)
@@ -733,7 +837,11 @@ min 样式，更紧凑、样式上也更像 markmap
 
 这里我就直接使用mermaid官方给的例子了:
 
-::::mditABDemo
+<!--vuepress中，这里不能用ABDemo，很奇怪，不知道为什么-->
+
+::::tabs
+
+@tab show
 
 [listroot(root((mindmap)))|list2mindmap]
 
@@ -752,6 +860,48 @@ min 样式，更紧凑、样式上也更像 markmap
 - Tools
   - Pen and paper
   - Mermaid
+
+@tab withoutPlugin
+
+(noPlugin)[listroot(root((mindmap)))|list2mindmap]
+
+- Origins
+  - Long history
+  - ::icon(fa fa-book)
+  - Popularisation
+    - British popular psychology author Tony Buzan
+- Research
+  - On effectiveness<br/>and features
+  - On Automatic creation
+    - Uses
+      - Creative techniques
+      - Strategic planning
+      - Argument mapping
+- Tools
+  - Pen and paper
+  - Mermaid
+
+@tab mdSource
+
+~~~~~md
+[listroot(root((mindmap)))|list2mindmap]
+
+- Origins
+  - Long history
+  - ::icon(fa fa-book)
+  - Popularisation
+    - British popular psychology author Tony Buzan
+- Research
+  - On effectiveness<br/>and features
+  - On Automatic creation
+    - Uses
+      - Creative techniques
+      - Strategic planning
+      - Argument mapping
+- Tools
+  - Pen and paper
+  - Mermaid
+~~~~~
 
 ::::
 
