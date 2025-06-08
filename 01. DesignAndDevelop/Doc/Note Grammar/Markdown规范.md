@@ -31,4 +31,28 @@ mermaid 和 latex 也并不是markdown的标准，只是这两分别使用的mer
 
 另外，其实不需要追求纯原生，有些东西哪怕99%的md软件都支持，他也是非标准的。
 
+## 总结
+
+[table]
+
+- .md
+  - CommonMark
+    - https://spec.commonmark.org/0.31.2/
+  - GFM
+    (Github Flavored Markdown, Github风格Md)
+    - https://github.github.com/gfm/ 或 https://gfm.docschina.org/zh-hans/ (19年标准)
+  - OFM
+    (Obsidian Flavored Markdown, Obsidian风格Md)
+    - https://help.obsidian.md/obsidian-flavored-markdown
+  - Kramdown
+    - https://kramdown.gettalong.org/
+      有点像md + markdown-it-attrs 风格
+- 非.md
+  - .mdx
+    - https://mdxjs.com/
+  - .adoc
+    - https://asciidoc.org/
+      Github支持识别渲染
+  - .mdz
+    - https://www.bilibili.com/video/BV1PZ7hzdEUD
 
