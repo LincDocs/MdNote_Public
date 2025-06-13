@@ -2,8 +2,8 @@
 
 > [!warning]
 > 
-> - (zh) 文档迁移至 https://lincdocs.github.io/AnyBlock/README.html
-> - (en) Migrate the document to https://lincdocs.github.io/AnyBlock/README.html
+> - (zh) 文档迁移至 https://lincdocs.github.io/AnyBlock/README.md
+> - (en) Migrate the document to https://lincdocs.github.io/AnyBlock/README.md
 
 This is the open source project https://github.com/LincZero/obsidian-any-block online documentation
 

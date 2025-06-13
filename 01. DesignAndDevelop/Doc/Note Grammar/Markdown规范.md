@@ -50,6 +50,7 @@ mermaid 和 latex 也并不是markdown的标准，只是这两分别使用的mer
 - 非.md
   - .mdx
     - https://mdxjs.com/
+      将 markdown 和 JSX 语法完美地融合在一起
   - .adoc
     - https://asciidoc.org/
       Github支持识别渲染
