@@ -4,7 +4,7 @@ Author: LincZero
 ---
 # heartbeat
 
-这部分是[我](https://github.com/LincZero)原创的
+这部分是[我](https://github.com/LincZero)原创的，详见 github.com/NestNode/RustDemo
 
 ## 简单heartbeat
 
@@ -99,14 +99,6 @@ let resp = json!({
 ```
 
 ## 用户数统计
-
-
-
-## test
-
-![vscodeTest](../../../../../../../../ZTest/AnyBlock/assets/vscodeTest.js#L2-L3)
-
-(https://github.com/any-block/any-block/blob/main/.gitignore#L8-L13)
 
 
 
