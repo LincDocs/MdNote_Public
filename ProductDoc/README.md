@@ -7,7 +7,17 @@
 主创开源项目（注意，其中很多项目被我迁移到了organization中。如果你想了解更多，不妨到这些组织仓库里看看）<br>
 （Note that many of these projects were migrated to my organization. If you want to learn more, check out these organizational warehouses）
 
-### Common
+### Repo Card
+
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=any-block&repo=any-block&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats) [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&username=LincZero&repo=obsidian-node-flow&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&username=LincZero&repo=obsidian-chat-view-qq&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats) [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=mProjectsCode&repo=obsidian-shiki-plugin&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=vuepress&repo=core&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats) [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=vuepress&repo=ecosystem&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=mdit-plugins&repo=mdit-plugins&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats) [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=nolebase&repo=integrations&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+[![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&username=LincZero&repo=LincZero.github.io&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats) [![Readme Card](https://github-readme-stats.vercel.app/api/pin/?description_lines_count=3&hide_border=true&show_owner=true&username=PKM-er&repo=Pkmer-Math&theme=tokyonight)](https://github.com/anuraghazra/github-readme-stats)
+
+### 文档导航
+
+这里是一部分在该网站上部署文档的仓库的文档页：
 
 - [AnyBlock](./AnyBlock/)
 - [NodeFlow](./Plugin/NodeFLow/)

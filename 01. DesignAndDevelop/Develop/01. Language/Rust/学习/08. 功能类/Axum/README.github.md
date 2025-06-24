@@ -16,7 +16,7 @@
 
 ## ⚠ 重大变更 ⚠
 
-我们目前正在开发 axum 0.9 版本，因此该 `main` 分支包含重大变更。查看该 [`0.8.x`](https://github.com/tokio-rs/axum/tree/v0.8.x) 分支，了解已发布到 crates.io 的内容。
+我们目前正在开发 axum 0.9 版本，因此该 `main` 分支包含重大变更。查看该 [`0.8.x`](https://github.com/tokio-rs/axum/tree/v0.8.x) 分支，了解已发布到 crates.io 的内容
 
 ## 使用示例
 

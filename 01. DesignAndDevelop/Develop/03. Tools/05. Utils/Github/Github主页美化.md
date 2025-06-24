@@ -22,6 +22,47 @@
 
 详见 [Github主页美化-组织版](Github主页美化-组织版.md) , 组织版本的主页设置有所不同的
 
+## 好用的组件
+
+### GitHub Star History
+
+[GitHub Star History](https://star-history.com/)
+
+### github-readme-stats
+
+https://github.com/anuraghazra/github-readme-stats
+
+包括：
+
+- GitHub Stats Card, Star数卡
+- Github Extra Pin
+- Github Gist Pins
+- Top Languages Card, 语言排行卡
+- WakaTime Stats Card
+
+评分问题：
+
+> [!note]
+> 
+> 可用的等级包括:
+> 
+> - S（前 1%）
+> - A+（前 12.5%）、A（前 25%）、A-（前 37.5%）
+> - B+（前 50%）、B（前 62.5%）、B-（前 75%）
+> - C+（前 87.5%）和 C（全体用户）
+> 
+> 此排名机制基于[日本学术评分体系](https://wikipedia.org/wiki/Academic_grading_in_Japan)。全局百分位通过加权计算各项指标（提交数、拉取请求数、代码审查数、问题数、星标数和关注者数）的百分位得出，计算依据为[指数分布](https://wikipedia.org/wiki/exponential_distribution)与[对数正态分布](https://wikipedia.org/wiki/Log-normal_distribution)的累积分布函数。具体实现可查看 [src/calculateRank.js](https://github.com/anuraghazra/github-readme-stats/blob/master/src/calculateRank.js)。等级周围的圆圈显示的是 100 减去全局百分位的结果。
+
+主题：
+
+![](assets/Pasted%20image%2020250615142937.png)
+
+### github-readme-stats-git-master-airopis-projects
+
+Warning: Individuals work mostly in organizations, such as [any-block](https://github.com/any-block) . And github-readme-stats cards [do not support statistics from organizations](https://github.com/anuraghazra/github-readme-stats/issues/1) , so I used [another branch with the warehouse](https://github.com/anuraghazra/github-readme-stats/pull/2459)
+
+注意：个人大部分工作迁移到组织中便于管理，如 [any-block](https://github.com/any-block)。而github-readme-stats卡片[并不支持从组织中进行统计](https://github.com/anuraghazra/github-readme-stats/issues/1)，所以我使用了[另一分支与仓库](https://github.com/anuraghazra/github-readme-stats/pull/2459)
+
 ## Github首页模板
 
 ### 方法
