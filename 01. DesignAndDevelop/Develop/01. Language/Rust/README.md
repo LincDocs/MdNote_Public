@@ -22,6 +22,7 @@
   - [官网社区](https://www.rust-lang.org/zh-CN/community) 有discord和zulip聊天平台、论坛
 - 其他
   - [《Rust语言圣经(Rust Course)》](https://course.rs/about-book.html) [repo](https://github.com/sunface/rust-course) 27k
+  - [《Rust入门秘籍》](https://rust-book.junmajinlong.com/)
   - [Rusty Book(锈书)](https://rusty.course.rs/) [repo](https://github.com/sunface/new-rusty-book) 166
   - [菜鸟Runoob - Rust教程](https://www.runoob.com/rust/rust-tutorial.html)
 
