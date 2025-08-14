@@ -47,13 +47,29 @@ mermaid 和 latex 也并不是markdown的标准，只是这两分别使用的mer
   - Kramdown
     - https://kramdown.gettalong.org/
       有点像md + markdown-it-attrs 风格
-- 非.md
+- 非.md的类md
   - .mdx
     - https://mdxjs.com/
       将 markdown 和 JSX 语法完美地融合在一起
   - .adoc
     - https://asciidoc.org/
-      Github支持识别渲染
+      Github支持识别渲染，全命 AsciiDoc
+  - .rst
+    - reStructuredText
+  - .qd
+    - quarkdown
+  - .qmd
+    - Quarto
   - .mdz
     - https://www.bilibili.com/video/BV1PZ7hzdEUD
-
+- Json类
+  - .ipynb
+- LaTeX类
+  - .tex
+    - LaTeX
+  - .typ
+    - Typst
+- 富文本
+  - .docx
+- 不知道
+  - .org
