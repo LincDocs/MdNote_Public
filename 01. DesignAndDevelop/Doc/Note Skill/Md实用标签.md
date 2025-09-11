@@ -2,6 +2,8 @@
 author: LincZero
 url: 这篇文章我开源过出去，https://forum-zh.obsidian.md/t/topic/12670
 
+create_date: 2024-03-21
+last_date: 2025-08-30
 ---
 
 # Md实用标签
@@ -155,13 +157,13 @@ url: 这篇文章我开源过出去，https://forum-zh.obsidian.md/t/topic/12670
 
 一般是专题笔记才用，如没必要勿使用
 
-| 标签      | 作用                                                         | 使用建议                                                     |
-| --------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ruby + rt | 国家Nation国家Nation<ruby>国家<rt>Nation</rt></ruby> 或 国家Nation国家Nation<ruby>国家<rt>Nation</rt></ruby> | 技术翻译文档里比较常见的（Typora复制有bug）<br />（这个最好字体在18px以上效果较好） |
+| 标签        | 作用                                                                       | 使用建议                                                                 |
+| --------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| ruby + rt | <ruby>国家<rt>Nation</rt></ruby> 或 <ruby>国家<rt>Nation</rt></ruby>          | 技术翻译文档里比较常见的（Typora复制有bug）<br />（这个最好字体在18px以上效果较好）                  |
 | kbd       | <kbd>Ctrl</kbd> + <kbd>C</kbd><br /><kbd>Ctrl Shift</kbd> + <kbd>V</kbd> | KBD即键盘（**K**ey**b**oar**d**）的缩写，主要是快捷键用<br />觉得原生的样式有点一般的，也可以调整一下css |
-| u         | <u>下滑线</u>                                                |                                                              |
-| center    | <center>居中</center><br />（正文生效）                      | 非必要，勿使用                                               |
-| abbr      | <abbr title="kubernetes">k8s</abbr>                          | 缩写，可以为一些缩写添加注释                                 |
+| u         | <u>下滑线</u>                                                               |                                                                      |
+| center    | <center>居中</center><br />（正文生效）                                          | 非必要，勿使用                                                              |
+| abbr      | <abbr title="kubernetes">k8s</abbr>                                      | 缩写，可以为一些缩写添加注释                                                       |
 
 
 

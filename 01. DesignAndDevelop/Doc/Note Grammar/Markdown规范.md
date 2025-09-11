@@ -50,18 +50,29 @@ mermaid 和 latex 也并不是markdown的标准，只是这两分别使用的mer
 - 非.md的类md
   - .mdx
     - https://mdxjs.com/
-      将 markdown 和 JSX 语法完美地融合在一起
+      md + 组件，追求功能性。将 markdown 和 JSX 语法完美地融合在一起
   - .adoc
     - https://asciidoc.org/
-      Github支持识别渲染，全命 AsciiDoc
+    - Github支持识别渲染，全名 AsciiDoc
   - .rst
-    - reStructuredText
+    - reStructuredText，常用于Python社区
+    - Github支持识别渲染
   - .qd
     - quarkdown
   - .qmd
     - Quarto
   - .mdz
     - https://www.bilibili.com/video/BV1PZ7hzdEUD
+  - MediaWiki
+    - [语法-整理](https://dapeng.li/learning/mediawiki/)
+    - [语法](https://www.mediawiki.org/wiki/Help:Formatting/zh)
+    - [语法-表格](https://www.mediawiki.org/wiki/Help:Tables)
+    - Github支持识别渲染
+  - Wikipedia
+    - Wikipedia 的 Pipe 语法
+    - 语法和功能性都很接近html，只比html简化一点。所以得到了强大的功能和难写的语法
+    - [语法](https://zh.wikipedia.org/wiki/Help:%E7%9B%AE%E5%BD%95)
+      [语法-表格](https://zh.wikipedia.org/wiki/Help:%E8%A1%A8%E6%A0%BC)
 - Json类
   - .ipynb
 - LaTeX类
@@ -71,5 +82,26 @@ mermaid 和 latex 也并不是markdown的标准，只是这两分别使用的mer
     - Typst
 - 富文本
   - .docx
-- 不知道
+- 不知道 (未验证)
   - .org
+    - Org-mode，主要用于Emacs用户，支持笔记和任务管理
+      Github可能支持渲染?
+  - .textile
+    - 轻量标记语言
+  - 其他
+    - .rdoc .pod .creole .mediawiki
+
+在Github仓库中编辑Wiki可以看到 Github 所支持的格式:
+
+- AsciiDoc
+- Creole
+- Markdown
+- MediaWiki
+- Org-mode
+- Pod
+- RDoc
+- Textile
+- reStructuredText
+
+![wiki-edit-mode-dropdown.webp](./assets/wiki-edit-mode-dropdown.webp)
+
