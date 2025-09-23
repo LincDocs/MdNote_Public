@@ -5,6 +5,12 @@ Author: LincZero
 
 # README
 
+更多Kanata相关
+
+- Kanata作为软件: [[01. DesignAndDevelop/Doc/]]
+- Kanata脚本编写: [[Develop/04. Project/Type/Script/Kanata/]]
+- Kanata开发研究: [[Develop/04. Project/Plantform/Multi/Tauri/]]
+
 ## 为什么选用、调研
 
 以前是用AutoHotKey的，但我依赖新热键后，脱离后连打字都不流畅了，例如在新电脑或在非Windows平台 (AutoHotKey是纯Winodws的)
