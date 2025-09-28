@@ -11,6 +11,7 @@ author: LincZero
   - [官网](https://v2.tauri.app/)
   - [github](https://github.com/tauri-apps/tauri)
 - 官网文档
+  - **不要直接看中文文档!!!** 除非你没有遇到任何问题，中文文档翻译比较滞后，像我开发过程中看的 logging 页，中文就缺了很多东西。导致我踩了不少坑
   - [中文-首页](https://v2.tauri.app/zh-cn/)
   - [中文-快速入门](https://v2.tauri.app/zh-cn/start/)
   - [文档对应的仓库](https://github.com/tauri-apps/tauri-docs/tree/v2/src/content/docs/zh-cn/start)

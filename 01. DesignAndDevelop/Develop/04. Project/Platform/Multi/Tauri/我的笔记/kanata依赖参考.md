@@ -188,3 +188,11 @@ regex = { version = "1.10.4", optional = true }         # 正则表达式（可�
 
 略
 
+### enigo
+
+- jtroo/kanata使用了部分enigo的逻辑，但没有直接依赖
+  https://github.com/jtroo/kanata/blob/341edb23d54c5c5f5e773324b0ca8b0a4257aa1c/src/oskbd/windows/llhook.rs#L429
+- enigo库
+  https://github.com/enigo-rs/enigo
+
+
