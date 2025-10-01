@@ -150,6 +150,8 @@ windows = { version = "0.58.0", features = [
 
 #### UI Automation库
 
+详见 [uiautomation/uiautomation](uiautomation/uiautomation.md)
+
 #### 总结
 
 | 特性       | `uiautomation` (高层封装) | `windows` (底层绑定)           |

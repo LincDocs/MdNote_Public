@@ -13,9 +13,11 @@
 | F1           | 打开VSCode命令行（不是cmd命令行），往往配合插件使用 |
 | Ctrl+Shift+P | 编辑器设置的命令行                                  |
 
-## 扩展类
+## VSCode 扩展/VSCode 插件
 
 ### VSCode摸鱼
+
+这里还有一部分笔记: MdNote_Public/01. DesignAndDevelop/Develop/03. Tools/01. 知识层/程序员的自我修养/摸鱼.md
 
 百度就会给你介绍很多花式摸鱼的VS插件
 
@@ -24,6 +26,49 @@
 - QQ，能让你在VSCode里聊QQ
 - 小霸王
 - daily anime，追番
+
+### 其他
+
+我比较常用的：
+
+各语言需要的工具:
+
+- ESLint
+- Markdown
+  - Markdown All in One
+  - Markdown Preview Mermaid Support
+- SCSS
+  - Live Sass Compiler
+  - Easy Sass (旧)
+- ... (其他略)
+
+其他我安装的：
+
+- 美化类
+  - region folding for VS Code | Region注释插件
+  - Region Helper
+  - Region Highlighter | (这个我魔改过)
+  - Debug Console Beautify (近期新增)
+- WSL
+- Call Graph
+- Chinese (Simplified) | 汉化
+- Comment Translate | 注释翻译
+- Git         | 忘了是哪个，可以看每行的上次修改
+  - Git Graph | 
+  - GitLens   | 
+- AI类
+  - Github Copilot
+  - Github Copilot Chat
+- Hex Editor
+
+禁用
+
+- Better Folding
+- Explicit Folding
+- Outline Map
+- Output Colorizer
+- Region Marker
+- Region Viewer
 
 ## 界面类
 
