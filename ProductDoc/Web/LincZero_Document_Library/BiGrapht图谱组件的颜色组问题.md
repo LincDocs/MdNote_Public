@@ -1,3 +1,8 @@
+---
+create_date: 2024-12-30
+last_date: 2025-10-21
+author: LincZero
+---
 # BiGrapht图谱组件的颜色组问题
 
 这是一篇讨论文章
