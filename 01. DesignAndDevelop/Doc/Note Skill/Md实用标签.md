@@ -8,18 +8,12 @@ last_date: 2025-08-30
 
 # Md实用标签
 
-# 目录
-
-# Md实用标签
-
 ## 前言：慎用HTML标签
 
 ==【注意】==
 
 - 写作时优先使用Md自带的语法，**少用**HTML标签。几个原因：
-
   1. 实在想要极度样式丰富，那为什么不直接使用富文本编辑呢
-
   2. 应当重视实际内容与效率
 
      Markdown语法简单就是为了把更多精力放在 “写” 上，不要本末倒置，花 “大精力” 去修饰文章
@@ -115,16 +109,13 @@ last_date: 2025-08-30
 
 > #### details标签补充
 
-效果：
-
+```html
 <details>
   <p>我是一段被隐藏的内容</p>
 </details>
-
+```
 
 不兼容的情况（如CSDN）表现为默认展开，不需要担心隐藏内容消失
-
-
 
 使用建议：
 
@@ -133,7 +124,7 @@ last_date: 2025-08-30
 
 2. 真正意义上的 “默认折叠” 我一般用callout语法（admonition插件）
 
-   ````
+   ````markdown
    > [!note]-
    > 默认折叠的隐藏内容
    ````
@@ -151,21 +142,27 @@ last_date: 2025-08-30
 
    但总体而言场景需求较少
 
-
-
 ### 特殊情况使用
 
 一般是专题笔记才用，如没必要勿使用
 
 | 标签        | 作用                                                                       | 使用建议                                                                 |
 | --------- | ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
-| ruby + rt | <ruby>国家<rt>Nation</rt></ruby> 或 <ruby>国家<rt>Nation</rt></ruby>          | 技术翻译文档里比较常见的（Typora复制有bug）<br />（这个最好字体在18px以上效果较好）                  |
-| kbd       | <kbd>Ctrl</kbd> + <kbd>C</kbd><br /><kbd>Ctrl Shift</kbd> + <kbd>V</kbd> | KBD即键盘（**K**ey**b**oar**d**）的缩写，主要是快捷键用<br />觉得原生的样式有点一般的，也可以调整一下css |
-| u         | <u>下滑线</u>                                                               |                                                                      |
-| center    | <center>居中</center><br />（正文生效）                                          | 非必要，勿使用                                                              |
-| abbr      | <abbr title="kubernetes">k8s</abbr>                                      | 缩写，可以为一些缩写添加注释                                                       |
+| ruby + rt | `<ruby>国家<rt>Nation</rt></ruby>`   | 技术翻译文档里比较常见的（Typora复制有bug）<br />（这个最好字体在18px以上效果较好）                  |
+| kbd       | `<kbd>Ctrl</kbd> + <kbd>C</kbd><br /><kbd>Ctrl Shift</kbd> + <kbd>V</kbd>` | KBD即键盘（**K**ey**b**oar**d**）的缩写，主要是快捷键用<br />觉得原生的样式有点一般的，也可以调整一下css |
+| u         | `<u>下滑线</u> `                                                              |                                                               |
+| ~~center~~    | `<center>居中</center><br />`                                        | **HTML弃用，请用样式**。非必要，勿使用                                                              |
+| abbr      | `<abbr title="kubernetes">k8s</abbr>`                                      | 缩写，可以为一些缩写添加注释                                                       |
 
-
+> [!warning]
+> 现已不再推荐 `center` `font` `big` 等标签，不利于结构与样式分离，且他们在HTML4中已经被废弃，并在某些环境中可能报错
+> 
+> ```bash
+> [Vue warn]: Failed to resolve component: center
+> 665If this is a native custom element, make sure to exclude it from component resolution via compileroptions.isCustomElement.
+> 666[Vue warn]: Failed to resolve component: font
+> 667If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
+> ```
 
 兼容性
 （以下表头缩写分别为：Obsidian、Typora、CSDN、掘金、Github、用于代替的HTML标签。）
@@ -178,8 +175,6 @@ last_date: 2025-08-30
 | center    | 🟩    | 🟩    | 🟩    | 🟥    | 🟥    |
 | abbr      | 🟩    | 🟩    | 🟩    | 🟩    | 🟥    |
 
-
-
 ## 不建议使用
 
 ### 一般不建议
@@ -189,7 +184,15 @@ last_date: 2025-08-30
 | font + style样式<br />主要是face size color | <font style="color:red">红色</font><br /><font style="color:blue">蓝色</font><br /><font style="color:green">绿色</font><br /><font style="color:cyan">青色</font> | 看到有的人比较喜欢使用这个。<br />其实还是可以用，如果有工具栏，并且能保证不会以纯文本方式编辑。<br />反正我不喜欢 |
 | class                                       | <p class="custom">自定义</p>                                 | 自定义了一个class，来使用自定义样式。<br />范例：例如萌娘百科的heimu class用来表示一种鼠标悬浮上去才会显示的样式 |
 
-
+> [!warning]
+> 现已不再推荐 `center` `font` `big` 等标签，不利于结构与样式分离，且他们在HTML4中已经被废弃，并在某些环境中可能报错
+> 
+> ```bash
+> [Vue warn]: Failed to resolve component: center
+> 665If this is a native custom element, make sure to exclude it from component resolution via compileroptions.isCustomElement.
+> 666[Vue warn]: Failed to resolve component: font
+> 667If this is a native custom element, make sure to exclude it from component resolution via compilerOptions.isCustomElement.
+> ```
 
 ### 没有任何用的必要
 
@@ -205,60 +208,50 @@ last_date: 2025-08-30
 | h3 (表格外有效) | `<h3>3级标题1</h3>`            | ### 3级标题                                         |
 | ……              | ……                             | ……                                                  |
 
-
-
 ### 纯炫技，毫无卵用
 
 > #### pre+code
 
-可以把源码包含````dataviewjs`之类的直接包含在里面显示出来, 方便复制……但是，不如原生的
+可以把源码包含 `dataviewjs` 之类的直接包含在里面显示出来, 方便复制……但是，不如原生的
 
-`<pre><code>内容</code</pre>>`
-
-<pre><code>内容</code></pre>
+`<pre><code>内容</code></pre>`
 
 兼容性
-
 
 | 标签     | Ob                      | Ty   | CS                      | 掘   | Gi                      |
 | -------- | ----------------------- | ---- | ----------------------- | ---- | ----------------------- |
 | progress | 🟩<br />但原生的就可复制 | 🟥    | 🟥<br />但原生的就可复制 | 🟥    | 🟩<br />但原生的就可复制 |
 
-
-
-
 > #### progress
 
 显示进度条，而且兼容性很差。
-
 
 | 标签     | Ob   | Ty   | CS   | 掘   | Gi   |
 | -------- | ---- | ---- | ---- | ---- | ---- |
 | progress | 🟩    | 🟥    | 🟥    | 🟥    | 🟥    |
 
-效果：
+示例：
 
-<progress max="100" value="60"/>
+`<progress max="100" value="60"/>`
 
 这个兼容性已经很差了，后面的那几个基本上兼容性都不会好。后面的我就不一一地去试兼容性了
-
-
 
 > #### figure
 
 可以给图片一个文字说明。效果：
 
+```html
 <figure>
     <img src="https://img2.baidu.com/it/u=2231228778,2513904551&fm=253" height="120">
     <figcaption>这是一张大象的照片</figcaption>
 </figure>
-
-
+```
 
 > #### area
 
 为图片提供点击热区，可以自己规定一张图的哪些区域可点击；一般配合map使用。效果：
 
+```html
 <div>
 	 <img src="https://img1.baidu.com/it/u=692181697,2515657060&fm=253&app=120&size=w931&n=0&f=JPEG&fmt=auto?sec=1665680400&t=73a9efc9b1274679e2ee4c6a155a98ea" width="100" height="100" alt="" usemap="#map">   
     <map name="map">                    
@@ -266,9 +259,5 @@ last_date: 2025-08-30
         <area shape="rect" coords="0,50,100,100" alt="sougou" href="https://www.sogou.com/">   
     </map>
 </div>
-
-
-
-
-
+```
 

@@ -1,6 +1,6 @@
 ---
-create_date: 2025-10-19
-last_date: 2025-10-21
+create_date: 2025-09-20
+last_date: 2025-09-20
 author: LincZero
 ---
 # Rust非标准全局快捷键
