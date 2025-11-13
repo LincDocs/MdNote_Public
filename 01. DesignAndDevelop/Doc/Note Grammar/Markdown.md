@@ -1,16 +1,12 @@
 # Markdown
 
-# 目录
-
-[toc]
-
 # 数学公式 LaTeX
 
 网站工具：https://latex.codecogs.com/eqneditor/editor.php
 
 ## 数学公式 LaTeX
 
-$$换行使用
+$$换行使用$$
 
 ==行内数学公式：Typora要在偏好设置里开启`内联公式`（建议同时开启上标、下标、高亮）==
 

@@ -1,3 +1,7 @@
+---
+create_date: 2024-10-21
+last_date: 2025-11-13
+---
 # (idea) Gantt
 
 ## 思考内容 (群聊记录)
@@ -33,5 +37,183 @@ https://www.allhistory.com/ (主要关注里面的 “全画作” 一项)
 2006-2010, 柳如烟, 感情线（别问为什么同一时间有两条女，问就是左拥右抱
 ```
 
+## 软件调研
 
+(2025-11-13)
+
+搜索keyword: gantt task calender
+
+(虽然 gantt 不一定表示时间，也可能用来模拟packet，但有些可以参考)
+
+- 其他软件/插件
+  - https://github.com/nhn/tui.calendar ⭐12.5k
+    多种日历视图x甘特图，视图能力**非常强**
+- obsidian 插件调研
+  - https://github.com/SsSanzo/obsidian-gantt ⭐22
+  - https://github.com/702573N/Obsidian-Tasks-Calendar 885
+    这个不行
+
+## 语法调研
+
+obsidian-gantt
+
+````markdown
+```gantt
+Option Title My Gantt Chart!
+Group This is a Group
+Task task 1, t1, , 01/01/2022, 2M
+Task task 2, t2, done, after t1, 1M
+```
+
+```gantt
+Option Title My Gantt Chart!
+
+Group This is a Group
+Task task 1, t1, , 01/01/2022, 2M
+Task task 2, t2, , after t1, 1M
+
+Group This is another Group
+Task task 3, t3, , after t1, 2W
+Milestone important milestone, m1, , after t3
+```
+
+```gantt
+option dependencies On
+
+Group Harry's Tasks
+Task My Task,                          t1,           done, 01/01/2022, 2M
+
+Group Karine's Tasks
+Task My Other Task #3342,                t2, in-progress,        after t1, 06/30/2022
+Task Task With Dependency,  d3,         critical, 2W after t1, 5W, t1
+Task Task With Progress      ,  tp1,    pending , 01/01/2022, 3M,      ,0% 
+```
+````
+
+## 语法再设计
+
+首先，兼容一部分 anyblock 时间线，也可以去兼容一部分 gantt 语法
+
+### 通用语法规则
+
+#### 日期
+
+支持多种格式，可以简单分为两大种:
+
+一是日期格式:
+
+- REG `(\d{4}-\d{2}-\d{2})(?:~(\d{4}-\d{2}-\d{2})|(~)|\+(\d+))?`
+  - 标准日期格式: 如
+  - `2020-01-13` (没截止时间则默认一天)
+  - `2020-01-13~2020-02-13` (用具体日期确定结束时间)
+  - `2020-01-13~` (结束时间未知)
+  - `2020-01-13+8` (用持续时间确定结束时间) (TODO 允许小数点/分数)
+
+二是字符串: (任意表示时间，甚至不是时间也可以，如可以模拟协议图、mermaid packet)
+
+- REG `([^~+]+)(?:~([^~+]+)|(~)|\+(\d+))?`
+  - flag不含 `~/+`。当出现未出现过的时间flag，则会往日期的横轴中依次填充。flag不可重复
+  - `string1` (没截止时间则默认一天)
+  - `string1~string2` (用具体日期确定结束时间)
+  - `string1~` (结束时间未知)
+  - `string+2` (用持续时间确定结束时间) 视为在这个横轴中占据多少格 (TODO 允许小数点/分数)
+
+#### 时间线
+
+注: 存在默认时间线
+
+#### 可选的task/todo标记
+
+### 扁平写法
+
+```markdown
+[gantt]
+
+- 2001-2006        | 默认时间线
+- 2001-2004(事业线) | 做A事情
+- 2002-2005(事业线) | 做B事情
+- 2003-2008(感情线) | 丽丽
+- 2006-2010(感情线) | 柳如烟
+
+或
+
+[gantt]
+
+- [ ] 2001-2006 | 默认时间线
+- [x] 2001-2004 | 做A事情, 事业线
+- [x] 2002-2005 | 做B事情, 事业线
+- [ ] 2003-2008 | 丽丽, 感情线
+- [ ] 2006-2010 | 柳如烟, 感情线
+```
+
+（别问为什么例子里同一时间有两条女，问就是诚哥
+
+### 语法糖 - 按时间分组
+
+```markdown
+[gantt]
+
+- 2001-2004
+  - 做A事情, 事业线
+- 2002-2005
+  - 做B事情, 事业线
+- 2003-2008
+  - 丽丽, 感情线
+- 2006-2010
+  - 柳如烟, 感情线
+
+或
+
+[gantt]
+
+- 2001-2004
+  - [x] 做A事情, 事业线
+- 2002-2005
+  - [x] 做B事情, 事业线
+- 2003-2008
+  - [ ] 丽丽, 感情线
+- 2006-2010
+  - [ ] 柳如烟, 感情线
+```
+
+### 语法糖 - 按时间条分组
+
+```markdown
+[gantt]
+
+- 事业线/
+  - 2001-2004 | 做A事情
+  - 2002-2005 | 做B事情
+- 感情线/
+  - 2003-2008 | 丽丽
+  - 2006-2010 | 柳如烟, 感情线
+
+或
+
+[gantt]
+
+- 事业线/
+  - [x] 2001-2004 | 做A事情
+  - [x] 2002-2005 | 做B事情
+- 感情线/
+  - [ ] 2003-2008 | 丽丽
+  - [ ] 2006-2010 | 柳如烟, 感情线
+```
+
+### 渲染
+
+分组是按上下完全切分，还是按自动分配颜色组
+
+先不支持同一个上下组分颜色组吧，有点麻烦
+
+## 测试
+
+[task2table]
+
+- [x] 1
+  - [ ] 3
+  - [x] 3.2
+- [ ] 2
+  - [ ] 4
+  - [x] 4.2
 
