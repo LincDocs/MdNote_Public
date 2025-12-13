@@ -596,7 +596,202 @@ Quartz 的插件系统是基于 `unified` 生态的，因此集成 remark 或 mi
         - **对于普通链接 (`[[xxx]]`)**：插件会将 `wikiLink` 节点替换成一个标准的 `html` 节点，其内容是一个 `<a>` 标签，例如 `<a href="/xxx">xxx</a>`。`href` 的值是根据第4步解析出的 slug 生成的。
         - **对于内容嵌入 (`![[xxx]]`)**：这正是你问题的核心。插件不会生成 `<a>` 标签。相反，它会将 `wikiLink` 节点替换为一个 `html` 节点，其内容是目标 Markdown 文件（`xxx.md`）**已经被渲染后**的 HTML 内容。这个过程通常被称为“**transclusion**”（嵌入）。
 
+### 核心代码逻辑
 
+这个功能的代码主要位于 `quartz/plugins/transformers/wikilinks.ts` 文件中。以下是其核心逻辑的简化说明：
+
+1. **插件入口**: 插件导出一个 `WikiLinks()` 函数，它返回一个 Remark 插件的结构。
+2. **`visitor` 函数**: 插件内部定义了一个 `visitor` 函数，使用 `unist-util-visit` 库来遍历 AST。
+3. **节点处理**:
+    - `visitor` 函数专门查找类型为 `wikiLink` 的节点。
+    - 对于每个 `wikiLink` 节点，它会检查 `node.data.isEmbed` 属性（这个属性由 `remark-wiki-link` 在解析 `![[...]]` 时设置）。
+    - **如果是嵌入 (Embed)**:
+        - 它会根据链接目标查找对应的文件。
+        - 如果找到文件，它会读取该文件的 `html` 内容（这个 HTML 是 Quartz 在处理那个文件时已经生成并缓存了的）。
+        - 然后，它将当前的 `wikiLink` 节点替换为一个 `html` 节点，`value` 就是读取到的 HTML 字符串。
+    - **如果是普通链接 (Link)**:
+        - 它会生成一个指向目标页面的 URL。
+        - 然后将 `wikiLink` 节点替换为一个 `html` 节点，`value` 是一个完整的 `<a>...</a>` 标签字符串。
+
+### 总结
+
+简单来说，Quartz 通过以下流水线实现了这个功能：
+
+**`[[xxx]]` (链接):** `Markdown Text` → `Remark Parser` + `remark-wiki-link` → `AST with 'wikiLink' node` → `Quartz WikiLinks Transformer` → `AST with 'html' node (<a> tag)` → `HTML File`
+
+**`![[xxx]]` (嵌入/替换):** `Markdown Text` → `Remark Parser` + `remark-wiki-link` → `AST with 'wikiLink' node (isEmbed: true)` → `Quartz WikiLinks Transformer` (查找并注入 `xxx.md` 的渲染结果) → `AST with 'html' node (content of xxx.html)` → `HTML File`
+
+这种基于 AST 的处理方式非常灵活和强大，因为它不是简单的字符串替换，而是在结构层面进行操作，从而能够优雅地处理复杂的嵌套和渲染逻辑。
+
+## Remark wiki link 源码
+
+请给出几个关键步骤所对应的源码链接
+
+gemini 2.5 pro: (部分内容已人工修复)
+
+当然，以下是核心步骤及其对应的源码链接。
+
+为了清晰起见，我们将追溯从 Quartz 的插件配置文件到其依赖的 Remark 插件内部实现。
+
+### 第 1 步：Quartz 启用并配置 Wikilink 插件
+
+首先，Quartz 在其 `plugins/transformers/wikilinks.ts` 文件中定义和配置这个功能。这里的代码告诉 Quartz 如何使用 `remark-wiki-link` 插件，并为其提供解析链接、处理别名等所需的配置。
+
+(gpt给的不对，这里是人工修正答案)
+
+- **源码链接**: [`quartz/plugins/transformers/ofm.ts`](https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/transformers/ofm.ts#L34)
+
+先是 quartz/quartz.config.ts
+
+```typescript
+const config: QuartzConfig = {
+  configuration: {...}
+  plugins: {
+    transformers: [
+      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
+    ],
+    filters: [...],
+    emitters: [...],
+  }
+}
+export default config
+```
+
+然后是 https://github.com/jackyzha0/quartz/blob/v4/quartz/plugins/transformers/ofm.ts#L176
+
+```typescript
+export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
+  ...
+  return {
+    name: "ObsidianFlavoredMarkdown",
+    textTransform(_ctx, src) {
+      // 预转换wiki链接（将锚点固定到可能包含非法语法（如代码块、LaTeX）的内容上）
+      if (opts.wikilinks) {
+        // 首先替换表格内的所有维基链接
+        // 再将所有其他维基链接替换掉
+      }
+    },
+    markdownPlugins(ctx) {
+      const plugins: PluggableList = []
+      plugins.push(() => {
+        return (tree: Root, file) => {
+          if (opts.wikilinks) {
+            //
+          }
+          // ... 填充plugins
+          mdastFindReplace(tree, replacements)
+        }
+      })
+      // ... 填充plugins
+      return plugins
+    },
+    htmlPlugins() {
+      const plugins: PluggableList = [rehypeRaw]
+      // ... 填充plugins
+      return plugins
+    },
+    externalResources() {
+      const js: JSResource[] = []
+      const css: CSSResource[] = []
+      // ... 填充 js 和 css
+      return { js, css }
+    },
+  }
+}
+```
+
+- **关键点**:
+    - `remarkWikiLink`: 这是实际处理 Wikilink 语法的第三方 Remark 插件。
+    - `pageResolver`: 这是 Quartz 传给 `remark-wiki-link` 的一个函数，用来根据 `[[链接目标]]` 中的 "链接目标" 字符串，查找对应的文件路径。这是实现链接的关键。
+
+### 第 2 步：解析 `[[wikilink]]` 语法 (Micromark)
+
+`remark-wiki-link` 插件本身依赖 `micromark-extension-wiki-link` 来实现最底层的语法识别。这个扩展负责在文本中找到 `[[...]]` 模式，并将其标记为一个 `wikiLink` token。
+
+- **源码链接**: [`micromark-extension-wiki-link/index.js`](https://github.com/landakram/micromark-extension-wiki-link/blob/master/src/index.js#L26)
+
+```javascript
+// micromark-extension-wiki-link/index.js
+
+// ...
+
+function tokenize(effects, ok, nok) {
+  return start
+
+  function start(code) {
+    // ... 寻找 '[['
+    effects.enter('wikiLink')
+    effects.enter('wikiLinkMarker')
+    effects.consume(code) // consume '['
+    return open
+  }
+
+  // ... (状态机，解析中间的文本和 ']]')
+}
+```
+- **关键点**:
+    - 这是一个底层的词法分析器扩展，它只负责识别语法，不关心链接指向哪里。
+    - 它将识别出的内容包装成一个 `wikiLink` 类型的 token，交给上层处理。
+
+### 第 3 步：转换 AST 节点 (Remark)
+
+这是最核心的一步。`remark-wiki-link` 插件接收 `micromark` 生成的 AST，找到 `wikiLink` 节点，然后根据配置决定如何转换它。
+
+代码会遍历 AST，当遇到一个 `wikiLink` 节点时，它会：
+1. 调用 `pageResolver` (由 Quartz 提供) 来查找文件的真实路径 (`permalink`)。
+2. 检查这个链接是否是“嵌入”模式 (transclusion)，即 `![[...]]`。
+3. 如果文件存在：
+    - **对于普通链接 `[[...]]`**：将其转换为一个标准的 HTML `<a>` 标签。
+    - **对于嵌入链接 `![[...]]`**：将节点替换为一个 `html` 类型的节点，其内容就是被链接文件的 Markdown **渲染后的 HTML**。
+
+- **源码链接**: [`remark-wiki-link/index.js`](https://github.com/landakram/remark-wiki-link/blob/main/index.js#L76-L113)
+
+```javascript
+// remark-wiki-link/index.js
+
+// ...
+
+visit(tree, 'wikiLink', function (node) {
+  // ...
+
+  // 1. 调用 pageResolver 获取路径
+  let permalink = pageResolver(node.data.alias)
+  // ...
+
+  if (permalink) {
+    if (node.data.isEmbed) { // 2. 检查是否是 ![[...]]
+      // 3. (嵌入)
+      // ...
+      // 获取嵌入内容
+      let content = fs.readFileSync(path.join(embedRoot, permalink), 'utf-8')
+      // ...
+      // 递归处理嵌入内容的 Markdown
+      let file = processor.processSync(content)
+      // 将节点类型变为 html，内容为渲染后的 HTML
+      node.type = 'html'
+      node.value = file.value
+
+    } else {
+      // 3. (普通链接)
+      // ...
+      // 创建一个 <a> 标签
+      node.type = 'link'
+      node.url = hrefTemplate(permalink)
+      // ...
+    }
+  } 
+  // ...
+})
+```
+
+- **关键点**:
+  - `visit(tree, 'wikiLink', ...)`: 这是遍历 AST 并找到所有 `wikiLink` 节点的地方。
+  - `node.data.isEmbed`: 判断是否为 `![[...]]` 的关键。
+  - `processor.processSync(content)`: 这是实现**内容嵌入**的核心。它读取目标文件的 Markdown 内容，并通过一个新的 Markdown 处理器实例 (`processor`) 将其转换为 HTML。
+  - `node.type = 'html'` 和 `node.value = file.value`: 这是最终的替换操作，将 `![[...]]` 节点从 AST 中替换为一个包含完整渲染后 HTML 的节点。
+
+通过这三个步骤，Quartz 及其生态系统中的工具链协作，将一个简单的 `[[wikilink]]` 文本标记，高效地转换为了功能丰富的超链接或嵌入式内容。
 
 ## OFM (Obsidian 风格 Markdown)
 

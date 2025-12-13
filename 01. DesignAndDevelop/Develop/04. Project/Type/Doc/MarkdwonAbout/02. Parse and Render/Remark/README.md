@@ -5,6 +5,8 @@ author: LincZero
 ---
 # Remark README
 
+(请先读 [../Unified/README.md](../Unified/README.md))
+
 ## 资料
 
 - repo: https://github.com/remarkjs/remark
