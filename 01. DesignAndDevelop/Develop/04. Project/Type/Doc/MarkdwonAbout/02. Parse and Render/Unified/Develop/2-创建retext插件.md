@@ -76,7 +76,7 @@ import retextSentenceSpacing from './plugin.js'
 const document = await fs.readFile('example.md', 'utf8')
 
 const file = await retext()
-  .use(retextSentenceSpacing)
+  .use(retextSentenceSpacing) // 句子间隔检查
   .process(document)
 
 console.error(reporter(file))
@@ -84,9 +84,9 @@ console.error(reporter(file))
 
 > 别忘了`npm install retext vfile-reporter`！
 
-[如果您阅读过统一配置的使用](https://unifiedjs.com/learn/guide/using-unified/)指南，您会看到一些熟悉的语句。首先，我们加载依赖项，然后读取文件。接下来，我们使用即将创建的插件处理该文件，最后报告致命错误或任何发现的代码检查信息。
+如果您阅读过 [using unified](https://unifiedjs.com/learn/guide/using-unified/) 指南，您会看到一些熟悉的语句。首先，我们加载依赖项，然后读取文件。接下来，我们使用即将创建的插件处理该文件，最后报告致命错误或任何发现的代码检查信息。
 
-请注意，我们直接依赖于`retext`。这是一个公开处理器的软件包`unified`，并附带解析器和编译器。
+请注意，我们直接依赖于 `retext`。这是一个**包含** `unified` 处理器的软件包，并附带解析器和编译器。
 
 运行我们的示例时（虽然目前还不能正常工作），我们希望在第二段中看到一条消息，提示应该使用一个空格而不是两个空格。
 
@@ -113,7 +113,7 @@ export default function retextSentenceSpacing() {
 }
 ```
 
-首先，我们需要检查`tree`是否存在某种模式。我们可以使用一个工具来帮助我们递归地遍历树，即`.` [`unist-util-visit`](https://unifiedjs.com/explore/package/unist-util-visit/)。让我们添加它。
+首先，我们需要检查 `tree` 是否存在某种模式。我们可以使用一个工具来帮助我们递归地遍历树，即 [`unist-util-visit`](https://unifiedjs.com/explore/package/unist-util-visit/)。让我们添加它。
 
 ```diff
 --- a/plugin.js
@@ -138,7 +138,7 @@ export default function retextSentenceSpacing() {
  }
 ```
 
-> 别忘了`npm install unist-util-visit`。
+> 别忘了 `npm install unist-util-visit`。
 
 如果我们现在使用 Node.js 运行示例，如下所示，我们会​​看到 visitor 函数会调用示例中的两个段落：
 
@@ -146,7 +146,7 @@ export default function retextSentenceSpacing() {
 node example.js
 ```
 
-```txt
+```json
 {
   type: 'ParagraphNode',
   children: [
@@ -174,9 +174,9 @@ node example.js
 no issues found
 ```
 
-输出结果已经表明段落包含两种类型的节点：`SentenceNode`和`WhiteSpaceNode`。后者是我们想要检查的，但前者也很重要，因为在这个插件中，我们只对句子之间的空格发出警告（不过这也可以交给另一个插件来实现）。
+输出结果已经表明段落包含两种类型的节点：`SentenceNode` 和 `WhiteSpaceNode`。后者是我们想要检查的，但前者也很重要，因为在这个插件中，我们只对句子之间的空格发出警告（不过这也可以交给另一个插件来实现）。
 
-现在我们遍历每个段落的子节点，只检查句子之间的空格。我们使用一个小工具来检查节点类型[`unist-util-is`](https://unifiedjs.com/explore/package/unist-util-is/)：
+现在我们遍历每个段落的子节点，只检查句子之间的空格。我们使用一个小工具来检查节点类型 [`unist-util-is`](https://unifiedjs.com/explore/package/unist-util-is/)：
 
 ```diff
 --- a/plugin.js
@@ -214,7 +214,7 @@ no issues found
 node example.js
 ```
 
-```txt
+```json
 {
   type: 'WhiteSpaceNode',
   value: ' ',
