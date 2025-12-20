@@ -1,8 +1,6 @@
 # Remark Plugin Dev
 
-需先读 remark github repo readme `## Plugins`
-
-即 [插件](https://github.com/remarkjs/remark?tab=readme-ov-file#plugins) 或 [插件](./README.md#插件)
+需先读 remark github repo readme `## Plugins`，即 [插件](https://github.com/remarkjs/remark?tab=readme-ov-file#plugins) 或 [插件](../README.md#插件)
 
 实用工具:
 

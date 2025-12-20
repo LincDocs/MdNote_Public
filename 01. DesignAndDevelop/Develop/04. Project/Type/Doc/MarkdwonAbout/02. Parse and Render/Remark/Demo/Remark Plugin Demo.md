@@ -217,7 +217,7 @@ export const RocketHeading: QuartzTransformerPlugin = () => {
 }
 ```
 
-## Remark-directive
+## Remark-directive (`:::`)
 
 https://github.com/remarkjs/remark-directive/blob/main/lib/index.js
 
@@ -623,7 +623,7 @@ Quartz 的插件系统是基于 `unified` 生态的，因此集成 remark 或 mi
 
 这种基于 AST 的处理方式非常灵活和强大，因为它不是简单的字符串替换，而是在结构层面进行操作，从而能够优雅地处理复杂的嵌套和渲染逻辑。
 
-## Remark wiki link 源码
+### Remark wiki link 源码
 
 请给出几个关键步骤所对应的源码链接
 
@@ -633,7 +633,7 @@ gemini 2.5 pro: (部分内容已人工修复)
 
 为了清晰起见，我们将追溯从 Quartz 的插件配置文件到其依赖的 Remark 插件内部实现。
 
-### 第 1 步：Quartz 启用并配置 Wikilink 插件
+> #### 第 1 步：Quartz 启用并配置 Wikilink 插件
 
 首先，Quartz 在其 `plugins/transformers/wikilinks.ts` 文件中定义和配置这个功能。这里的代码告诉 Quartz 如何使用 `remark-wiki-link` 插件，并为其提供解析链接、处理别名等所需的配置。
 
@@ -705,7 +705,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
     - `remarkWikiLink`: 这是实际处理 Wikilink 语法的第三方 Remark 插件。
     - `pageResolver`: 这是 Quartz 传给 `remark-wiki-link` 的一个函数，用来根据 `[[链接目标]]` 中的 "链接目标" 字符串，查找对应的文件路径。这是实现链接的关键。
 
-### 第 2 步：解析 `[[wikilink]]` 语法 (Micromark)
+> #### 第 2 步：解析 `[[wikilink]]` 语法 (Micromark)
 
 `remark-wiki-link` 插件本身依赖 `micromark-extension-wiki-link` 来实现最底层的语法识别。这个扩展负责在文本中找到 `[[...]]` 模式，并将其标记为一个 `wikiLink` token。
 
@@ -734,7 +734,7 @@ function tokenize(effects, ok, nok) {
     - 这是一个底层的词法分析器扩展，它只负责识别语法，不关心链接指向哪里。
     - 它将识别出的内容包装成一个 `wikiLink` 类型的 token，交给上层处理。
 
-### 第 3 步：转换 AST 节点 (Remark)
+> #### 第 3 步：转换 AST 节点 (Remark)
 
 这是最核心的一步。`remark-wiki-link` 插件接收 `micromark` 生成的 AST，找到 `wikiLink` 节点，然后根据配置决定如何转换它。
 

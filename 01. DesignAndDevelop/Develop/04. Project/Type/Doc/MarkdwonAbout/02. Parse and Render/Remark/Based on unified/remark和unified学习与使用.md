@@ -11,6 +11,9 @@ tags:
 ---
 # remark和unified学习与使用
 
+Remark 建立在 [unified](https://github.com/unifiedjs/unified) 之上,一定要阅读它和它的 [网站](https://unifiedjs.github.io)
+官网: https://unifiedjs.com/
+
 ## remark
 
 remark不单单是一个markdown的编译工具，更准确地说，它是一个围绕markdown的生态。通过插件化的方式，对mdast进行修改，使其转化成我们想要的样子。 `remarkParse` 就是将 `markdown` 编译为mdast的插件。

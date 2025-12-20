@@ -7,11 +7,13 @@ description: Unified，Remark 和 Rehype 之前搞旧版网站的时候，我研
 ---
 # 编写 remark 插件实现自定义扩展语法
 
+(take from: http://garden.songxingguo.com/Web-Clip/@%E7%BC%96%E5%86%99-remark-%E6%8F%92%E4%BB%B6%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E6%89%A9%E5%B1%95%E8%AF%AD%E6%B3%95, 且带笔者 (LincZero) 补充)
+
 ## Unified，Remark 和 Rehype
 
 之前搞旧版网站的时候，我研究过 用 markdown-it 写插件，它是一个 markdown 文件解析器，给它输入一个 markdown 格式的字符串，它可以输出编译后的 html。现在新版网站使用 Astro 作为框架，而 Astro 使用的是基于 unified 生态的 remark 和 rehype 来把 markdown 文本转化为 html 输出的。
 
-### Unified
+### (1) Unified
 
 简单来说，unified 提供了一个「用语法树来解析、检查、转化，以及序列化」文本内容的接口。这里我们的主题是 markdown，因此我们用 markdown 文本作为例子进行分析。具体到 markdown，基于 unified 的接口，我们可以实现
 
@@ -21,25 +23,35 @@ description: Unified，Remark 和 Rehype 之前搞旧版网站的时候，我研
 
 下面的一个框图拷贝自 unified 的文档，它描述了 unified 中的 processor 的整个工作过程。Processor 下面有：
 
-- Parser：负责把输入解析为语法树
-- Transformers：负责对语法树进行更改
-- Compiler：负责序列化语法树得到输出
+- Parser       | 负责把输入解析为语法树
+- Transformers | 负责对语法树进行更改
+- Compiler     | 负责序列化语法树得到输出
 
 因为 unified 仅仅是一个接口，我们需要对其添加插件来让其具备具体的功能。插件可以通过修改 parser、transformer 或者 compiler，来实现不同的功能。
 
-### Remark
+### (2) Remark
 
 Remark 可以理解为给 unified 添加插件后的实例。Remark 对应两个不同的插件，分别是
 
-- [remark-parse](http://garden.songxingguo.com/C-Knowledge/前端/博客/remark-parse)：实例化 parser，使 parser 的输出为 mdast
-- [remark-stringify](http://garden.songxingguo.com/Web-Clip/remark-stringify)：实例化 compiler，使 compiler 的输出为 markdown
+- [remark-parse](http://garden.songxingguo.com/C-Knowledge/前端/博客/remark-parse)
+  实例化 parser，使 parser 的输出为 mdast
+  ?即: 解析, markdown_str -> mdast
+- [remark-stringify](http://garden.songxingguo.com/Web-Clip/remark-stringify)
+  实例化 compiler，使 compiler 的输出为 markdown
+  ?即: 反序列化, mdast -> markdown_str
 
-### Rehype
+### (3) Rehype
 
 Rehype 和 remark 一样，也是 unified 实例化后的结果，只不过 rehype 面向的是 html 文本。Rehype 也对应两个不同的插件，分别是
 
-- rehype-parse：实例化 parser，使 parser 的输出为 hast
-- rehype-stringify：实例化 compiler，使 compiler 的输出为 html
+- rehype-parse
+  实例化 parser，使 parser 的输出为 hast
+  ?即: 解析, html_str -> hast
+- rehype-stringify
+  实例化 compiler，使 compiler 的输出为 html
+  ?即: 反序列化, hast -> html_str
+
+### 举例
 
 有了 remark 和 rehype 这两个实现，我们就可以把 markdown 文本转化为 html 了：
 
@@ -50,15 +62,51 @@ import remarkRehype from 'remark-rehype'
 import rehypeStringify from 'rehype-stringify'
  
 const file = await unified()
-  .use(remarkParse)
-  .use(remarkRehype)
-  .use(rehypeStringify)
+  .use(remarkParse)      // markdown_str -> mdast
+  .use(remarkRehype)     // mdast -> hast
+  .use(rehypeStringify)  // hast -> html_str
   .process('# Hello world!')
  
 console.log(String(file))
 ```
 
-这个代码用到了 3 个插件，分别是 remark-parse，remark-rehype 和 rehype-stringify。其中，remark-rehype 把 mdast 转化为 hast，属于 transformer。
+这个代码用到了 3 个插件，分别是:
+
+- remark-parse
+- remark-rehype (把 mdast 转化为 hast，属于 transformer)
+- rehype-stringify
+
+### 数据流程
+
+```mermaid
+graph TB
+markdown_string
+--remark--> MDAST/markdown_AST
+--remark-rehype--> HAST/HTML_AST
+--rehype--> HTML_string
+```
+
+
+### **总结** (核心)
+
+by LincZero
+
+- unified插件分类
+  - (按转换过程分类)
+    - Parser       | 负责把输入解析为语法树
+    - Transformers | 负责对语法树进行更改
+    - Compiler     | 负责序列化语法树得到输出
+  - (按格式类型分类)
+    - Remark | Markdown string 相关
+    - Rehype | Html string 相关
+    - Retext | 自然语言 string 相关
+    - (其他)
+  - (两种分类互不干扰)
+    - remark-parse     | 类别 2-1 + 1-1
+    - remark-stringify | 类别 2-1 + 1-3
+    - rehype-parse     | 类别 2-2 + 1-1
+    - rehype-stringify | 类别 2-2 + 1-3
+    - remark-rehype    | 类别 2-4 + 1-2
 
 ## 增加新的语法：obsidian wikilink
 
