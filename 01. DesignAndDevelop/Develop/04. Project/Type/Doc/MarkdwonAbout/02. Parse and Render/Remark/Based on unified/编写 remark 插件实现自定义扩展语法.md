@@ -91,13 +91,16 @@ markdown_string
 
 by LincZero
 
-- unified插件分类
+- unified 插件分类
   - (按转换过程分类)
     - Parser       | 负责把输入解析为语法树
+      (通常在 micromark 组织，库名 `micromark-extension-xxx`)
     - Transformers | 负责对语法树进行更改
+      (通常在 syntax-tree 组织，库名 `mdast-utils-xxx`)
     - Compiler     | 负责序列化语法树得到输出
   - (按格式类型分类)
     - Remark | Markdown string 相关
+      (通常在 remarkjs 组织)
     - Rehype | Html string 相关
     - Retext | 自然语言 string 相关
     - (其他)
@@ -107,6 +110,8 @@ by LincZero
     - rehype-parse     | 类别 2-2 + 1-1
     - rehype-stringify | 类别 2-2 + 1-3
     - remark-rehype    | 类别 2-4 + 1-2
+
+其中 parse 类别的插件开发很难，99% 的插件使用 str -> str 或 ast -> ast 来代替
 
 ## 增加新的语法：obsidian wikilink
 
@@ -182,4 +187,5 @@ console.log(String(file))
 ## 增加新的语法：obsidian callout
 
 Obsidian callout 语法的写法大体过程类似。我写的 `remark-callout` 插件已经开源于 GitHub，点击 [这里](https://github.com/rk-terence/gz-remark-callout) 直达仓库。
+
 

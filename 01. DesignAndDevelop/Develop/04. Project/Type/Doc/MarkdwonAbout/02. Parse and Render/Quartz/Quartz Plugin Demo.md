@@ -1,8 +1,76 @@
+---
+tags:
+  - 源码
+---
 # Quartz Plugin Demo
 
 所有Transformer插件都可以在以下位置找到: `quartz/plugins/transformers`。如果您决定编写自己的Transformer插件，请不要忘记将其重新导出到以下位置：`quartz/plugins/transformers/index.ts`
 
 最后提醒一句：Transformer 插件相当复杂，所以如果您一开始没能理解也不用担心。您可以先看看内置的 Transformer，了解它们是如何处理内容的，这样就能更好地理解如何实现您想要的功能。
+
+## OFM - 部分, Obsidian 风格 Markdown
+
+插件类别 OFM 插件为示例
+
+quartz/quartz.config.ts
+
+```typescript
+const config: QuartzConfig = {
+  configuration: {...}
+  plugins: {
+    transformers: [
+      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      Plugin.CrawlLinks({ markdownLinkResolution: "shortest" }),
+    ],
+    filters: [...],
+    emitters: [...],
+  }
+}
+export default config
+```
+
+quartz/plugins/transformers/ofm.ts
+
+```typescript
+export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
+  ...
+  return {
+    name: "ObsidianFlavoredMarkdown",
+    textTransform(_ctx, src) {
+      // 预转换wiki链接（将锚点固定到可能包含非法语法（如代码块、LaTeX）的内容上）
+      if (opts.wikilinks) {
+        // 首先替换表格内的所有维基链接
+        // 再将所有其他维基链接替换掉
+      }
+    },
+    markdownPlugins(ctx) {
+      const plugins: PluggableList = []
+      plugins.push(() => {
+        return (tree: Root, file) => {
+          if (opts.wikilinks) {
+            //
+          }
+          // ... 填充plugins
+          mdastFindReplace(tree, replacements)
+        }
+      })
+      // ... 填充plugins
+      return plugins
+    },
+    htmlPlugins() {
+      const plugins: PluggableList = [rehypeRaw]
+      // ... 填充plugins
+      return plugins
+    },
+    externalResources() {
+      const js: JSResource[] = []
+      const css: CSSResource[] = []
+      // ... 填充 js 和 css
+      return { js, css }
+    },
+  }
+}
+```
 
 ## LaTeX demo
 
