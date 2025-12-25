@@ -695,6 +695,178 @@ quartz插件能不能使用类似的思路？在 quartz.config.ts  中将 `const
 
 gemini 3 pro: ... (Error: I'm sorry but there was an error. Please try again.)
 
+(上下文过长了，我删了上一条提问重新问了)
+
+gemini 3 pro:
+
+你非常敏锐！这确实是上面那个简易 Demo 最大的痛点：**“裸跑”的 `unified().parse()` 丢失了整个项目的构建上下文（Transformers）**。
+
+正如你所说，如果被引用的文件里也有 `[[link]]` 或者使用了其他自定义语法，用纯净版 `remarkParse` 解析出来的结果就会失效或原样输出。
+
+在 Quartz (以及基于 Unified 的系统) 中，要解决这个问题有几种“流派”。
+
+#### 解决方案 1：复用 Processor (推荐，最符合 Unified 哲学)
+
+你提到的 Markdown-it 的 `md` 实例思路，在 Unified 中对应的是 **Processor**。
+虽然 Quartz 的架构稍微封装了一下，但我们完全可以在插件初始化时，或者在运行时构建一个 **“全功能”的 Processor**。
+
+在 Quartz 的源码中，`createMdProcessor` (在 `quartz/processors/parse.ts`) 就是负责组装所有插件的工厂函数。我们可以在我们的插件里调用它！
+
+**如何实现：**
+
+Quartz 的插件接收 `ctx: BuildCtx`。这个 `ctx` 里包含了 `cfg`（配置）。我们可以利用这个配置重新创建一个带有一切功能的 Processor。
+
+```typescript name=quartz/plugins/transformers/embed-advanced.ts
+import { QuartzTransformerPlugin } from "../types"
+import { visit } from "unist-util-visit"
+import { createMdProcessor } from "../../processors/parse" // 导入 Quartz 的核心工厂函数
+import fs from "fs"
+import path from "path"
+import { FilePath } from "../../util/path"
+
+export const AdvancedEmbed: QuartzTransformerPlugin = () => {
+  return {
+    name: "AdvancedEmbed",
+    
+    textTransform: (_ctx, src) => src.replace(/!\[\[(.*?)\]\]/g, '`__QUARTZ_EMBED__$1`'),
+
+    markdownPlugins(ctx) {
+      return [
+        () => {
+          // 1. 在这里创建一个全功能的 Processor！
+          // 注意：createMdProcessor 会加载配置里所有的 transformers
+          // 风险提示：这可能会包含当前插件自己 (Infinite recursion?)
+          // Quartz 的设计比较好，通常重新创建是可以的，但要小心递归死循环。
+          
+          // 为了避免无限递归（比如自己调自己），
+          // 有时候我们需要手动过滤掉“Embed”类的插件，或者依靠递归深度锁。
+          const processor = createMdProcessor(ctx)
+
+          return async (tree, file) => {
+            const promises: Promise<void>[] = []
+
+            visit(tree, 'inlineCode', (node, index, parent) => {
+              if (typeof node.value === 'string' && node.value.startsWith('__QUARTZ_EMBED__')) {
+                
+                const targetSlug = node.value.replace('__QUARTZ_EMBED__', '').trim()
+                // ... (查找文件路径逻辑略) ...
+                const targetFilePath = "..." as FilePath 
+
+                const p = async () => {
+                  const content = fs.readFileSync(targetFilePath, 'utf-8')
+                  
+                  // 2. 这里的关键点：还需要跑 textTransform！
+                  // 因为 createMdProcessor 只处理 markdownPlugins，
+                  // 而很多自定义语法是在 textTransform 阶段处理的。
+                  let processedContent = content
+                  for (const plugin of ctx.cfg.plugins.transformers) {
+                    if (plugin.textTransform) {
+                      processedContent = plugin.textTransform(ctx, processedContent)
+                    }
+                  }
+
+                  // 3. 使用全功能 Processor 解析
+                  const result = await processor.process({
+                    value: processedContent,
+                    path: targetFilePath
+                  })
+                  
+                  // result.result 是解析后的 AST (MDAST)
+                  const targetRoot = result.result as any
+
+                  // 4. 嫁接
+                  // 注意：这里变成了 async，所以 visit 可能会比较麻烦
+                  // 通常建议用 unist-util-visit-parents 或收集 Promise 后再一次性替换
+                  if (parent && index !== undefined) {
+                    parent.children.splice(index, 1, ...targetRoot.children)
+                  }
+                }
+                promises.push(p())
+              }
+            })
+            
+            await Promise.all(promises)
+          }
+        }
+      ]
+    }
+  }
+}
+```
+
+#### 解决方案 2：依赖注入 (Dependency Injection) / 配置提取
+
+你提到的思路：“*在 quartz.config.ts 中提取 ... 并以参数形式传递给插件*”。
+
+这也是完全可行的，而且在解决“递归死循环”问题上可能更灵活。
+
+**做法：**
+
+1.  定义一个“子处理器 (Sub-processor)”。
+2.  在配置插件时传入这个子处理器的配置。
+
+```typescript
+// quartz.config.ts
+import { MyEmbed } from "./plugins/transformers/my-embed"
+import { GitHubFlavoredMarkdown } from "./plugins/transformers/gfm"
+
+// 把不需要递归的通用插件提取出来
+const commonPlugins = [GitHubFlavoredMarkdown(), ...]
+
+const config: QuartzConfig = {
+  plugins: {
+    transformers: [
+      ...commonPlugins,
+      // 告诉 Embed 插件：当你渲染子页面时，请使用这些插件
+      MyEmbed({ 
+        subPlugins: commonPlugins 
+      }),
+    ]
+  }
+}
+```
+
+然后在插件内部：
+
+```typescript
+// my-embed.ts
+export const MyEmbed: QuartzTransformerPlugin<{ subPlugins: QuartzTransformerPluginInstance[] }> = (opts) => {
+  return {
+    name: "MyEmbed",
+    markdownPlugins(ctx) {
+      // 1. 使用 opts.subPlugins 构建一个小型的 processor
+      const subProcessor = unified().use(remarkParse)
+      
+      opts?.subPlugins.forEach(p => {
+         // 加载子插件的逻辑
+         if(p.markdownPlugins) {
+            subProcessor.use(p.markdownPlugins(ctx))
+         }
+      })
+      
+      return [
+        // ... 主逻辑，调用 subProcessor.parse() ...
+      ]
+    }
+  }
+}
+```
+
+#### 哪种更好？
+
+对于 Quartz 这种静态站点生成器：
+
+*   **方案 1 (createMdProcessor)** 是**最省心**的。它能保证嵌入的内容和主页面的渲染逻辑**完全一致**（包括 Wiki Link 解析、Callouts、甚至 Frontmatter 处理）。
+    *   *唯一要注意的是递归保护*：必须在逻辑里加一个 `depth` 计数器，防止 A -> B -> A 导致死循环把栈炸了。
+*   **方案 2** 适合你需要对嵌入内容的渲染逻辑做**特殊处理**（比如嵌入的内容不显示标题、不显示目录等）的场景。
+
+#### 总结
+
+要在插件里获得完整的渲染能力，不能只用 `remarkParse`。你需要：
+1.  **复用** `ctx.cfg.plugins.transformers` 里的插件列表。
+2.  **手动执行** `textTransform` 链（因为这是 Quartz 特有的，unified 不会自动执行）。
+3.  **构造** 一个包含这些插件的 `unified` Processor 来解析目标内容。
+
 ### 我的个人总结
 
 目前主要是两个点比较难受：
