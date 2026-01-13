@@ -31,7 +31,7 @@ last_date: 2025-12-27
 
 ## 部分资源的目录
 
-奇匠中心的目录：
+### 奇匠中心目录
 
 - [学习导览&读前须知](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhhw2l08o6qo)
 - [更新日志](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mh7pc59gri16)
@@ -85,7 +85,7 @@ last_date: 2025-12-27
 - [《原神》编辑器和千星沙箱常见问题](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhjtk90iodts)
 - [创作者中心入驻指引](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mh53ejiegx0k)
 
-官方教程的目录：
+### 官方视频教程目录
 
 - 如何在千星奇域开启创作之旅
 - 制作我的第一个奇域组件
