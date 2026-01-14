@@ -9,8 +9,10 @@ last_date: 2025-12-27
 官方资源
 
 - [奇匠中心](https://act.mihoyo.com/miliastra_wonderland/developer)
-  - [网页版的视频教程](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhn7jl05i6o0)
-    包括官方的官方视频教程 (与B站发布的内容是一样的，少了弹幕和字幕提取，多了结构化的侧边栏分章，多了辅助课件)
+  - [教程](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhhw2l08o6qo)
+    - [网页版的视频教程](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhn7jl05i6o0)
+      包括官方的官方视频教程 (与B站发布的内容是一样的，少了弹幕和字幕提取，多了结构化的侧边栏分章，多了辅助课件)
+  - [综合指南](https://act.mihoyo.com/ys/ugc/tutorial/detail/mh29wpicgvh0)
 - [奇域资产中心](https://act.mihoyo.com/ys/prod/ugc/component-store/)
 - [B站发布的 官方视频教程](https://www.bilibili.com/video/BV1LKW9zpEyF), 88.4w, 10-22
 
@@ -31,7 +33,64 @@ last_date: 2025-12-27
 
 ## 部分资源的目录
 
-### 奇匠中心目录
+### 奇匠中心-综合指南目录
+
+https://act.mihoyo.com/ys/ugc/tutorial/detail/mh29wpicgvh0
+
+- 读前需知
+- 更新日志
+- 界面介绍/
+  - 整体界面
+  - 地形编辑
+  - 实体摆放
+  - 元件库
+  - 战斗预设
+  - 关卡设置
+  - 试玩
+  - 多人试玩
+  - 千星沙箱
+  - 资产导入导出
+  - 撤销与还原
+  - 奇域资产中心
+- 概念介绍/
+  - 单位/
+  - 功能/
+  - 资产/
+  - 高级概念/
+  - 其他概念/
+- 节点介绍/
+  - 服务器节点/
+    - 执行节点
+    - 事件节点
+    - 流程控制节点
+    - 查询节点
+    - 运算节点
+  - 客户端节点/
+    - 查询节点
+    - 运算节点
+    - 执行节点
+    - 流程控制节点
+    - 其他节点
+- 辅助功能/
+  - 负载计算功能
+- 附录/
+  - 能力单元效果
+  - 造物行为模式图鉴
+  - 造物行为模式的未入战行为
+  - 造物技能说明
+  - 单位状态效果池
+  - 节点图高级特性
+    - 泛型引脚
+    - 节点图变量
+    - 复合节点
+    - 节点图日志
+    - 客户端节点图日志
+    - 复合节点图日志
+    - 信号
+    - 字典
+    - 结构体
+
+### 奇匠中心-教程目录
 
 - [学习导览&读前须知](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhhw2l08o6qo)
 - [更新日志](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mh7pc59gri16)
@@ -111,5 +170,11 @@ last_date: 2025-12-27
 
 
 
+```mermaid
+pie title Pets adopted by volunteers
+    "Dogs" : 386
+    "Cats" : 85
+    "Rats" : 15
+```
 
 
