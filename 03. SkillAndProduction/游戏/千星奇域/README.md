@@ -99,8 +99,8 @@ https://act.mihoyo.com/ys/ugc/tutorial/detail/mh29wpicgvh0
   - [1.01-编辑器界面基础认识](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhlcjxr9duvy) | 介绍讲解编辑器内的各类界面
   - [1.02-创建地图与试玩](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhcegrr5omvi)     | 介绍讲解如何创建一个关卡工程文件，并进行试玩
   - [1.03-节点图编写与挂载](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhzu1vi0s3ms) | 介绍讲解编辑器功能逻辑制作中，节点图的编写与挂载方法
-  - [1.04-存档导入与导出](介绍讲解如何在编辑器内导入、导出存档)    | 介绍讲解如何在编辑器内导入、导出存档
-  - [1.05-Debug调试](介绍讲解编辑器的debug方法，和常见的debug流程)       | 介绍讲解编辑器的debug方法，和常见的debug流程
+  - [1.04-存档导入与导出](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhjuwpiubrh0?tk=course_all)    | 介绍讲解如何在编辑器内导入、导出存档
+  - [1.05-Debug调试](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhxmm9r879a6?tk=course_all)       | 介绍讲解编辑器的debug方法，和常见的debug流程
   - [1.06-奇域资产中心](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhgf8i0hvzag)    | 
 - [2-基础功能逻辑&玩法流程](https://act.mihoyo.com/ys/ugc/tutorial/course/detail/mhjdic0zyw8o)
   着重介绍编辑器中常用/重点模块的大致功能，并通过具体玩法中的功能实例为演示进行教学
