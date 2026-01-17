@@ -118,3 +118,97 @@ const config: QuartzConfig = {
 }
 ```
 
+## 下游相关
+
+依赖&使用 Remark 的一些库
+
+- SSG类， 使用 remark 解析和渲染引擎的SSG (静态网站生成器)，或者说都是基于 Unified 生态系统
+  - Astro， 通用高性能多用途网站
+  - Quartz， 更强调 OFM (Obsidian 风格 Markdwon)
+  - Docusaurus， remark 用于将 Markdown/MDX 转换为 React 组件
+- 其他
+  - Next.js
+  - Nuxt Content (Nuxt.js)
+  - Gatsby
+
+SSG Remark 的使用与配置对比
+
+**gemini 3 pro**:
+
+我们将对比它们如何加载插件、扩展功能
+
+### Docusaurus
+
+Docusaurus 将 remark 配置封装在 `docusaurus.config.js` 的 presets（预设）或 plugin 选项中。
+
+- **配置方式**: 标准且严格。你需要将 remark 插件数组传递给 `@docusaurus/preset-classic`。
+- **MDX 支持**: 默认强制使用 MDX。这意味着你的 Markdown 内容被视为 React 组件。这既是优点（可以在文档里直接写 React 组件），也是痛点（Markdown 语法稍有错误就会导致构建崩溃，因为它是作为代码编译的）。
+- **自带 Remark 插件**: 默认集成了一些极其好用的插件，专门处理 **Admonitions (警告框)** 和 **数学公式 (KaTeX)**。
+- **开发者体验**: 添加插件很容易，但如果要修改 Docusaurus 内部默认的 remark 逻辑（比如修改它如何解析标题生成 TOC），则比较困难，因为内部封装较深。
+
+```js
+// docusaurus.config.js
+presets: [
+  ['classic', {
+    docs: {
+      remarkPlugins: [require('remark-math')], // 在这里添加
+      rehypePlugins: [require('rehype-katex')],
+    },
+  }],
+],
+```
+
+### Astro
+
+Astro 提供了目前最灵活的 Remark 集成体验。
+
+- **配置方式**: 在 `astro.config.mjs` 中有顶级的 `markdown` 配置项。
+- **MDX vs Markdown**: Astro 明确区分 `.md` (标准 Markdown) 和 `.mdx` (MDX)。
+    - 对于 `.md`，它使用纯 remark 渲染，速度极快。
+    - 对于 `.mdx`，它使用 remark + JSX 编译器。
+- **Frontmatter 注入**: Astro 的 remark 插件可以非常方便地注入 frontmatter 数据，然后直接在 `.astro` 布局文件中使用 `Astro.props.frontmatter` 访问。这对于根据内容动态修改页面元数据非常强大。
+- **扩展性**: 你可以编写自定义 remark 插件来修改生成的 HTML，或者提取元数据（如阅读时间）并自动注入到 frontmatter 中供页面组件使用。
+
+```js
+// astro.config.mjs
+export default defineConfig({
+  markdown: {
+    remarkPlugins: [remarkToc, remarkMath], // 简单直接
+    rehypePlugins: [],
+    // 甚至可以扩展默认的 GitHub Flavored Markdown
+    gfm: true,
+  },
+});
+```
+
+### Quartz
+
+Quartz (尤其是 v4) 是三者中最“极客”的，它的核心逻辑暴露得非常彻底。
+
+- **配置方式**: `quartz.config.ts` 定义了一个完整的插件列表。
+- **Transformers**: Quartz 引入了 `Transformer` 的概念。很多 `Transformer` 本质上就是对 remark/rehype 插件的封装。
+- **Obsidian 兼容性**: Quartz 对 remark 的使用主要集中在 **还原 Obsidian 的编辑���验**。它有专门的 remark 逻辑来处理 Wikilinks (`[[链接]]`)、Obsidian Callouts (`> [!info]`) 和 Latex。
+- **深度定制**: Quartz 允许你直接修改它的 `emitters` (发射器) 和 `plugins`。如果你想写一个 remark 插件把所有的文本都变成红色，在 Quartz 里你可以直接把它插到处理链的中间。它比 Astro 和 Docusaurus 更像是一个“构建脚本生成器”。
+
+```ts
+// quartz.config.ts
+plugins: {
+  transformers: [
+    Plugin.FrontMatter(),
+    Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }), // 深度集成的 Remark 逻辑
+    Plugin.GitHubFlavoredMarkdown(),
+    Plugin.TableOfContents(),
+    Plugin.CrawlLinks({ markdownLinkResolution: 'shortest' }),
+  ],
+}
+```
+
+### 总结与建议
+
+| 特性             | Astro                               | Quartz                         | Docusaurus                       |
+| -------------- | ----------------------------------- | ------------------------------ | -------------------------------- |
+| 主要用途           | 全能型 (博客、营销、SaaS)                    | 知识库、数字花园、Obsidian 发布           | 软件文档、产品手册                        |
+| **Remark 自由度** | ⭐⭐⭐⭐⭐ (原生支持，配置简单)                   | ⭐⭐⭐⭐ (通过 Transformers 封装，深度可控) | ⭐⭐⭐ (通过配置数组，被 Preset 约束)         |
+| Markdown 哲学    | 内容即数据 (Content Collections)         | 内容即连接 (双向链接、图谱)                | 内容即组件 (MDX, React)               |
+| 构建性能           | 极快 (这也是它的主要卖点)                      | 较快 (基于 esbuild)                | 较慢 (尤其是大型文档库，因 Webpack/React 开销) |
+| 对 Obsidian 支持  | 需安装社区插件 (`astro-rehype-obsidian` 等) | **原生完美支持**                     | 较弱，需大量配置或插件                      |
