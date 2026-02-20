@@ -1,5 +1,10 @@
 # MarkdownAbout
 
+Doc类主要分两个主要路径:
+
+- 01.%20DesignAndDevelop/Develop/Doc:  主要为文本/文档类的开发相关
+- 01.%20DesignAndDevelop/Doc:  主要为文本/文档类的使用相关，即文本项目或使用文本为项目赋能
+
 ## 该目录路径下的导航
 
 - (1) md软件或框架
