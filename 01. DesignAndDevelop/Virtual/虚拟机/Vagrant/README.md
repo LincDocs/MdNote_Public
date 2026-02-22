@@ -1,3 +1,9 @@
+---
+create_date: 2024-03-20
+last_date: 2026-02-22
+author:
+  - LincZero
+---
 # Vagrant
 
 参考：
@@ -11,6 +17,44 @@
   - 配套课件： https://www.yuque.com/wukong-zorrm/xmk0v0
 
 感觉中文资料不是很多
+
+## **置顶 —— 常用命令查询**
+
+基本使用 / vagrant 项目使用说明 (此处可以复制到 vagrantfile 项目的 README 中)
+
+```bash
+# 最常用，vagrant 项目 README 必填
+cd ... # cd path of Vagrantfile
+vagrant global-status # 查看所有已经注册的虚拟机 (包括是否已经开机，所在路径，provider)
+   # 查看所有 Vagrant 环境。不管你在哪个目录下，这个命令都能列出这台电脑上所有由 Vagrant 管理的虚拟机及其状态
+vagrant up	      # 启动/创建虚拟机 (需在Vagrantfile目录下)
+vagrant ssh       # 连接到虚拟机
+cd /vagrant
+```
+
+更多备注
+
+```bash
+# 虚拟机实例 增删改查
+vargrant init     # 虚拟机创建 会在当前目录生成一个Vagrantfile文件
+  # 若已经有自己的 Vagrantfile，则 cd 到该路径。后续命令均需要在有 vagrantfile 文件的路径下运行
+vargrant up       # 虚拟机运行 (开机)
+vargrant ssh      # 虚拟机连接
+vargrant halt     # 虚拟机关机 (推荐)
+vargrant suspend  # 虚拟机挂起/休眠 (恢复更快)
+vagrant resume    # 虚拟机挂起后恢复
+vagrant destroy   # 虚拟机删除
+
+# 虚拟机实例 其他
+vagrant destory
+vagrant reload
+vagrant reload --provision
+vgarant --help
+
+# 虚拟机镜像 (box) 相关
+vagrant box add ubuntu/xenial64（介绍几个官方推荐）
+vagrant box list  # 基础镜像
+```
 
 ## 介绍
 
@@ -120,26 +164,6 @@ GPT4
 
 ## 使用
 
-### 常用命令
-
-```bash
-# box相关
-vagrant box add ubuntu/xenial64（介绍几个官方推荐）
-vagrant box list
-
-# vargrant init
-vargrant init # 会在当前目录生成一个Vagrantfile文件
-
-# 虚拟机相关
-vargrant up
-vargrant ssh # 虚拟机连接
-vargrant halt
-vagrant suspend
-vagrant destory
-vagrant reload
-vagrant reload --provision
-```
-
 ### Vargrant文件
 
 大部分选项都是默认注释的，**我这里取消一部分注释只是为了高亮看起来方便，并不意味着你需要去取消这些注释**
@@ -227,7 +251,7 @@ end
 
 ### 实践
 
-eBPF环境配置那里有些笔记
+eBPF环境配置那里也有些笔记
 
 
 
