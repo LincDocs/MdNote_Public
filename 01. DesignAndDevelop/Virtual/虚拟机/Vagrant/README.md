@@ -18,7 +18,7 @@ author:
 
 感觉中文资料不是很多
 
-## **置顶 —— 常用命令查询**
+## **置顶** —— 常用命令查询
 
 基本使用 / vagrant 项目使用说明 (此处可以复制到 vagrantfile 项目的 README 中)
 
@@ -44,6 +44,7 @@ vargrant halt     # 虚拟机关机 (推荐)
 vargrant suspend  # 虚拟机挂起/休眠 (恢复更快)
 vagrant resume    # 虚拟机挂起后恢复
 vagrant destroy   # 虚拟机删除
+vagrant status    # 状态
 
 # 虚拟机实例 其他
 vagrant destory
