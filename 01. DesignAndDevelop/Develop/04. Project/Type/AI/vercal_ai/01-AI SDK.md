@@ -130,7 +130,7 @@ AI SDK支持 [多种模型提供者](https://ai-sdk.dev/providers)
 
 ### 用法示例
 
-例如，向法学硕士提出有关 AI SDK 的问题：
+例如，向 LLM 提出有关 AI SDK 的问题：
 
 1. 从 ai-sdk.dev/llms.txt 复制文档内容
 2. 使用以下提示格式：

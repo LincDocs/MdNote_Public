@@ -38,6 +38,8 @@ npx skills add vercel/ai
 
 原文没有中文翻译，这里是中文笔记，如果感觉翻译不好或某些词不达意，请参见原文
 
+翻译注意点: LLM == 大语言模型 != 法学硕士
+
 ### 导航栏
 
 - 文档
@@ -56,7 +58,7 @@ npx skills add vercel/ai
   - 提供商量和模型
   - Prompts
   - 工具
-  - 流媒体
+  - 流式 UI
   - 提供商选项
 - [开始使用](https://ai-sdk.dev/docs/getting-started)
   - 选择供应商 (即选择 AI 模型)
