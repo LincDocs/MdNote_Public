@@ -114,17 +114,13 @@ jobs:
           rm -f ./src/.vuepress/config_cover.js
           rm -f ./src/.vuepress/theme_cover.js
           pnpm run gen-config
-          rm -rf .git
 
       - name: 文档 - 构建
         env:
           NODE_OPTIONS: --max_old_space_size=20480
         run: |-
           node -e 'console.log(v8.getHeapStatistics())'
-          # 这里排除一下 latex 的某个警告日志，太占日志空间了，我有一个库能被这占两万多行
-          # 或 pnpm run docs:build 2>&1 | grep -v "Found unicode character .* inside tex"，或加上 package.json 上
-          # pnpm run docs:build 2>&1 | grep -v "Found unicode character"
-          pnpm run docs:build-batch "01. DesignAndDevelop/Develop/"
+          pnpm run docs:build
           > src/.vuepress/dist/.nojekyll
 
       - name: 文档 - 部署
