@@ -430,7 +430,6 @@ setIgnoreCursorEvents(false)  setIgnoreCursorEvents(true)
 
 如果存在这种问题，是继续健壮这个状态机机制，还是一直使用 rust 全局坐标来判断，会更好？
 
-不过好像基本没出现过这种情况
-
+不过好像没出现过这种情况。应该也不需要补强了
 
 
