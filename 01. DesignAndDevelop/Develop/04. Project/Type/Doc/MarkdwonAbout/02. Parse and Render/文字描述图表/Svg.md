@@ -12,12 +12,14 @@ last_date: 2026-04-15
 
 来个简单 svg demo：
 
+```html
 <svg width="100" height="100">
   <g transform="translate(50,50)">
     <circle cx="0" cy="0" r="30" fill="blue" stroke="red"/>
     <text x="0" y="0" text-anchor="middle" dy=".3em" fill="white">Hello</text>
   </g>
 </svg>
+```
 
 ## 修改Svg
 
