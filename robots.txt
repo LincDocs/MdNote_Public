@@ -1,0 +1,4 @@
+User-agent:*
+Disallow:
+
+Sitemap: https://LincDocs.github.io/MdNote_Public/sitemap.xml
