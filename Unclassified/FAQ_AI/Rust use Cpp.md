@@ -253,9 +253,11 @@ by deepseek-v4-pro
 ### 1. 当前的链接错误到底缺了什么？
 
 链接器报错：
+
 ```
 无法解析的外部符号 myapp$cxxbridge1$197$heavy_compute
 ```
+
 `myapp$cxxbridge1$197$heavy_compute` 是 **`cxx` 自动生成的 C++ 胶水代码**里的符号。`cxx` 工作流程是：
 
 1. 读取你写的 `#[cxx::bridge]` 模块（`ffi.rs`）；
