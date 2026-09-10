@@ -2,7 +2,7 @@
 create_date: 2026-07-09
 last_date: 2026-07-09
 ---
-# 比较 CodeMirror ProseMirror Tiptap
+# 比较 CodeMirror ProseMirror Tiptap Wordgard
 
 全方位比较 ProseMirror 和 CodeMirror
 
