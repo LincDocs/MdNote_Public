@@ -1,0 +1,497 @@
+---
+create_date: 2026-10-20
+last_date: 2026-10-20
+author:
+  - LincZero
+title: pele-research-report
+tags:
+  - ai
+---
+# 个人试用
+
+Pele 我在 playground 测试了下：
+
+- 首先是支持很广，我测了几个冷门特性，都支持了。
+- 然后是时间，确实快太多了，肉眼可见的渲染速度差异。
+  （他网站的 mermaid 速度可能偏慢，本地使用其实没那么慢的，提升没看起来那么明显。或者你也可以在 ob 里实验，以及去 mermaid 官网 playground 里进行对比，复杂图也还是会快不上）。
+- 然后是渲染效果问题，有些东西的渲染还是不同的，但不同不意味着更差。
+  令人惊喜的是其自适应的显示效果，这点之前讨论的时候没有提到。
+
+例如思维导图：mermaid 那边的部分图表是需要额外依赖的。像思维导图就是，所以如果你用到那些，你 mermaid 部分是不止1.9MB 的，实际精简的大小会更大。
+然后就是比 mermaid 的更好看，而且自适应更好。
+
+具体对比图:
+
+(略，包含思维导图，甘特图，需求图，C4图，数据包图，框图)
+
+# Pele 项目调研报告
+
+> 调研对象：[obsidianmd/pele](https://github.com/obsidianmd/pele)（`pele` v1.7.0）  
+> 参照对象：[mermaid-js/mermaid](https://github.com/mermaid-js/mermaid)（v12.1.0）  
+> 调研日期：2026-10-20 ｜ 分析基准 commit：`52b5c9c`  
+> 本报告中的体积、速度、测试数字均为本次在本地实测所得，非引用官方宣传口径（官方口径在文中单列对比）
+
+---
+
+## 0. 一句话结论
+
+Pele 不是 Mermaid 的 fork，而是一个**用 TypeScript 重写的、零依赖、同步输出 SVG 字符串的独立 Mermaid 渲染器实现**。它锁定了 Mermaid 12.1.0 的语法快照，用「移植上游解析器单测 + 用真实 Mermaid 语法文件做差分 oracle（含模糊测试）」的方式把语法兼容性压到了相当高的水准，但**明确放弃了像素级布局一致性、主题体系和一堆交互特性**换来体积与速度。
+
+**是否值得替换**：如果你的场景是「编辑器/笔记/文档里渲染用户手写图表」（Obsidian 这类），**强烈值得一试，可以用 `supports()` 做按类型灰度**；如果你依赖 Mermaid 的主题系统、ELK 布局、KaTeX、HTML 标签或需要在服务端/Node 环境无 DOM 渲染，Pele 要么不能直接替代，要么反而更合适——要分情况看第 6 节。
+
+---
+
+## 1. 项目画像
+
+| 项                     | 内容                                                                                                             |
+| --------------------- | -------------------------------------------------------------------------------------------------------------- |
+| 仓库                    | `github.com/obsidianmd/pele`，2026-10-05 创建（本次调研时仅 15 天）                                                        |
+| 官网 / 文档               | [pele.run](https://pele.run)（含 API / 兼容性 / 主题 / 安全四份文档 + Playground + 逐类型对比页）                                  |
+| 许可                    | MIT，`Copyright (c) 2026 kepano`（kepano 为 Obsidian 创始人）；另有 Lucide 图标 ISC 声明                                     |
+| 作者                    | kepano 单人主导：195 次提交 vs 外部贡献者 1 次（中文换行 behavior，PR #16）                                                         |
+| 星标 / fork / 未关闭 issue | 2,583 / 78 / 38                                                                                                |
+| 版本节奏                  | 14 天内发布 14 个版本：`1.0.1`(10-06) → `1.7.0`(10-19)，平均每天 1 个                                                        |
+| 运行时依赖                 | **0**                                                                                                          |
+| 开发依赖                  | esbuild、vitest、TypeScript 7、jison、`@mermaid-js/parser`、`@braintree/sanitize-url`、js-yaml、`beautiful-mermaid`   |
+| npm 包                 | [pele](https://www.npmjs.com/package/pele)，注意 `pele@1.0.0` 的发布时间是 2020-05-26（早于本项目，说明包名历史上被占用过），**生产务必锁定精确版本** |
+| 代码规模                  | `src/` 287 个文件 / 16,929 行 TS / 1.74 MB；`tests/` 470 个文件 / 8,880 行 / 3.5 MB                                     |
+| 对照（Mermaid 仓库）        | TypeScript 5.33 MB + .mmd 语料 2.73 MB + Yacc 213 KB + Langium 30 KB（GitHub languages 字节数）                       |
+
+一个值得注意的信号：**测试代码（8,880 行）约为源码（16,929 行）的一半，`tests/` 体积是 `src/` 的两倍**。这不是玩具项目，是按「库」的标准写的。
+
+---
+
+## 2. 立场判断：它到底想做什么
+
+README 第一句就是定位：
+
+> Pele renders Mermaid diagrams to SVG. It is small, **synchronous**, has **no runtime dependencies**, and uses **CSS variables** for colors and fonts.
+
+`AGENTS.md` 里把工程约束写成了硬性约定，这几条基本解释了一切技术选择：
+
+- **No library runtime dependencies**（不允许任何运行时依赖）
+- **Rendering must be synchronous, without DOM access**（渲染必须同步且不触碰 DOM）
+- **Identical inputs and text measurer must produce identical SVG**（相同输入必须产出字节级相同的 SVG，即可复现）
+- 注释只允许写「非显然的决策、与 Mermaid 的有意差异、被保留的 quirk」
+
+也就是说：**Pele 抛弃 DOM 不是一个优化手段，而是它的产品前提**。它要能在 Electron 笔记应用的渲染进程里、在工作线程里、在 Node 里同步地把一段文本变成一段 SVG 字符串。
+
+---
+
+## 3. 兼容性分析（重点）
+
+### 3.1 图表类型覆盖：33 / 33，与 Mermaid 12.1.0 内置类型完全一致
+
+我核对了 [mermaid@12.1.0](mermaid@12.1.0) 的 `packages/mermaid/src/diagrams/` 目录：扣除 `common/`、`error/` 与非目录文件后是 **33 个图表族**；Pele 的 `DiagramType` 联合类型去重后恰好也是 **33 个**，一一对应：
+
+```
+agentflow · architecture · block · c4 · class · cynefin · er · eventmodeling · flowchart · gantt
+gitGraph · info · ishikawa · journey · kanban · mindmap · packet · pie · quadrantChart · radar
+railroad(含 ebnf/abnf/peg 四个方言) · requirement · sankey · sequence · state · swimlane
+timeline · treeView · treemap · usecase · venn · wardley · xychart
+```
+
+`src/detect.ts` 里的检测器数组，**顺序严格按照 Mermaid 注册检测器的顺序**（注释：「The first match wins」），并且每种检测导出两个名字——Pele 内部名（`flowchart`）和 Mermaid 名（`flowchart-v2`），通过 `RenderResult.mermaidType` 暴露，方便做迁移时的名字映射。
+
+未被覆盖的只有**外部插件生态**（官方文档点名：ZenUML 等不支持），可用 `supports()` 在运行时检测。
+
+### 3.2 三层测试策略（这是 Pele 最值得抄的部分）
+
+**第一层：移植 Mermaid 上游解析器单测**
+
+`scripts/sync-specs.mjs` 从本地 mermaid checkout 的 pinned tag（`mermaid@12.1.0`）复制 `packages/mermaid/src/diagrams/<type>/` 下的 spec 文件，用正则改写入口指向 `tests/compat/<type>/adapter.ts`，并在每个文件头部写入来源 tag + commit：
+
+```
+// Ported from Mermaid mermaid@12.1.0 (<commit>)
+// Copyright (c) 2014 - 2022 Knut Sveidqvist, MIT License. Generated by scripts/sync-specs.mjs; do not edit.
+```
+
+`adapter.ts` 的角色是「API 垫片」：把 Pele 自己的 `FlowDb` 之类模型类，包装成 Mermaid 的 `FlowDB` 方法名（`getVertices()` / `getEdges()` / `setGen()` …），于是**上游那些针对 DB 写的断言可以原样跑在 Pele 的模型上**。
+
+本次统计：**136 个移植 spec 文件**，同时把 **36 个上游语法文件/参考样本**（`flow.jison`、`classDiagram.jison`、`c4Diagram.jison`、`block.jison`、`agentflow.jison` 及一批 `.mmd` + `.expected.json`）vendor 到 `tests/compat/*/upstream/`。
+
+**第二层：差分 oracle + 模糊测试（真正狠的一招）**
+
+不是「跑一遍测试」这么简单，而是**把 Mermaid 真正的解析器拉起来当裁判**：
+
+- 对 Jison 系的图（flowchart / class / state / er / c4 / block / agentflow …）：`tests/support/oracle.ts` 用 jison 从 vendor 的 `.jison` **现场编译出 Mermaid 的那棵语法**，然后对比三件事——① token 流是否完全一致（相邻同类 token 允许合并，见 `mergeTokens`）；② accept/reject 决策是否一致；③ 通过 `recordingYy()` 录制语法动作对模型的调用序列，要求**语义调用序列完全一致**。
+- 对 Langium 系的图：`tests/support/langium.ts` 直接用 `@mermaid-js/parser` 作为参考实现，对比 token 表（名称/正则/是否 hidden）与去书元信息后的 AST。
+- 在此之上做**变异模糊测试**：例如 `tests/flowchart/oracle.test.ts` 内置 ~110 个语法碎片（`--> [[ ( ) @{ ::: & style classDef click subgraph direction accDescr fill:#f9f \`"\\\`\` 等），默认 **FUZZ=5000** 次变异输入，逐条跑上面三项对比。
+
+这套组合的意义在于：它验证的**不是「Pele 觉得自己对」，而是「Pele 与真实 Mermaid 语法在词法/接受性/语义动作三个层面上不可区分」**。
+
+**第三层：自有测试**
+
+| 类型                                  | 内容                                                                            |
+| ----------------------------------- | ----------------------------------------------------------------------------- |
+| `tests/render/`、`tests/layout/`     | 渲染快照与布局不变量（重叠、越界、可读性约束）                                                       |
+| `tests/<type>/stress.test.ts`（32 个） | 最坏病例：12,000 层嵌套 JSON、8,000 个 timeline 周期、3,000 条状态迁移……断言「要么优雅报错，要么在 N 毫秒内画完」  |
+| `tests/corpus/`                     | 从 Mermaid 官方文档 markdown 里抽取的示例代码集（`-docs.json`），语料规模 >300 条/类型                |
+| `tests/browsers.test.ts`            | 把 browser build 塞进 `vm` 上下文，**删掉 Safari 15.0 之后的所有新内建方法**再跑全文档语料，保证不依赖过新的 API |
+
+### 3.3 实测：我把测试套件跑了两遍
+
+```bash
+git clone https://github.com/obsidianmd/pele && cd pele && npm install
+npx vitest run --exclude "tests/website/**"
+```
+
+| 轮次    | Test Files | Tests | passed | failed | skipped | todo | 耗时    |
+| ----- | ---------- | ----- | ------ | ------ | ------- | ---- | ----- |
+| 第 1 轮 | 290        | 6,816 | 6,706  | **5**  | 103     | 2    | 81.5s |
+| 第 2 轮 | 290        | 6,816 | 6,703  | **8**  | 103     | 2    | 83.7s |
+
+**关键点：两次运行的失败用例全是成绩压力测试的时间阈值断言，没有任何一个是正确性失败。** 例如：
+
+```
+FAIL tests/stress.test.ts > worst cases > edges that each cross 1,000 nested subgraph borders
+AssertionError: expected 3732.205 to be less than 3000
+
+FAIL tests/usecase/stress.test.ts > use case worst cases > JSON nested 12,000 objects deep
+AssertionError: expected 4846.6021 to be less than 3000
+```
+
+这些断言写死 `< 3000ms`，且失败用例在不同轮次**抖动**（第 1 轮 5 个、第 2 轮 8 个），典型的机器负载敏感型断言，换台机器或降负载大概率全绿。**建议在 CI 里给 stress 用例放宽容差或加 `retry`。**
+
+`npx tsc --noEmit` 未能直接验证（本机 `npx` 在 Git Bash 下路径解析失败，属环境问题，非项目问题）。
+
+### 3.4 回答你的问题：「是否通过了完全的 mermaid 库中的测试工具？」
+
+**没有，而且它明确不打算这么做。** 确切地说：
+
+✅ **做到的**：移植了 Mermaid 的**解析器/DB 层单元测试**（136 个文件），并在其之上叠加了比 Mermaid 自身更严格的验证——用真实 Mermaid 语法做 oracle 的差分测试 + 变异模糊测试。
+
+❌ **没做的**（`SKIPPED.md` 的「Spec files not ported」章节逐条列了理由，共涉及 ~34 个未移植文件）：
+
+- **Cypress / E2E 视觉回归**：Mermaid 的截图级测试完全没有移植（这也是**唯一**能验证像素一致性的手段）
+- **渲染器单测**：`flowRenderer-v3-unified.spec.ts`、`svgDraw.spec.js`、`sequenceRenderer.spec.js`、`mindmapLayout.spec.ts` 等基于 jsdom + mock d3 的测试
+- **布局引擎选型测试**：`flowRenderer-elk-default.spec.ts`、`architectureSeed.spec.ts`（fcose 随机数播种）
+- **配置管道测试**：Mermaid 全局 config / `initialize()` 相关的测试
+- **DOM 契约测试**：`renderer.spec.ts`（把 SVG element id 交给 DB）、`.e2e.` 视觉用例
+
+**判断依据**：有 **125 条** skip 条目，每一条都在 `SKIPPED.md` 里写了**具体技术原因**（不是「暂不支持」这种废话）。摘几条有代表性的：
+
+| 被跳过的测试                                          | 官方给出的理由                                                             |
+| ----------------------------------------------- | ------------------------------------------------------------------- |
+| `colorSlots.spec.ts`（7 条）                       | 测的是 Mermaid 生成的主题 CSS；Pele 不写样式表，颜色是呈现属性                            |
+| `flow.spec.js`: "should be able to parse a '<'" | Mermaid 期望 `<` 被存成 `&lt;`（DOMPurify 序列化结果）；Pele 原样存储、写出时转义          |
+| `gitGraph.test.ts`（3 条）                         | 依赖 Chevrotain 错误恢复留下的半棵树；实际上 Mermaid 的 `parse()` 本身也拒绝这些输入          |
+| `radar.test.ts`（6 条）                            | 只校验 Langium `MermaidParseError` 的错误文案；Pele 有自己的 line/column/snippet |
+| `radarOracle spec` 之外的呈现类                       | 「Pele 有自己的布局，**no layout parity**」                                  |
+| `stateDb.spec.js`: Jison own property           | Pele 没有 Jison 运行时                                                   |
+
+我的判断：**skip 的质量比数量更能说明问题**。这 125 条基本都能归到 5 类根因，每一类都是 Pele 架构取舍的直接后果，而不是「还没做完」的借口——这是成熟项目的特征。
+
+### 3.5 明确割舍掉的能力清单（迁移前必须逐条核对）
+
+| #  | 割舍项            | 表现                                                                                                                         | 影响面                                                   |
+| -- | -------------- | -------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| 1  | **布局**         | 自带布局引擎，**位置/间距/连线路径与 Mermaid 不同**；`graph TD` 与 `flowchart-elk` 都走 Pele 自己的分层布局                                             | ⚠️ 最大差异。截图、CI 视觉快照、印刷版图谱会全部变化                         |
+| 2  | **主题系统**       | 不认 `theme` / `themeVariables` / `themeCSS`；改用 `--pele-*` CSS 变量（8 个基础 + `--pele-series-1..8` + font/radius/critical/error） | 需要重写主题层；但获得「不重渲染即可换色」的能力                              |
+| 3  | **任意 HTML 标签** | 标签是 SVG text，只支持换行、粗体、斜体；`<code>` 等宽字体（issue #25/#27）、数学公式 KaTeX（issue #36）**尚未支持**                                        | 富文本标注需求会被砍                                            |
+| 4  | **交互回调**       | `click A call cb()` 里的 JS 回调被忽略；只支持打开链接的 `click`                                                                           | 交互式图表失效                                               |
+| 5  | **布局引擎可配置性**   | 无 dagre / ELK / cytoscape-fcose / cose-bilkent 切换，每类图只有一个布局                                                                | `%%{init: {'flowchart': {'curve': ...}}}%%` 之类旋钮大部分失效 |
+| 6  | **外部插件**       | ZenUML 等不支持                                                                                                                | 生态兼容性缺口                                               |
+| 7  | **图标包**        | 不带 FontAwesome / Iconify pack；需宿主通过 `icons` 回调提供 SVG path（architecture 与 treeView 有少量内建符号）                                 | 需自建图标供给层                                              |
+| 8  | **错误消息文本**     | 与 Langium/Chevrotain/jison 的文案不同；但 Pele 自带更规整的 `code`/`line`/`column`/`snippet`                                            | 依赖错误文案的 UI 需调整                                        |
+| 9  | **YAML 严格性**   | 自带 YAML 读取器，不支持锚点/别名，因此对某些畸形块比 js-yaml **更宽容**（会接受而非报错）                                                                    | frontmatter 行为略有差异                                    |
+| 10 | **DOM 元素 id**  | 不写 element id；URL fragment 定位到节点的能力缺失                                                                                      | 深链失效                                                  |
+| 11 | **插件式数组式安全模型** | 无 `securityLevel: 'loose'`；改为固定白名单 + 转义                                                                                    | 实际上更安全，但可玩性下降                                         |
+
+另外还有一类是**反向增强**（Pele 比 Mermaid 更严或更宽）：
+
+- 新增 **输出体积上限 4,000,000 字符**（Mermaid 无输出限制，可能被构造性图表拖死页面）
+- **maxEdges 默认 5,000**（Mermaid 是 500），因为 Pele 画得快所以敢放宽
+- 源文本上限沿用 50,000 字符
+- `javascript:` / `data:` / `vbscript:` 协议永久阻断；默认 linkRel `noopener`
+
+### 3.6 兼容性风险：哪些地方最容易「悄悄跑偏」
+
+按风险从高到低：
+
+1. **呈现不一致但解析器点头**：oracle 只校验「词法 + 接受性 + 模型调用序列」，**渲染结果没有 oracle**。同一个模型在两个布局引擎下画出来可能差别很大（第 #3 号 Bug issue 就是「带 subgraph 的流程图交叉数偏多」）。
+2. **模糊测试覆盖不到的语义角落**：变异是在既有语料基础上做字符级扰动的，对于「合法但罕见」的深层语义（gantt 日期运算、timeline 周期折叠）未必充分。
+3. **版本漂移**：锁定 12.1.0。一旦用户粘贴的是 13.x 的新语法，Pele 会直接报 `syntax` 错误而不是降级渲染——对「用户随手从网上拷 mermaid」的场景，这是**体验性风险**。
+
+---
+
+## 4. 实现上的区别
+
+### 4.1 流水线对照
+
+```
+Pele（同步、纯字符串）
+  preprocess()            ← frontmatter YAML + %%{init}%% 指令 + %% 注释，一次扫描
+    → detectDiagram()     ← 36 条正则，按 Mermaid 注册顺序，首个命中胜出
+      → <type>/lexer.ts   ← 手写字符级词法（无 lexer generator）
+        → <type>/parser.ts← 手写递归下降
+          → <type>/db.ts  ← 类型化模型（无全局单例，每次 parse 新建）
+            → layout/     ← 自带布局
+              → svg/*.ts  ← 字符串拼接
+                → 返回 { svg, width, height, type, mermaidType, links }
+```
+
+```
+Mermaid（异步、DOM）
+  detectType → @mermaid-js/parser(Langium/Chevrotain) 或 jison 生成的语法
+    → diagramAPI.run() → XxxDB（**全局单例**，commit/clear 语义）
+      → 每类图各自的 renderer，用 d3 操作真实 DOM
+        → 外部布局引擎：dagre-d3-es / elkjs / cytoscape+fcose+cose-bilkent / d3-sankey / @upsetjs/venn.js
+          → getBBox() 反复测量（布局 ↔ 测量回路）
+            → DOMPurify 净化 → stylis 生成主题 CSS → outerHTML 序列化
+              → Promise<{svg, bindFunctions}>
+```
+
+### 4.2 依赖对比（23 → 0）
+
+Mermaid 12.1.0 的 23 个直接依赖，Pele **每一个**都用几十到几百行代码替换掉了：
+
+| Mermaid 依赖                                                 | 用途                              | Pele 的替代方案                                                                                                   |
+| ---------------------------------------------------------- | ------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `dagre-d3-es`                                              | flowchart/state/class/er/git 布局 | `layout/layered.ts`（1,896 行，自带 Sugiyama 风格分层算法）+ `layout/compound.ts`（487 行，子图）+ `layout/lanes.ts`（629 行，泳道） |
+| `cytoscape` + `cytoscape-fcose` + `cytoscape-cose-bilkent` | architecture / mindmap 力导向布局    | 各图专用 layout（`mindmap/layout` 等），**无随机性**（`architectureSeed.spec` 因此被 skip）                                   |
+| `elkjs`                                                    | flowchart-elk                   | 统一走分层布局                                                                                                      |
+| `d3` (+ `@types/d3`)                                       | DOM 选择/补间/比例尺                   | 无 DOM，`svg/builder.ts` 字符串拼装                                                                                 |
+| `katex`                                                    | 标签数学公式                          | ❌ 不支持（issue #36）                                                                                             |
+| `dompurify`                                                | HTML 标签净化                       | 不需要：文本原样存储、写出时 `escText` 转义                                                                                  |
+| `marked`                                                   | markdown 字符串标签                  | 自解析粗体/斜体/换行                                                                                                  |
+| `@mermaid-js/parser`（Langium + Chevrotain）                 | 语法分析                            | 手写 lexer + parser；Langium 版本只作为**测试期**参考实现                                                                   |
+| `stylis`                                                   | 主题 CSS 生成                       | ❌ 改用 CSS 自定义属性                                                                                               |
+| `uuid`                                                     | DOM id 生成                       | ❌ 不写 id                                                                                                      |
+| `dayjs`                                                    | gantt 日期                        | `diagrams/gantt/dates.ts` 自算                                                                                 |
+| `khroma`                                                   | 颜色对比度                           | CSS 变量 + 少量内建对比逻辑                                                                                            |
+| `d3-sankey` / `@upsetjs/venn.js` / `roughjs`               | 专项图表                            | 自带的 sankey/venn 布局；手绘风格不支持                                                                                   |
+| `@iconify/utils`                                           | 图标打包                            | 宿主 `icons` 回调注入                                                                                              |
+| `es-toolkit` / `ts-dedent` / `@braintree/sanitize-url`     | 工具                              | 自实现（`@braintree/sanitize-url` 仅作为 devDep 校验）                                                                 |
+
+### 4.3 几个值得单独拎出来的实现决策
+
+**（a）同步 API，`render()` 是纯函数式入口**
+
+```ts
+const { svg, width, height, type, mermaidType, links } = render(text, options);  // 无 await
+```
+
+不需要 `mermaid.initialize()`，不需要 DOM 就绪事件，可以在 SSR / Worker / 服务端预渲染里直接用。**同时对 DST, `mount()` 那层才涉及 DOM**（ResizeObserver + `document.fonts`）。
+
+**（b）字体度量：一张压缩的 Arial 宽度表 + canvas 缓存**
+
+`src/text/metrics.ts` 里两个常量，把 ASCII 可打印字符的 advance width 编码成**每个字符 2 位 base-36 数字**（千分之一 em 精度）：
+
+```ts
+export const REGULAR = '7q7q9vfgfgopij5b9999atg87q997q7qfgfg...';  // 约 190 字符覆盖 95 个可打印字符
+export const BOLD    = '7q99d6fgfgopk26m9999atg87q997q7qfgfg...';
+```
+
+脱离 canvas 时用这张表估算（`scripts/gen-metrics.mjs` 从 TTF 的 `hmtx` 表生成），在有 canvas 时用 `OffscreenCanvas.measureText` 并做**按字体的 width 缓存**（上限 20,000 条，且 `document.fonts.check` 判定字模未就绪时不写缓存）。这一条直接消掉了 Mermaid 那个「布局 → getBBox → 重布局」的多趟往返。
+
+**（c）主题系统：CSS 私有别名 + 呈现属性**
+
+`svg/theme.ts` 在根元素上一次性定义一小组私有别名（`--_fg`、`--_l`、`--_s` …），指向公开的 `--pele-*` 变量并带兜底值，节点上写 `fill="var(--_fg)"`。结果是：
+
+- 换主题 = 改一处 CSS 变量，**不重渲染**
+- 不需要为每种图生成一张 CSS 表（这就是那 7 条 `colorSlots.spec` 被 skip 的原因）
+- SVG 自带 `role="graphics-document document"` + `<title>/<desc>` + `aria-roledescription`
+
+**（d）连「用到才写」的样式裁剪都做到了属性级**
+
+`svg/root.ts` 会扫描产物里实际用到了哪些变化项，**只把它用到的部分写进根 style**（圆角 `--_r` 只在有 `<rect rx>` 时才注入，粗体字重 `--_w` 只在有粗体时才注入）。这种「按产物裁剪」的粒度在 Mermaid 里是不可能的，因为它是运行时生成。
+
+**（e）错误模型**
+
+`PeleError` 带 `code`（`unsupported-diagram` / `syntax` / `semantic` / `limit`）+ `line` + `column` + `snippet`（源码行 + 列指示行）。这是**比 Mermaid 更规整**的错误契约——虽然文案不同导致相关 Langium/Chevrotain 测试被 skip。
+
+---
+
+## 5. 为什么能更小、更快
+
+### 5.1 体积：实测数字
+
+我把两侧都按同样的「浏览器全量包」口径测了：
+
+|                                        | minified        | gzip            | brotli      |
+| -------------------------------------- | --------------- | --------------- | ----------- |
+| `pele@1.7.0` `dist/pele.global.js`     | **667.4 KiB**   | **249.0 KiB**   | 201.2 KiB   |
+| `mermaid@12.1.0` `dist/mermaid.min.js` | **5,364.4 KiB** | **1,546.3 KiB** | 1,149.1 KiB |
+| 倍数                                     | **8.0×**        | **6.2×**        | 5.7×        |
+
+> 官网写的是「230 kB gzip vs 1.6 MB，6× 更小」，与我实测同一量级（小幅差异来自官网是已发布版本、我编译的是仓库 HEAD）。
+
+**按需加载才是真正的杀手锏**（`npm run build -- --sizes`，此处为我直接 bundle 单入口实测）：
+
+| 构建组合                    | minified    | gzip         |
+| ----------------------- | ----------- | ------------ |
+| `pele/core` 仅核心（不含任何图种） | 28.3 KiB    | **11.9 KiB** |
+| `pele/core` + sequence  | 61.6 KiB    | **24.2 KiB** |
+| `pele/core` + flowchart | 108.0 KiB   | **42.3 KiB** |
+| 全量 `pele`               | 662.9 KiB   | 248.1 KiB    |
+| （对照）Mermaid 全量          | 5,364.4 KiB | 1,546.3 KiB  |
+
+也就是说：**一个只需要流程图的笔记应用，图上部分的开销可以从 1.5 MB gzip 降到 42 KB gzip（约 37×）**，再加上 `pele/lazy` 的按类型动态 `import()`，首屏可以只付 ~12 KB。
+
+### 5.2 速度：实测数字（本机 headless Chrome）
+
+用项目自带的 `scripts/bench-mermaid.mjs` 跑（Chrome 154，5 轮取中位数， Pele 与 Mermaid 交替顺序以抵消预热）：
+
+| 用例                 | 图数  | Pele         | Mermaid 12.1.0 | 加速比      |
+| ------------------ | --- | ------------ | -------------- | -------- |
+| flowchart 官方文档全量示例 | 114 | **22.2 ms**  | 5,270.0 ms     | **237×** |
+| 7 节点 flowchart     | 1   | **0.317 ms** | 61.2 ms        | 193×     |
+| 50 节点 flowchart    | 1   | **1.7 ms**   | 238.0 ms       | 138×     |
+| 500 节点 flowchart   | 1   | **17.0 ms**  | 2,914.9 ms     | 172×     |
+| 时序图（含 loop）        | 1   | **0.194 ms** | 18.6 ms        | 96×      |
+| 类图（4 类继承）          | 1   | **0.218 ms** | 80.1 ms        | **367×** |
+
+换算成单图：文档示例折算约 **0.19 ms/图**，与官网宣称的「0.05–0.3 ms」完全吻合；加速比区间 96×–367×，落在官网宣称的「up to 500×」之内（略保守）。
+
+### 5.3 归因拆解
+
+按贡献度排序：
+
+1. **消掉依赖树（最大头）**。23 个直接依赖里，`cytoscape` + `fcose` + `cose-bilkent` + `dagre-d3-es` + `elkjs` + `d3` + `katex` 加起来就是 MB 级。`katex` 单包即可上百 KB gzip。`@mermaid-js/parser`（Langium + Chevrotain 运行时）也是重货。这些在 Pele 里被几十行针对性代码替代——**通用库的通用性成本，在只需要解决一种图的时候是可以几乎全部砍掉的**。
+2. **消掉 DOM 依赖（对速度最关键）**。Mermaid 的流程里有「写 DOM → `getBBox()` 测量 → 调整 → 再测量」的多趟往返，浏览器每次都会触发 layout/reflow；布局和测量这两个阶段还互相依赖，无法一次算完。Pele 用**宽度表/带缓存的 canvas `measureText`** 把测量变成 O(1) 字符串运算，整条流水线是**单趟**的。
+3. **字符串拼接 vs d3 选择集**。Mermaid 对每个图元创建 d3 selection、绑定 class、做属性迁移、参与 enter/update/exit 周期；Pele 就是拼字符串（必要时做一次 `replace` 后处理，如把 `rx` 移到 style 里）。没有对象分配，没有 CSSOM 交互。
+4. **不生成、不解析 CSS**。主题用 CSS 变量下发，避免了 `stylis` 运行时与 per-node 主题查表；同时在 ES 端又反过来受益——SVG 里的 `var()` 由浏览器直接解析。
+5. **手写词法/语法**。避开了 jison/Chevrotain/Langium 的运行时开销与体积，换来执行效率与可控的错误位置。
+6. **按产物裁剪输出**。只写实际用到的 style 别名与属性，SVG 本身也更短。
+7. **一个布局引擎，写好，共用**。`layered.ts` 顶部那段注释值得引用——它把「什么优先」写成了 8 条有序目标（可辨识性 > 交叉数 > 简洁性 > 端点居中 > 均衡 > 正交 > 保序 > 紧凑），这种「目标函数明确」的专用实现比通用图库更容易做针对性剪枝。
+
+一句话总结：**Pele 快不是因为它用了什么聪明算法，而是因为它把 Mermaid 那条「通用库 + 浏览器 DOM + 多引擎」的链路整体拆掉，换成了一条针对单一任务的、无 I/O 的直线。**
+
+---
+
+## 6. 在已用 mermaid.js 的项目中，是否建议替换为 Pele？
+
+我的建议是：**不要一次性全量替换，用「按图种灰度 + Mermaid 兜底」的渐进方案。** 下面是决策依据。
+
+### 6.1 建议尽快迁移的场景（收益明显）
+
+| 场景                                | 收益                                                    |
+| --------------------------------- | ----------------------------------------------------- |
+| 笔记/编辑器类应用，用户边写边看                  | 0.2 ms vs 60 ms 意味着**可以真正在输入时同步预览**，不必防抖              |
+| 一个页面渲染几十上百张图                      | Mermaid 的 5,270 ms/114 图在移动端是灾难；Pele 22 ms            |
+| Electron / 桌面端嵌入                  | 少了 DOM 往返，主线程不再被 reflow 卡住                            |
+| **SSR / 静态站点预渲染 / Worker / 边缘计算** | Mermaid 需要 DOM（jsdom 也能跑但很重）；Pele 是纯字符串函数，这是**质的差别**  |
+| 需要「换主题不闪」                         | CSS 变量改造可行，无需重渲染                                      |
+| 渲染不可信的用户输入                        | Pele 无 `securityLevel: loose` 后门，且有输出体积上限（Mermaid 没有） |
+| 客户端体积敏感（小程序、移动端 H5、插件侧边栏）         | 42 KB gzip（仅流程图）vs 1.5 MB                             |
+
+### 6.2 不建议替换（或必须先改造）的场景
+
+| 情况                                            | 原因                         |
+| --------------------------------------------- | -------------------------- |
+| 依赖 Mermaid 主题 / `themeVariables` / `themeCSS` | 完全不认，需重写为 `--pele-*` 变量    |
+| 有视觉回归基线（截图测试、印刷版图谱）                           | 布局不同，全部基线失效；这是**不可逆的视觉变更** |
+| 使用 ELK 布局且调过 fcose 旋钮                         | 布局引擎不可用                    |
+| 标签里写了 KaTeX 数学公式 / 复杂 HTML                    | 不支持（数学公式 issue #36 仍 open） |
+| 需要 `click` 回调、tooltip、节点 JS 交互                | 只支持链接跳转                    |
+| 使用 ZenUML 等外部插件                               | 不支持                        |
+| 用户会粘贴最新版 Mermaid 语法                           | 锁定 12.1.0，新语法会报 `syntax` 错 |
+| 依赖 Canvas 精确的自定义字体度量                          | 脱离 canvas 时是 Arial 宽度估算    |
+
+### 6.3 推荐落地方式：灰度双跑
+
+```ts
+import { supports, detectType, render } from 'pele';
+import mermaid from 'mermaid';
+
+// 逐图种放量：先放确定性高的图种
+const PELE_TYPES = new Set(['flowchart', 'sequence', 'class', 'state', 'er', 'pie', 'gantt', 'gitGraph', 'mindmap', 'timeline', 'journey']);
+
+async function draw(el: HTMLElement, text: string) {
+  const type = detectType(text);
+  if (type && PELE_TYPES.has(type) && supports(text)) {
+    try { el.innerHTML = render(text, { fontFamily: 'Inter' }).svg; return; }
+    catch (e) { /* 落到 Mermaid */ }
+  }
+  el.innerHTML = (await mermaid.render(id(), text)).svg;
+}
+```
+
+落地检查清单：
+
+1. **先做语料比对**：把项目里的存量图表导出成语料，用 Pele 全跑一遍，统计 `PeleError` 分布（哪些图会直接失败）。
+2. **人工抽检视觉差异**：重点看带 subgraph 的流程图（已知弱项：交叉数偏多）、时序图长标签、class 图多断开分组（issue #14/#23）。
+3. **主题适配**：把现有 Mermaid `themeVariables` 映射成 `--pele-*`；注意 Pele 额外提供了 Mermaid 没有的两个概念：系列色 `--pele-series-1..8` 与关键路径色 `--pele-critical`。
+4. **补全图标供给**：实现 `options.icons` 回调（否则 `fa:fa-x` 类图标不显示）。
+5. **错误 UI 适配**：改用 `PeleError.code/line/column/snippet`；注意**用 `textContent` 输出**（错误消息含源码）。
+6. **处理 `securityLevel`**：如果原来用了 `loose` + HTML 标签，需要先把这些图改写成纯文本标签。
+7. **体积优化**：确认是否值得切到 `pele/core` + 按需 `register()` 或 `pele/lazy`。
+
+### 6.4 主要风险矩阵
+
+| 风险                   | 可能性 | 影响 | 缓解                          |
+| -------------------- | --- | -- | --------------------------- |
+| 视觉可见差异导致用户投诉         | 高   | 中  | 灰度 + 提供「回退 Mermaid」开关       |
+| 上游新语法不兼容             | 中   | 中  | `supports()` 兜底路由到 Mermaid  |
+| 单点维护（bus factor = 1） | 中   | 高  | 评估后再深度耦合；保持抽象层              |
+| 某些图种质量不如 Mermaid     | 中   | 中  | 逐图种灰度，而非全量开关                |
+| npm 包名历史问题           | 低   | 高  | **锁定精确版本 + lockfile + SRI** |
+
+---
+
+## 7. 未来展望
+
+### 7.1 路线图信号：从「补图种」转向「磨质量」
+
+38 个开放 issue 的分布很有信息量：
+
+- **没有一个是「缺某个图种」**——33/33 已全覆盖，类型层面收官了。
+- 主体是**渲染质量问题**：(a) 标签排版（#44 零宽空格/软连字符换行、`<code>` 等宽字体 #25/#27、`<br/>` 后粗体丢失 #39、作者设填充色后暗色主题下标签不可读 #29）；(b) 具体图种的边界重叠（quadrant #35、sankey #34、timeline #11）；(c) 性能与稳定性（mount 的 ResizeObserver 循环 #32、子图交叉数 #3/#4）。
+- 少量待补能力：KaTeX（#36）、Zoom 常驻（#33）、xychart 图例位置（#28）、shadow/animation（#24）。
+
+这说明：**下一阶段是「把每一张图画对」，而不是「再多支持一种图」**。对项目成熟度是好信号，但也意味着**近期不会出现突破性新能力**。
+
+### 7.2 一个新类别正在成形：「无头 Mermaid 渲染器」
+
+`package.json` 的 devDependency 里赫然有 `beautiful-mermaid@^1.1.3`——这是 [lukilabs/beautiful-mermaid](https://github.com/lukilabs/beautiful-mermaid)（Craft 团队的同类产品，2026-01 首发），定位「Render Mermaid diagrams as beautiful SVGs or ASCII art. Ultra-fast, fully themeable, zero DOM dependencies」，但它**仍依赖 `elkjs` + `entities`**。`scripts/bench.mjs` 支持 `--compare` 把它拉进来同台计时。
+
+这个信号很明确：**「把 Mermaid 渲染成 SVG 而不是 DOM」正在成为一条独立的赛道**，Pele 是其中做得最深（33 图种全覆盖）也最克制（0 依赖）的那个。对使用者是好消息——赛道有竞争，就会有维护压力。
+
+### 7.3 需要警惕的长期风险
+
+1. **版本锁定是结构性成本**。每个 Mermaid 上游版本迭代，都要有人重新跑 `scripts/sync-specs.mjs`（需要本地 mermaid checkout 并切到 pinned tag）、审视新 fail 的 spec、更新 adapter。这是可观的维护负担，且目前只有 1 个人在做。
+2. **Bus factor = 1**。195 vs 1 的提交分布极其悬殊。虽然有两篇来自社区的 PR（#16 中文换行、#30 detect mermaidType），但主体仍是单人产出。CONTRIBUTING.md 甚至专门写了 AI 政策（「不鼓励也不禁止，但要求人工充分测试，低质量 AI PR 会被关闭」）——说明他们预期会有大量 AI 投稿，且在提前设防线。
+3. **渲染结果缺乏 oracle**。差分测试覆盖到「模型调用序列」，但没有覆盖到「像元」。这留下了 Pele 与 Pele 自己之间的回归空间（靠快照测试兜），以及与 Mermaid 之间的「合法但难看」空间（靠人工 + issue 兜）。这是该项目**方法论上最大的缺口**。
+4. **上游关系未明**。Pele 由 Obsidian 官方发布，但并非 Mermaid 官方；两者是否会合流（例如 Mermaid 吸收其 CSS 变量主题方案）目前无公开信号。若 Mermaid 未来主线也走无 DOM 路线，Pele 的差异化优势会被削弱。
+
+### 7.4 值得跟踪的观察指标
+
+| 指标                          | 当前值           | 观察意义                 |
+| --------------------------- | ------------- | -------------------- |
+| pinned Mermaid 版本           | 12.1.0        | 是否跟进新版本              |
+| second maintainer / 外部贡献占比  | ~0.5%         | bus factor 是否改善      |
+| `npm run bench:mermaid` 的输出 | 本次实测 96×–367× | Mermaid 若优化跟进，优势收窄速度 |
+| open issues 中「规范类」vs「质量类」比例 | ~0 : ~31      | 是否已进入稳态打磨期           |
+| 是否支持 KaTeX / `<code>`       | 否             | 富文本标签能力补齐进度          |
+
+---
+
+## 8. 附录：复现方式
+
+```bash
+# 1. 兼容性 / 单元测试
+git clone https://github.com/obsidianmd/pele && cd pele && npm install
+npx vitest run --exclude "tests/website/**"
+# → 本次：6816 tests，6703~6706 passed，103 skipped，2 todo
+#   失败项全部为 stress 用例的时间阈值断言（非正确性）
+
+# 2. 体积
+node scripts/build.mjs --sizes
+# → dist/pele.global.js  667.4 KiB minified, 249.0 KiB gzipped
+# → core-only / core+flowchart 等按需组合见第 5.1 节
+
+# 3. 与 Mermaid 的速度对比（需本机 Chrome）
+npm run build
+CHROME=/path/to/chrome node scripts/bench-mermaid.mjs -- --mermaid 12.1.0
+# → 本次结果见 5.2 节表格
+
+# 4. 理解移植了哪些上游测试
+ls tests/compat/*/SKIPPED.md      # 34 个，共 125 条 skip 理由
+ls tests/compat/*/upstream/       # 36 个 vendor 的语法/样本文件
+```
+
+---
+
+*本报告基于 2026-10-20 的仓库快照（commit `52b5c9c`）与第一手实测数据撰写。所有在项目目录之外的 clone 均位于本次会话的工作区内，未对项目本身做任何修改。*
+
