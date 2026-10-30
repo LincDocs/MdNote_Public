@@ -6,6 +6,8 @@ author:
 create_date: 2026-10-20
 last_date: 2026-10-20
 ---
+重复了，见 [Pele ai 调研报告](../../01.%20DesignAndDevelop/Develop/04.%20Project/Type/Doc/MarkdwonAbout/02.%20Parse%20and%20Render/文字描述图表/Pele%20ai%20调研报告.md)
+
 # Pele 项目调研报告
 
 > 调研对象：[obsidianmd/pele](https://github.com/obsidianmd/pele)（`pele` v1.7.0）  
